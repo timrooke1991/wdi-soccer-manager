@@ -1,3 +1,96 @@
 body {
-  background-color: red;
+  background-image: url('../../images/background.jpg');
+  background-size: cover;
+  font-family: 'Raleway', sans-serif;
+}
+
+header {
+  height: 90px;
+  background-color: #081A40;
+  opacity: 0.8;
+  box-shadow: 4px 0px 4px #F5F5F5;
+  width: 100%;
+}
+
+.header-block {
+  float: left;
+  background-color: #081A40;
+  height: inherit;
+  box-sizing: border-box;
+  //border: 0.5px solid white;
+  font-family: 'Raleway', sans-serif;
+  color: white;
+  font-size: 32px;
+  letter-spacing: 2px;
+}
+
+.timer {
+  @extend .header-block;
+  width: 10%;
+  text-align: center;
+  font-weight: 300;
+  background-image: url('../../images/clock-icon.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 70%;
+  background-color: #484848;
+}
+
+.changing-minutes {
+  margin-top: 10px;
+}
+
+.mins {
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+.away-team, .home-team {
+  @extend .header-block;
+  width: 37.5%;
+
+}
+
+.home-team .team-name, .home-team .score {
+  float: right;
+}
+
+.away-team .team-name, .away-team .score {
+  float: left;
+}
+
+.team-name {
+  margin: 10px;
+  font-size: 38px;
+  font-weight: 400;
+  letter-spacing: 4px;
+  line-height: 56px;
+  padding: 2px;
+}
+
+.score {
+  background-color: white;
+  color: black;
+  font-size: 38px;
+  margin: 10px;
+  padding: 2px 20px;
+  font-weight: 400;
+  line-height: 56px;
+  width: 38px;
+  text-align: center;
+  border: 2px solid black;
+}
+
+
+
+
+.primary-button {
+  @extend .header-block;
+  outline: 0;
+  background-color: #659A41;
+  width: 15%;
+  cursor: pointer;
+  font-weight: 300;
+  border: none;
+
 }
