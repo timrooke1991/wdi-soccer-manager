@@ -19,7 +19,7 @@ $(() => {
     if (run) {
       const eventValue = genRandomValue(100) + 1;
       console.log(eventValue);
-      if (eventValue % 5 === 0) {
+      if (eventValue % 25 === 0) {
         const getScore = $homeScore.text();
         const score = parseFloat(getScore) + 1;
         $homeScore.text(score);
