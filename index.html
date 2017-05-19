@@ -2,28 +2,48 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Project 0</title>
+  <title>Championship Manager</title>
+  <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+  <script src="public/js/data.js" charset="utf-8"></script>
   <script src="public/js/app.js" charset="utf-8"></script>
-  <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,600" rel="stylesheet">
   <link rel="stylesheet" href="public/css/reset.css">
   <link rel="stylesheet" href="public/css/main.css">
 </head>
+
 <header>
   <div class="timer">
-    <div class="changing-minutes">45</div>
+    <div class="changing-minutes" id="changing-minutes">0</div>
     <div class="mins">mins</div>
   </div>
   <div class="home-team">
-    <span class="score">2</span>
+    <span class="score">0</span>
     <h1 class="team-name">Team 1</h1>
   </div>
   <div class="away-team">
-    <span class="score">2</span>
-    <h1 class="team-name">Team 1</h1>
+    <span class="score">0</span>
+    <h1 class="team-name">Team 2</h1>
   </div>
   <button type="button" name="button" class="primary-button">Play</button>
 </header>
 <body>
+
+  <!-- POSSESSION BAR -->
+  <div id="possessionBar" class="possession-bar">
+    <div id="homeBar" class="home-bar"></div>
+  </div>
+
+  <!-- COMMENTARY BOX -->
+  <div id="commentaryBox" class="commentary-box"></div>
+
+  <!-- REPORTED EVENTS -->
+  <div class="reported-content">
+    <div id="homeEvents" class="home-events"></div>
+    <div id="awayEvents" class="away-events"></div>
+  </div>
 
 </body>
 </html>
