@@ -16,6 +16,10 @@
 </head>
 
 <header>
+  <div class="info-message">
+    <h1 class="choose-title">Team Selection</h1>
+    <h4 class="title-message"></h4>
+  </div>
   <div class="timer">
     <div class="changing-minutes" id="changing-minutes">0</div>
     <div class="mins">mins</div>
@@ -30,20 +34,39 @@
   </div>
   <button type="button" name="button" class="primary-button">Play</button>
 </header>
+
+
+
 <body>
 
-  <!-- POSSESSION BAR -->
-  <div id="possessionBar" class="possession-bar">
-    <div id="homeBar" class="home-bar"></div>
-  </div>
+  <!-- SELECTION SCREEN -->
+  <div class="match-setup" id="match-setup">
+		<div class="team-selection-box">
+			<button class="team-input" data-value="Tottenham Hotspur" id="team-1">Tottenham</button>
+			<button class="team-input" data-value="Manchester United" id="team-2">Man United</button>
+			<button class="team-input" data-value="Liverpool" id="team-3">Liverpool</button>
+			<button class="team-input" data-value="Manchester City" id="team-4">Man City</button>
+			<button class="team-input" data-value="Everton" id="team-5">Everton</button>
+			<button class="team-input" data-value="Chelsea" id="team-6">Chelsea</button>
+			<button class="team-input" data-value="Leicester" id="team-7">Leicester</button>
+			<button class="team-input" data-value="Arsenal" id="team-8">Arsenal</button>
+		</div>
+	</div>
 
-  <!-- COMMENTARY BOX -->
-  <div id="commentaryBox" class="commentary-box"></div>
+  <div class="match-engine" id="match-engine">
+    <!-- POSSESSION BAR -->
+    <div id="possessionBar" class="possession-bar">
+      <div id="homeBar" class="home-bar"></div>
+    </div>
 
-  <!-- REPORTED EVENTS -->
-  <div class="reported-content">
-    <div id="homeEvents" class="home-events"></div>
-    <div id="awayEvents" class="away-events"></div>
+    <!-- COMMENTARY BOX -->
+    <div id="commentaryBox" class="commentary-box"></div>
+
+    <!-- REPORTED EVENTS -->
+    <div class="reported-content">
+      <div id="homeEvents" class="home-events"></div>
+      <div id="awayEvents" class="away-events"></div>
+    </div>
   </div>
 
 </body>

@@ -12,9 +12,45 @@ header {
   width: 100%;
 }
 
+
+.choose-title, .title-message {
+	color: white;
+	text-align: left;
+}
+
+.team-selection-box {
+  text-align: center;
+  margin: 20px;
+}
+
+.title-message {
+    height: 50px;
+    line-height: 36px;
+    font-size: 22px;
+    padding-left: 2px;
+}
+
+.team-input {
+  font-size: 16px;
+  width: 10%;
+  padding: 10px;
+  display: inline;
+  background-color: #fff;
+  border: none;
+  outline: 0;
+  cursor: pointer;
+  &:hover {
+    background-color: lighten(#659A41, 20%);
+    color: #081A40;
+  }
+}
+
+
 .header-block {
   float: left;
+  background-image:linear-gradient(45deg,rgba(255,255,255,0),rgba(255,255,255,.1));
   background-color: #081A40;
+  // background: linear-gradient(45deg, #081A40 , lighten(#081A40, 10%));
   height: inherit;
   box-sizing: border-box;
   //border: 0.5px solid white;
@@ -22,6 +58,18 @@ header {
   color: white;
   font-size: 32px;
   letter-spacing: 2px;
+}
+
+.info-message {
+  @extend .header-block;
+  padding: 15px 10px 5px 15%;
+  width: 85%;
+  box-sizing: border-box;
+}
+
+
+.match-engine, .away-team, .home-team, .timer {
+  display: none;
 }
 
 .timer {
@@ -90,7 +138,12 @@ header {
   width: 15%;
   cursor: pointer;
   font-weight: 300;
+  cursor: pointer;
   border: none;
+  &:hover {
+    background-color: lighten(#659A41, 20%);
+    color: #081A40;
+  }
 }
 
 .commentary-box {
@@ -132,8 +185,9 @@ header {
 	margin: 20px auto;
 }
 
-.homeBar {
+.home-bar {
     width: 50%;
     height: 20px;
-    background-color: #081A40;
+    background: #081A40;
+    height: 100%;
 }
