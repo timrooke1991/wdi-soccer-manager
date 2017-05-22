@@ -6,145 +6,177 @@ const spurs = {
   players: [{
     name: 'Kane',
     age: 26,
-    position: 'Striker',
-    attack: 50,
-    defence: 50,
+    position: 'striker',
+    chosenPosition: '',
+    attack: 91,
+    defence: 21,
     discipline: 80,
+    creativity: 42,
     status: '',
     playing: true
   },{
     name: 'Alli',
     age: 26,
     position: 'midfielder',
-    attack: 100,
-    defence: 50,
+    chosenPosition: '',
+    attack: 84,
+    defence: 21,
     discipline: 80,
+    creativity: 63,
     status: '',
     playing: true
   },{
     name: 'Eriksen',
     age: 26,
     position: 'midfielder',
-    attack: 50,
-    defence: 0,
+    chosenPosition: '',
+    attack: 67,
+    defence: 20,
     discipline: 80,
+    creativity: 73,
     status: '',
     playing: true
   },{
     name: 'Dembele',
     age: 26,
     position: 'midfielder',
-    attack: 50,
-    defence: 0,
-    discipline: 0,
+    chosenPosition: '',
+    attack: 55,
+    defence: 50,
+    discipline: 60,
+    creativity: 45,
     status: '',
     playing: true
   },{
     name: 'Son',
     age: 26,
     position: 'striker',
-    attack: 50,
-    defence: 50,
-    discipline: 10,
+    chosenPosition: '',
+    attack: 74,
+    defence: 25,
+    discipline: 80,
+    creativity: 60,
     status: '',
     playing: true
   }, {
     name: 'Alderweirald',
     age: 26,
     position: 'defender',
-    attack: 50,
-    defence: 50,
+    chosenPosition: '',
+    attack: 10,
+    defence: 84,
     discipline: 80,
+    creativity: 8,
     status: '',
     playing: true
   },{
     name: 'Walker',
     age: 26,
     position: 'defender',
-    attack: 100,
-    defence: 50,
+    chosenPosition: '',
+    attack: 62,
+    defence: 55,
     discipline: 80,
+    creativity: 10,
     status: '',
     playing: true
   },{
     name: 'Lloris',
     age: 26,
     position: 'goalkeeper',
-    attack: 50,
-    defence: 0,
+    chosenPosition: '',
+    attack: 1,
+    defence: 87,
     discipline: 80,
+    creativity: 6,
     status: '',
     playing: true
   },{
     name: 'Rose',
     age: 26,
     position: 'defender',
-    attack: 50,
-    defence: 0,
-    discipline: 0,
+    chosenPosition: '',
+    attack: 51,
+    defence: 68,
+    discipline: 60,
+    creativity: 10,
     status: '',
     playing: true
   },{
     name: 'Dier',
     age: 26,
     position: 'midfielder',
-    attack: 50,
-    defence: 50,
-    discipline: 10,
+    chosenPosition: '',
+    attack: 31,
+    defence: 60,
+    discipline: 80,
+    creativity: 34,
     status: '',
     playing: true
   },{
     name: 'Wanyama',
     age: 26,
     position: 'midfielder',
-    attack: 50,
-    defence: 50,
-    discipline: 10,
+    chosenPosition: '',
+    attack: 24,
+    defence: 66,
+    discipline: 80,
+    creativity: 18,
     status: '',
     playing: true
   },{
     name: 'Janssen',
     age: 26,
     position: 'striker',
-    attack: 50,
-    defence: 50,
-    discipline: 10,
+    chosenPosition: '',
+    attack: 61,
+    defence: 13,
+    discipline: 80,
+    creativity: 20,
     status: '',
     playing: false
   },{
     name: 'Trippier',
     age: 26,
     position: 'defender',
+    chosenPosition: '',
     attack: 50,
     defence: 50,
-    discipline: 10,
+    discipline: 60,
+    creativity: 10,
     status: '',
     playing: false
   },{
     name: 'Winks',
     age: 26,
     position: 'midfielder',
+    chosenPosition: '',
     attack: 50,
     defence: 50,
-    discipline: 10,
+    discipline: 80,
+    creativity: 10,
     status: '',
     playing: false
   },{
     name: 'Lamela',
     age: 26,
     position: 'midfielder',
+    chosenPosition: '',
     attack: 50,
     defence: 50,
-    discipline: 10,
+    discipline: 80,
+    creativity: 10,
     status: '',
     playing: false
   },{
     name: 'Wimmer',
     age: 26,
     position: 'defender',
+    chosenPosition: '',
     attack: 50,
     defence: 50,
-    discipline: 10,
+    discipline: 80,
+    creativity: 10,
     status: '',
     playing: false
   }],
@@ -153,11 +185,25 @@ const spurs = {
       var sum = total + value[string];
       return sum;
     }, 0);
-    // this[string] = totalValues / 5;
-    return (totalValues / 5);
+    return (totalValues / 11);
     // Update to eleven
     // Hard coded eleven so that when players are sent off team values suffer
+  },
+  randomPlayerByPosition(position) {
+    const arrayOfSuitablePlayers = this.players.filter((player) =>
+      player.position === position && player.playing
+    );
+    const randomIndex = (Math.floor(Math.random() * arrayOfSuitablePlayers.length));
+    return arrayOfSuitablePlayers[randomIndex];
+  },
+  randomPlayer() {
+    const arrayOfPlayersOnField = this.players.filter((player) =>
+      player.playing
+    );
+    const randomIndex = (Math.floor(Math.random() * arrayOfPlayersOnField.length));
+    return arrayOfPlayersOnField[randomIndex];
   }
+
 };
 
 const arsenal = {
@@ -168,58 +214,146 @@ const arsenal = {
   players: [{
     name: 'Giroud',
     age: 26,
-    position: 'Striker',
-    attack: 50,
-    defence: 50,
+    position: 'striker',
+    attack: 68,
+    defence: 21,
     discipline: 80,
+    creativity: 45,
     status: '',
     playing: true
   },{
     name: 'Ozil',
     age: 26,
-    position: 'Striker',
-    attack: 100,
-    defence: 50,
+    position: 'defender',
+    attack: 71,
+    defence: 18,
     discipline: 80,
+    creativity: 72,
     status: '',
     playing: true
   },{
     name: 'Sanchez',
     age: 26,
-    position: 'Striker',
-    attack: 50,
-    defence: 0,
+    position: 'striker',
+    attack: 80,
+    defence: 20,
     discipline: 80,
+    creativity: 87,
     status: '',
     playing: true
   },{
     name: 'Ramsey',
     age: 26,
-    position: 'Striker',
-    attack: 50,
-    defence: 0,
-    discipline: 0,
+    position: 'striker',
+    attack: 53,
+    defence: 45,
+    discipline: 60,
+    creativity: 67,
     status: '',
     playing: true
   },{
     name: 'Walcott',
     age: 26,
-    position: 'Striker',
-    attack: 50,
-    defence: 50,
-    discipline: 10,
+    position: 'striker',
+    attack: 61,
+    defence: 38,
+    discipline: 80,
+    creativity: 52,
     status: '',
     playing: true
+  },{
+    name: 'Oxlade-Chamberlain',
+    age: 26,
+    position: 'striker',
+    attack: 61,
+    defence: 38,
+    discipline: 80,
+    creativity: 52,
+    status: '',
+    playing: true
+  },{
+    name: 'Mustafi',
+    age: 26,
+    position: 'midfielder',
+    attack: 23,
+    defence: 69,
+    discipline: 60,
+    creativity: 32,
+    status: '',
+    playing: true
+  },{
+    name: 'Koscielny',
+    age: 26,
+    position: 'defender',
+    attack: 18,
+    defence: 72,
+    discipline: 80,
+    creativity: 10,
+    status: '',
+    playing: true
+  },{
+    name: 'Cech',
+    age: 26,
+    position: 'goalkeeper',
+    attack: 3,
+    defence: 81,
+    discipline: 80,
+    creativity: 0,
+    status: '',
+    playing: true
+  },{
+    name: 'Belerin',
+    age: 26,
+    position: 'defender',
+    attack: 31,
+    defence: 62,
+    discipline: 60,
+    creativity: 27,
+    status: '',
+    playing: true
+  },{
+    name: 'Wilshere',
+    age: 26,
+    position: 'midfielder',
+    attack: 50,
+    defence: 50,
+    discipline: 70,
+    creativity: 10,
+    status: '',
+    playing: false
+  },{
+    name: 'Welbeck',
+    age: 26,
+    position: 'defender',
+    attack: 50,
+    defence: 50,
+    discipline: 80,
+    creativity: 10,
+    status: '',
+    playing: false
   }],
   averagePlayerValues(string) {
     const totalValues = this.players.reduce(function(total, value){
       var sum = total + value[string];
       return sum;
     }, 0);
-    // this[string] = totalValues / 5;
-    return (totalValues / 5);
+    return (totalValues / 11);
     // Update to eleven
     // Hard coded eleven so that when players are sent off team values suffer
+  },
+  randomPlayerByPosition(position) {
+    const arrayOfSuitablePlayers = this.players.filter((player) =>
+      player.position === position && player.playing
+    );
+    const randomIndex = (Math.floor(Math.random() * arrayOfSuitablePlayers.length));
+    return arrayOfSuitablePlayers[randomIndex];
+  },
+  randomPlayer() {
+    const arrayOfPlayersOnField = this.players.filter((player) =>
+      player.playing
+    );
+    const randomIndex = (Math.floor(Math.random() * arrayOfPlayersOnField.length));
+    return arrayOfPlayersOnField[randomIndex];
   }
 };
 
@@ -231,7 +365,7 @@ const manCity = {
   players: [{
     name: 'Sane',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 50,
     defence: 50,
     discipline: 80,
@@ -240,7 +374,7 @@ const manCity = {
   },{
     name: 'Aguero',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 100,
     defence: 50,
     discipline: 80,
@@ -249,7 +383,7 @@ const manCity = {
   },{
     name: 'Yaya Toure',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 50,
     defence: 0,
     discipline: 80,
@@ -258,7 +392,7 @@ const manCity = {
   },{
     name: 'Silva',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 50,
     defence: 0,
     discipline: 0,
@@ -267,10 +401,10 @@ const manCity = {
   },{
     name: 'De Bruyne',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 50,
     defence: 50,
-    discipline: 10,
+    discipline: 80,
     status: '',
     playing: true
   }],
@@ -294,7 +428,7 @@ const manUnited = {
   players: [{
     name: 'Rooney',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 50,
     defence: 50,
     discipline: 80,
@@ -303,7 +437,7 @@ const manUnited = {
   },{
     name: 'Ibrahimovic',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 100,
     defence: 50,
     discipline: 80,
@@ -312,7 +446,7 @@ const manUnited = {
   },{
     name: 'Herrera',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 50,
     defence: 0,
     discipline: 80,
@@ -321,7 +455,7 @@ const manUnited = {
   },{
     name: 'Rashford',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 50,
     defence: 0,
     discipline: 0,
@@ -330,10 +464,10 @@ const manUnited = {
   },{
     name: 'Young',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 50,
     defence: 50,
-    discipline: 10,
+    discipline: 80,
     status: '',
     playing: true
   }],
@@ -357,7 +491,7 @@ const everton = {
   players: [{
     name: 'Lukaku',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 50,
     defence: 50,
     discipline: 80,
@@ -366,7 +500,7 @@ const everton = {
   },{
     name: 'Barkley',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 100,
     defence: 50,
     discipline: 80,
@@ -375,7 +509,7 @@ const everton = {
   },{
     name: 'Mirallas',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 50,
     defence: 0,
     discipline: 80,
@@ -384,7 +518,7 @@ const everton = {
   },{
     name: 'Baines',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 50,
     defence: 0,
     discipline: 0,
@@ -393,10 +527,10 @@ const everton = {
   },{
     name: 'Coleman',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 50,
     defence: 50,
-    discipline: 10,
+    discipline: 80,
     status: '',
     playing: true
   }],
@@ -420,7 +554,7 @@ const leicester = {
   players: [{
     name: 'Vardy',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 50,
     defence: 50,
     discipline: 80,
@@ -429,7 +563,7 @@ const leicester = {
   },{
     name: 'Mahrez',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 100,
     defence: 50,
     discipline: 80,
@@ -438,7 +572,7 @@ const leicester = {
   },{
     name: 'Drinkwater',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 50,
     defence: 0,
     discipline: 80,
@@ -447,7 +581,7 @@ const leicester = {
   },{
     name: 'Ulloa',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 50,
     defence: 0,
     discipline: 0,
@@ -456,10 +590,10 @@ const leicester = {
   },{
     name: 'Morgan',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 50,
     defence: 50,
-    discipline: 10,
+    discipline: 80,
     status: '',
     playing: true
   }],
@@ -483,7 +617,7 @@ const liverpool = {
   players: [{
     name: 'Sturridge',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 50,
     defence: 50,
     discipline: 80,
@@ -492,7 +626,7 @@ const liverpool = {
   },{
     name: 'Lallana',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 100,
     defence: 50,
     discipline: 80,
@@ -501,7 +635,7 @@ const liverpool = {
   },{
     name: 'Firmino',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 50,
     defence: 0,
     discipline: 80,
@@ -510,7 +644,7 @@ const liverpool = {
   },{
     name: 'Mane',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 50,
     defence: 0,
     discipline: 0,
@@ -519,10 +653,10 @@ const liverpool = {
   },{
     name: 'Henderson',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 50,
     defence: 50,
-    discipline: 10,
+    discipline: 80,
     status: '',
     playing: true
   }],
@@ -532,7 +666,7 @@ const liverpool = {
       return sum;
     }, 0);
     // this[string] = totalValues / 5;
-    return (totalValues / 5);
+    return (totalValues / 11);
     // Update to eleven
     // Hard coded eleven so that when players are sent off team values suffer
   }
@@ -546,7 +680,7 @@ const chelsea = {
   players: [{
     name: 'Costa',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 50,
     defence: 50,
     discipline: 80,
@@ -555,7 +689,7 @@ const chelsea = {
   },{
     name: 'Willian',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 100,
     defence: 50,
     discipline: 80,
@@ -564,7 +698,7 @@ const chelsea = {
   },{
     name: 'Matic',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 50,
     defence: 0,
     discipline: 80,
@@ -573,7 +707,7 @@ const chelsea = {
   },{
     name: 'Hazard',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 50,
     defence: 0,
     discipline: 0,
@@ -582,10 +716,10 @@ const chelsea = {
   },{
     name: 'Moses',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 50,
     defence: 50,
-    discipline: 10,
+    discipline: 80,
     status: '',
     playing: true
   }],

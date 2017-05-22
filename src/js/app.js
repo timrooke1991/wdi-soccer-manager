@@ -7,6 +7,7 @@ $(() => {
   // const $homeTeam = $('.home-team');
   // const $awayTeam = $('.away-team');
 
+
   let matchTime = 0;
   let run = false;
   let width = 50;
@@ -19,33 +20,44 @@ $(() => {
     if (run) {
 
       const eventValue = genRandomValue(100) + 1;
+      console.log(`${matchTime}: ${eventValue}`);
 
-      const [teamObject, teamString] = selectTeam();
-      const chosenPlayer = selectPlayer(teamObject);
-      console.log(chosenPlayer);
+      // Creativity SumCreativity vs. SumCreativity
+      const [attackingTeam, teamString, defendingTeam] = selectTeam();
+
+      // const chosenPlayer = selectPlayer(teamObject);
+      // console.log(chosenPlayer);
       // Who has the event?
-      if (eventValue % 2 === 0) {
-        goalChance(teamString, chosenPlayer);
+      if (eventValue % 18 === 0) {
+        // Random (Striker, Midfielder) vs. Goalkeeper > RandTheirAttack vs. RandGoalkeeper
+        goalChance(attackingTeam, teamString, defendingTeam);
       }
 
-      // if (eventValue % 80 === 0) {
-      //   handlePenalty(chosenPlayer, teamString);
-      // }
+      if (eventValue % 80 === 0) {
+        // Striker vs. Goalkeeper > RandTheirAttack vs. RandGoalkeeperPenalty
+        handlePenalty(attackingTeam, teamString, defendingTeam);
+      }
       //
-      // if (eventValue % 95 === 0) {
-      //   straightRed(chosenPlayer, teamString);
-      // }
+      if (eventValue % 90 === 0) {
+        // Random Player => Discipline > random
+        straightRed(defendingTeam, teamString);
+      }
       //
-      // if (eventValue % 12 === 0) {
-      //   handleFreekick(chosenPlayer, teamString);
-      // }
-      // if (eventValue % 20 === 0) {
-      //   handleDiscipline(chosenPlayer, teamString);
-      // }
-      //
-      // if (eventValue % 75 === 0) {
-      //   handleInjury(chosenPlayer, teamString);
-      // }
+      if (eventValue % 22 === 0) {
+        // Striker vs. Goalkeeper > RandTheirFreekick vs. RandGoalkeeperPenalty
+        handleFreekick(attackingTeam, teamString, defendingTeam);
+      }
+
+      if (eventValue % 14 === 0) {
+        // RandomPlayer => discipline + matchtime rand vs. random
+        handleDiscipline(attackingTeam, teamString, defendingTeam);
+      }
+
+      if (eventValue % 60 === 0) {
+        handleInjury(attackingTeam, teamString);
+      }
+
+      // Reduce Fitness
       move();
       timeControl();
     }
@@ -71,47 +83,56 @@ $(() => {
   // Starting Line Up
   $('#revealTeam').on('click', () => {
     $('.team-display').html('');
-    const formation = ['1'].concat(spurs.formation.split('-'));
+    const formation = ['1'].concat(homeTeam.formation.split('-'));
     const positions = ['goalkeeper', 'defender', 'midfielder', 'striker'];
     let playerNumber = 0;
     let positionNumber = 0;
 
-    formation.map((arrayItem) => {
-      const iterations = parseFloat(arrayItem);
-      let i = 0;
-      while (i < iterations) {
-        if (spurs.players[playerNumber].playing) {
-          $('.team-display').append(`<p>${spurs.players[playerNumber].name}: ${positions[positionNumber]}</p>`);
-          i++;
+    try {
+      formation.map((arrayItem) => {
+        const iterations = parseFloat(arrayItem);
+        let i = 0;
+        while (i < iterations) {
+          if (homeTeam.players[playerNumber].playing) {
+            $('.team-display').append(`<p>${positions[positionNumber]}: ${homeTeam.players[playerNumber].name}</p>`);
+            homeTeam.players[playerNumber].chosenPosition = positions[positionNumber];
+            i++;
+          }
+          console.log(playerNumber);
+          playerNumber++;
         }
-        playerNumber++;
-      }
-      positionNumber++;
-    });
-    console.log(formation);
+        $('.team-display').append('<hr>');
+        positionNumber++;
+      });
+    } catch(err) {
+      alert('Select 11 players!');
+    }
   });
-
-  // homeTeam and awayTeam can be switched in
-  // Show squad
-  // $('.player-selection-box button').on('click', () => {
-  //   $('.team-panel').html('');
-  //   for (let i = 0; i < spurs.players.length; i++) {
-  //     const player = spurs.players[i];
-  //     const startingEleven = player.playing ? 'YES' : 'NO';
-  //
-  //     $('.team-panel').append(`<p class="player-line" id='${player.name}'><span class="starting" id="${i}">${startingEleven}</span><span class="player-name">${player.position} ${player.name}</span><span class="player-stat">${player.attack}</span><span class="player-stat">${player.defence}</span></p>`);
-  //   }
-  // });
 
   $('.player-selection-box button').on('click', () => {
     $('.team-panel').html('');
-    for (let i = 0; i < spurs.players.length; i++) {
-      const player = spurs.players[i];
 
+    const positions = ['goalkeeper', 'defender', 'midfielder', 'striker'];
+    homeTeam.players.sort(function(a,b){
+      return positions.indexOf(a.position) < positions.indexOf(b.position) ? -1 : 1;
+    });
+
+    for (let i = 0; i < homeTeam.players.length; i++) {
+      const player = homeTeam.players[i];
       const startingEleven = player.playing ? '&#10004;' : '&#10007;';
-      $('.team-panel').append(`<p class="player-line" id='${player.name}'><span class="starting" id="${i}">${startingEleven}</span><span class="player-name">${player.position} ${player.name}</span><span class="player-stat">${player.attack}</span><span class="player-stat">${player.defence}</span></p>`);
+
+      $('.team-panel').append(
+        `<p class="player-line" id='${player.name}'>
+          <span class="starting" id="${i}">${startingEleven}</span>
+          <span class="player-name">${player.position} ${player.name}</span>
+          <span class="player-stat">${player.attack}</span>
+          <span class="player-stat">${player.defence}</span>
+        </p>`
+      );
     }
   });
+
+
 
 
 
@@ -119,24 +140,20 @@ $(() => {
   // Toggle yes/no playing
   $('.team-panel').on('click', (e) => {
     const selectedPlayer = e.target.id;
-    spurs.players[selectedPlayer].playing = !spurs.players[selectedPlayer].playing;
-    const playingStatus  = $(`#${selectedPlayer}`).html();
-    spurs.players[selectedPlayer].playing  ? $(`#${selectedPlayer}`).html('&#10007;') : $(`#${selectedPlayer}`).html('&#10004;');
+    homeTeam.players[selectedPlayer].playing = !homeTeam.players[selectedPlayer].playing;
+    console.log(homeTeam.players[selectedPlayer].playing);
+    homeTeam.players[selectedPlayer].playing ? $(`#${selectedPlayer}`).html('&#10004;') : $(`#${selectedPlayer}`).html('&#10007;');
 
   });
-
-  // Trying to switch rows
-  // $('.team-panel').on('click', (e) => {
-  //   // console.log('clicked');
-  //   // console.log(e.target);
-  //   // console.log(e.target.id);
-  //   jQuery('#kane').next().after(jQuery('#dembele'));
-  //   jQuery('#dembele').prev().before(jQuery('#kane'));
-  // });
 
   $primaryButton.on('click', () => {
     run = !run;
     run ? $primaryButton.text('Pause') : $primaryButton.text('Play');
+  });
+
+  $('.select-btn').on('click', () => {
+    $('.match-setup').hide();
+    $('.team-setup').show();
   });
 
   // Functions -------------------------------------------------------------
@@ -150,6 +167,7 @@ $(() => {
     }
 
     if(matchTime === 90) {
+      $commentaryBox.text(`That's full-time!`);
       clearInterval(timerID);
       $primaryButton.text('Finish');
     } else {
@@ -170,17 +188,19 @@ $(() => {
   }
 
   function selectTeam() {
-    const homeRandom =  genRandomValue(homeTeam.averagePlayerValues('attack'));
-    const awayRandom =  genRandomValue(awayTeam.averagePlayerValues('attack'));
+    const homeRandom =  genRandomValue(homeTeam.averagePlayerValues('creativity'));
+    const awayRandom =  genRandomValue(awayTeam.averagePlayerValues('creativity'));
 
     if (homeRandom >= awayRandom) {
       $commentaryBox.css('background-color', homeTeam.colors[0]);
       $commentaryBox.css('color', homeTeam.colors[1]);
-      return [homeTeam, 'home'];
+      $commentaryBox.text('The home team launch an attack');
+      return [homeTeam, 'home', awayTeam];
     } else {
       $commentaryBox.css('background-color', awayTeam.colors[0]);
       $commentaryBox.css('color', awayTeam.colors[1]);
-      return [awayTeam, 'away'];
+      $commentaryBox.text('The away are attacking');
+      return [awayTeam, 'away', homeTeam];
     }
   }
 
@@ -189,12 +209,15 @@ $(() => {
     return team.players[genRandomIndex];
   }
 
-  function goalChance(team, player) {
-    if (player.playing) {
-      // Refactor this
-      let score = null;
-      let getScore = null;
-      if (team === 'home') {
+  function goalChance(attackingTeam, teamString, defendingTeam) {
+    // Refactor this
+    let score = null;
+    let getScore = null;
+    const attackingPlayer = attackingTeam.randomPlayer();
+    const defendingPlayer = defendingTeam.randomPlayerByPosition('defender');
+
+    if (genRandomValue(attackingPlayer.attack) > genRandomValue(defendingPlayer.defence)) {
+      if (teamString === 'home') {
         getScore = $homeScore.text();
         score = parseFloat(getScore) + 1;
         $homeScore.text(score);
@@ -203,123 +226,132 @@ $(() => {
         score = parseFloat(getScore) + 1;
         $awayScore.text(score);
       }
-      $commentaryBox.text(`Goal!!!`);
+      //$commentaryBox.text(`Goal!`);
+      generateCommentary('goal', attackingPlayer);
 
-      $(`#${team}Events`).append(`<i class='fa fa-futbol-o' style='font-size: 22px; color:white; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${player.name} scored<br/>`);
+      $(`#${teamString}Events`).append(`<i class='fa fa-futbol-o' style='font-size: 22px; color:white; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${attackingPlayer.name} scored<br/>`);
     }
   }
 
-  function handleDiscipline(player, team) {
-    if (player.status) {
+  function handleDiscipline(attackingTeam, teamString, defendingTeam) {
+    console.log('YELLOW');
+    const defendingPlayer = defendingTeam.randomPlayer();
+    const team = teamString === 'home' ? 'away' : 'home';
+    if ((genRandomValue(defendingPlayer.discipline) + (100-matchTime)) < 90) {
       // Already booked? Send him off!
-      console.log(player.status);
-      if (player.status === 'Yellow') {
+      if (defendingPlayer.status === 'Yellow') {
         $commentaryBox.css('background-color', '#FF0000');
         $commentaryBox.css('color', '#FFFFFF');
         // Store mesages and details in an game Object
-        $commentaryBox.text(`${player.name} gets a red!`);
-        $(`#${team}Events`).append(`<i class='fa fa-square event-item' style='font-size: 24px; color: red; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${player.name} sent off<br/>`);
+        // $commentaryBox.text(`${defendingPlayer.name} gets a red!`);
+        generateCommentary('secondYellow', defendingPlayer)
+        $(`#${team}Events`).append(`<i class='fa fa-square event-item' style='font-size: 24px; color: red; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${defendingPlayer.name} sent off<br/>`);
 
-        player.status = 'Ejected';
-        player.playing = false;
+        defendingPlayer.status = 'Ejected';
+        defendingPlayer.playing = false;
 
       } else {
         $commentaryBox.css('background-color', 'yellow');
         $commentaryBox.css('color', '#000000');
-        $commentaryBox.text(`${player.name} gets a yellow!`);
+        // $commentaryBox.text(`${defendingPlayer.name} gets a yellow!`);
+        generateCommentary('yellow', defendingPlayer)
 
         // Store mesages and details in an game Object
-        $(`#${team}Events`).append(`<i class='fa fa-square event-item' style='font-size: 24px; color: yellow; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${player.name} booked<br/>`);
+        $(`#${team}Events`).append(`
+          <i class='fa fa-square event-item' style='font-size: 24px; color: yellow; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${defendingPlayer.name} booked<br/>`);
 
-        player.status = 'Yellow';
+        defendingPlayer.status = 'Yellow';
       }
     }
   }
 
-  function handleInjury(player, team) {
+  function handleInjury(attackingTeam, teamString) {
+    const attackingPlayer = attackingTeam.randomPlayer();
+    // THERE COULD BE AN INJURY
+    if (genRandomValue(101) % 8 === 0) {
+      // $commentaryBox.text(`${attackingPlayer.name} gets taken off on a stretcher!`);
+      generateCommentary('injury', attackingPlayer);
+      $(`#${teamString}Events`).append(`<i class='fa fa-plus' style='font-size: 26px; color: green; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${attackingPlayer.name} injured<br/>`);
+      attackingPlayer.playing = false;
+    } else {
+      $commentaryBox.text(`${attackingPlayer.name}'s limping, but he'll be okay`);
+    }
 
-    if (player.playing) {
-      // THERE COULD BE AN INJURY
-      if (genRandomValue(101) % 8 === 0) {
-        $commentaryBox.text(`${player.name} gets taken off on a stretcher!`);
-        $(`#${team}Events`).append(`<i class='fa fa-plus' style='font-size: 26px; color: green; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${player.name} injured<br/>`);
-        player.playing = false;
+  }
+
+  function handleFreekick(attackingTeam, teamString, defendingTeam) {
+    const attackingPlayer = attackingTeam.randomPlayerByPosition('midfielder');
+    const defendingValue = (defendingTeam.randomPlayerByPosition('goalkeeper').defence + defendingTeam.averagePlayerValues('defender'));
+
+    if (attackingPlayer.attack > defendingValue) {
+      // Refactor this
+      let score = null;
+      let getScore = null;
+      if (teamString === 'home') {
+        getScore = $homeScore.text();
+        score = parseFloat(getScore) + 1;
+        $homeScore.text(score);
       } else {
-        $commentaryBox.text(`${player.name}'s limping, but he'll be okay`);
+        getScore = $awayScore.text();
+        score = parseFloat(getScore) + 1;
+        $awayScore.text(score);
       }
+
+      //$commentaryBox.text(`It's a wonder goal! Goal!`);
+      generateCommentary('freekick', attackingPlayer);
+      $(`#${teamString}Events`).append(`<i class='fa fa-futbol-o' style='font-size: 22px; color:white; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${attackingPlayer.name} scored<br/>`);
+
+    } else {
+      generateCommentary('wastedFreekick', attackingPlayer);
     }
   }
+  function handlePenalty(attackingTeam, teamString, defendingTeam) {
 
-  function handleFreekick(player, team) {
+    const attackingPlayer = attackingTeam.randomPlayerByPosition('striker');
+    const defendingPlayer = defendingTeam.randomPlayerByPosition('goalkeeper');
+    const bookedPlayer = defendingTeam.randomPlayerByPosition('defender');
+    const team = teamString === 'home' ? 'away' : 'home';
+    // Book the player?
+    if (genRandomValue(100) > 25) {
+      // console.log('here');
+      bookedPlayer.status = 'Yellow';
+      $(`#${team}Events`).append(`<i class='fa fa-square event-item' style='font-size: 24px; color: yellow; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${bookedPlayer.name} booked<br/>`);
+    }
 
-    if (player.playing) {
-      // THERE COULD BE AN INJURY
-      if (genRandomValue(101) % 5 === 0) {
+    if ((genRandomValue(attackingPlayer.attack)*2) > genRandomValue(defendingPlayer.defence)) {
 
-        // Refactor this
-        let score = null;
-        let getScore = null;
-        if (team === 'home') {
-          getScore = $homeScore.text();
-          score = parseFloat(getScore) + 1;
-          $homeScore.text(score);
-        } else {
-          getScore = $awayScore.text();
-          score = parseFloat(getScore) + 1;
-          $awayScore.text(score);
-        }
-
-        $commentaryBox.text(`It's a wonder goal! Goal!!!`);
-        $(`#${team}Events`).append(`<i class='fa fa-futbol-o' style='font-size: 22px; color:white; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${player.name} scored<br/>`);
-
+      let score = null;
+      let getScore = null;
+      if (teamString === 'home') {
+        getScore = $homeScore.text();
+        score = parseFloat(getScore) + 1;
+        $homeScore.text(score);
       } else {
-        $commentaryBox.text(`Oh! ${player.name} has put it in Row Z!`);
+        getScore = $awayScore.text();
+        score = parseFloat(getScore) + 1;
+        $awayScore.text(score);
       }
+
+      // $commentaryBox.text(`${attackingPlayer.name}'s clinical from the spot! Goal!`);
+      generateCommentary('penalty', attackingPlayer);
+      $(`#${teamString}Events`).append(`<i class='fa fa-futbol-o' style='font-size: 22px; color:white; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${attackingPlayer.name} scores penalty<br/>`);
+
+    } else {
+      $commentaryBox.text(`He's missed it! The pressure has got to him`);
+      $(`#${teamString}Events`).append(`<i class='fa fa-futbol-o' style='font-size: 22px; color:red; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${attackingPlayer.name} missed penalty<br/>`);
+
     }
   }
 
-  function handlePenalty(player, team) {
-    if (player.status) {
-      if (genRandomValue(101) % 5 === 0) {
-        // Refactor this
-        let score = null;
-        let getScore = null;
-        if (team === 'home') {
-          getScore = $homeScore.text();
-          score = parseFloat(getScore) + 1;
-          $homeScore.text(score);
-        } else {
-          getScore = $awayScore.text();
-          score = parseFloat(getScore) + 1;
-          $awayScore.text(score);
-        }
-
-        $commentaryBox.text(`${player.name}'s clinical from the spot! Goal!!!`);
-
-        $(`#${team}Events`).append(`<i class='fa fa-futbol-o' style='font-size: 22px; color:white; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${player.name} scores penalty<br/>`);
-
-      } else {
-        $commentaryBox.text(`He's missed it! The pressure has got to him`);
-        $(`#${team}Events`).append(`<i class='fa fa-futbol-o' style='font-size: 22px; color:red; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${player.name} scores penalty<br/>`);
-
-      }
+  function straightRed(defendingTeam, teamString) {
+    const defendingPlayer = defendingTeam.randomPlayer();
+    if (genRandomValue(defendingPlayer.discipline) > 75) {
+      defendingPlayer.playing = false;
+      const team = teamString === 'home' ? 'away' : 'home';
+      // $commentaryBox.text('The referee gives him a straight red!');
+      generateCommentary('straightRed', defendingPlayer);
+      $(`#${team}Events`).append(`<i class='fa fa-square' style='font-size: 24px; color: red; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${defendingPlayer.name} sent off<br/>`);
     }
-  }
-
-  function straightRed(player, team) {
-    if (player.playing) {
-      player.playing = false;
-      $commentaryBox.text('The referee gives him a straight red!');
-      $(`#${team}Events`).append(`<i class='fa fa-square' style='font-size: 24px; color: red; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${player.name} sent off<br/>`);
-    }
-  }
-
-
-
-
-  function generateEventMessage() {
-    // Store mesages and details in an game Object
-
   }
 
   function configTeam(team, selector) {
@@ -421,5 +453,21 @@ $(() => {
     // Pass in the object values to homeTeam
   }
 
+  function generateCommentary(scenario, player) {
+    const commentary = {
+      goal: ['Goal!', 'He\'s scored!', `That's a great finish!`, `What a goal by ${player.name}`, `${player.name} finishes off the move!`],
+      freekick: [`It's a freekick`, `${player.name} to take the freekick`, `He lines up the freekick`, `This is a chance to get a cross in`],
+      wastedFreekick: [`${player.name} loses possession`, `That's ended up in row Z`, `The attack amounts to nothing`, `${player.name} has wasted that opportunity`, `${player.name}'s effort goes over the bar`, `He hands back possession to the other team`],
+      yellow: [`He's going in the book`, `Ouch! ${player.name}'ll a yellow for that`, `That's a booking`, `It's a yellow!`, `The ref is taking his name`],
+      secondYellow: [`He's already been booked...`, `That's a second yellow`, `${player.name} is shown a red!`, `${player.name} is off`],
+      straightRed: [`${player.name} is shown a straight red!`, `${player.name} is off`, `The ref has given him straight red!`],
+      penalty: [`The referee points to the spot`, `That's a penalty`, `${player.name} is fouled in the area`, `The ref blows his whistle. Penalty.`],
+      injury: [`${player.name}'s is going off`,`${player.name} is injured`,`${player.name} can't continue`]
+    };
+    const randomeIndex = genRandomValue(commentary[scenario].length);
+    const message = commentary[scenario][randomeIndex];
+    $commentaryBox.text(`${message}`);
+
+  }
 
 });

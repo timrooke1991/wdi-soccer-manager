@@ -1,8 +1,18 @@
 
 
-.match-setup {
+// .match-setup {
+//   display: none;
+// }
+
+.team-setup {
   display: none;
 }
+
+.event {
+  font-size: 24px;
+  padding-top: 5px
+}
+
 
 .match-engine, .away-team, .home-team, .timer {
   display: none;
