@@ -52,10 +52,9 @@ $(() => {
   },200);
 
   // Event Listeners -------------------------------------------------------------
-
+  // Team selection
   $('.team-input').on('click', (e) => {
     const userTeam = e.target.innerHTML;
-    console.log(e);
     if (homeTeam === null) {
       configTeam(homeTeam, userTeam);
       console.log('homeTeam now selected!');
@@ -68,6 +67,72 @@ $(() => {
       $('#match-engine, .away-team, .home-team, .timer').show();
     }
   });
+
+  // Starting Line Up
+  $('#revealTeam').on('click', () => {
+    $('.team-display').html('');
+    const formation = ['1'].concat(spurs.formation.split('-'));
+    const positions = ['goalkeeper', 'defender', 'midfielder', 'striker'];
+    let playerNumber = 0;
+    let positionNumber = 0;
+
+    formation.map((arrayItem) => {
+      const iterations = parseFloat(arrayItem);
+      let i = 0;
+      while (i < iterations) {
+        if (spurs.players[playerNumber].playing) {
+          $('.team-display').append(`<p>${spurs.players[playerNumber].name}: ${positions[positionNumber]}</p>`);
+          i++;
+        }
+        playerNumber++;
+      }
+      positionNumber++;
+    });
+    console.log(formation);
+  });
+
+  // homeTeam and awayTeam can be switched in
+  // Show squad
+  // $('.player-selection-box button').on('click', () => {
+  //   $('.team-panel').html('');
+  //   for (let i = 0; i < spurs.players.length; i++) {
+  //     const player = spurs.players[i];
+  //     const startingEleven = player.playing ? 'YES' : 'NO';
+  //
+  //     $('.team-panel').append(`<p class="player-line" id='${player.name}'><span class="starting" id="${i}">${startingEleven}</span><span class="player-name">${player.position} ${player.name}</span><span class="player-stat">${player.attack}</span><span class="player-stat">${player.defence}</span></p>`);
+  //   }
+  // });
+
+  $('.player-selection-box button').on('click', () => {
+    $('.team-panel').html('');
+    for (let i = 0; i < spurs.players.length; i++) {
+      const player = spurs.players[i];
+
+      const startingEleven = player.playing ? '&#10004;' : '&#10007;';
+      $('.team-panel').append(`<p class="player-line" id='${player.name}'><span class="starting" id="${i}">${startingEleven}</span><span class="player-name">${player.position} ${player.name}</span><span class="player-stat">${player.attack}</span><span class="player-stat">${player.defence}</span></p>`);
+    }
+  });
+
+
+
+
+  // Toggle yes/no playing
+  $('.team-panel').on('click', (e) => {
+    const selectedPlayer = e.target.id;
+    spurs.players[selectedPlayer].playing = !spurs.players[selectedPlayer].playing;
+    const playingStatus  = $(`#${selectedPlayer}`).html();
+    spurs.players[selectedPlayer].playing  ? $(`#${selectedPlayer}`).html('&#10007;') : $(`#${selectedPlayer}`).html('&#10004;');
+
+  });
+
+  // Trying to switch rows
+  // $('.team-panel').on('click', (e) => {
+  //   // console.log('clicked');
+  //   // console.log(e.target);
+  //   // console.log(e.target.id);
+  //   jQuery('#kane').next().after(jQuery('#dembele'));
+  //   jQuery('#dembele').prev().before(jQuery('#kane'));
+  // });
 
   $primaryButton.on('click', () => {
     run = !run;
@@ -355,5 +420,6 @@ $(() => {
     console.log(selector);
     // Pass in the object values to homeTeam
   }
+
 
 });

@@ -1,3 +1,65 @@
+
+
+.match-setup {
+  display: none;
+}
+
+.match-engine, .away-team, .home-team, .timer {
+  display: none;
+}
+
+.team-setup {
+  width: 100%;
+}
+
+.team-display {
+  width: 100%;
+  background: blue;
+  height: 400px
+}
+
+.team-sheet {
+  float:left;
+  width: 30%;
+  margin-left: 10px;
+}
+
+.player-selection-box {
+  width: 65%;
+  float: left;
+}
+
+.player-line {
+
+    background: black;
+    color: #F5F5F5;
+    letter-spacing: 5px;
+    opacity: 0.5;
+
+}
+
+.starting {
+  display: inline-block;
+  width: 20%;
+  background: blue;
+  padding: 10px;
+  text-align: center;
+}
+
+.player-name {
+  width: 40%;
+  display: inline-block;
+  padding: 10px;
+  background: black;
+}
+
+.player-stat {
+  width: 10%;
+  display: inline-block;
+  padding: 10px;
+  background: grey;
+}
+
 body {
   background-image: url('../../images/background.jpg');
   background-size: cover;
@@ -65,11 +127,6 @@ header {
   padding: 15px 10px 5px 15%;
   width: 85%;
   box-sizing: border-box;
-}
-
-
-.match-engine, .away-team, .home-team, .timer {
-  display: none;
 }
 
 .timer {

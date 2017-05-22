@@ -13,9 +13,9 @@ const spurs = {
     status: '',
     playing: true
   },{
-    name: 'Dele Alli',
+    name: 'Alli',
     age: 26,
-    position: 'Striker',
+    position: 'midfielder',
     attack: 100,
     defence: 50,
     discipline: 80,
@@ -24,7 +24,7 @@ const spurs = {
   },{
     name: 'Eriksen',
     age: 26,
-    position: 'Striker',
+    position: 'midfielder',
     attack: 50,
     defence: 0,
     discipline: 80,
@@ -33,7 +33,7 @@ const spurs = {
   },{
     name: 'Dembele',
     age: 26,
-    position: 'Striker',
+    position: 'midfielder',
     attack: 50,
     defence: 0,
     discipline: 0,
@@ -42,12 +42,111 @@ const spurs = {
   },{
     name: 'Son',
     age: 26,
-    position: 'Striker',
+    position: 'striker',
     attack: 50,
     defence: 50,
     discipline: 10,
     status: '',
     playing: true
+  }, {
+    name: 'Alderweirald',
+    age: 26,
+    position: 'defender',
+    attack: 50,
+    defence: 50,
+    discipline: 80,
+    status: '',
+    playing: true
+  },{
+    name: 'Walker',
+    age: 26,
+    position: 'defender',
+    attack: 100,
+    defence: 50,
+    discipline: 80,
+    status: '',
+    playing: true
+  },{
+    name: 'Lloris',
+    age: 26,
+    position: 'goalkeeper',
+    attack: 50,
+    defence: 0,
+    discipline: 80,
+    status: '',
+    playing: true
+  },{
+    name: 'Rose',
+    age: 26,
+    position: 'defender',
+    attack: 50,
+    defence: 0,
+    discipline: 0,
+    status: '',
+    playing: true
+  },{
+    name: 'Dier',
+    age: 26,
+    position: 'midfielder',
+    attack: 50,
+    defence: 50,
+    discipline: 10,
+    status: '',
+    playing: true
+  },{
+    name: 'Wanyama',
+    age: 26,
+    position: 'midfielder',
+    attack: 50,
+    defence: 50,
+    discipline: 10,
+    status: '',
+    playing: true
+  },{
+    name: 'Janssen',
+    age: 26,
+    position: 'striker',
+    attack: 50,
+    defence: 50,
+    discipline: 10,
+    status: '',
+    playing: false
+  },{
+    name: 'Trippier',
+    age: 26,
+    position: 'defender',
+    attack: 50,
+    defence: 50,
+    discipline: 10,
+    status: '',
+    playing: false
+  },{
+    name: 'Winks',
+    age: 26,
+    position: 'midfielder',
+    attack: 50,
+    defence: 50,
+    discipline: 10,
+    status: '',
+    playing: false
+  },{
+    name: 'Lamela',
+    age: 26,
+    position: 'midfielder',
+    attack: 50,
+    defence: 50,
+    discipline: 10,
+    status: '',
+    playing: false
+  },{
+    name: 'Wimmer',
+    age: 26,
+    position: 'defender',
+    attack: 50,
+    defence: 50,
+    discipline: 10,
+    status: '',
+    playing: false
   }],
   averagePlayerValues(string) {
     const totalValues = this.players.reduce(function(total, value){
