@@ -22,3 +22,7 @@ function filterItems(query) {
       player.position === query
     )
 }
+
+// Update values with each event
+// finalise data
+// start on selection

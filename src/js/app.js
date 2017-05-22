@@ -183,7 +183,10 @@ $(() => {
 
   function move() {
     const elem = document.getElementById('homeBar');
-    width = homeTeam.averagePlayerValues('attack') + genRandomValue(10);
+    width = ((homeTeam.averagePlayerValues('creativity')/awayTeam.averagePlayerValues('creativity')) * 100);
+    console.log(homeTeam.averagePlayerValues('creativity'))
+    console.log(awayTeam.averagePlayerValues('creativity'))
+    console.log(width)
     elem.style.width = width + '%';
   }
 
@@ -194,12 +197,12 @@ $(() => {
     if (homeRandom >= awayRandom) {
       $commentaryBox.css('background-color', homeTeam.colors[0]);
       $commentaryBox.css('color', homeTeam.colors[1]);
-      $commentaryBox.text('The home team launch an attack');
+      if (genRandomValue(10) % 2 === 0) $commentaryBox.text(generateCommentary('chance',''));
       return [homeTeam, 'home', awayTeam];
     } else {
       $commentaryBox.css('background-color', awayTeam.colors[0]);
       $commentaryBox.css('color', awayTeam.colors[1]);
-      $commentaryBox.text('The away are attacking');
+      if (genRandomValue(10) % 2 === 0) $commentaryBox.text(generateCommentary('chance',''));
       return [awayTeam, 'away', homeTeam];
     }
   }
@@ -462,7 +465,8 @@ $(() => {
       secondYellow: [`He's already been booked...`, `That's a second yellow`, `${player.name} is shown a red!`, `${player.name} is off`],
       straightRed: [`${player.name} is shown a straight red!`, `${player.name} is off`, `The ref has given him straight red!`],
       penalty: [`The referee points to the spot`, `That's a penalty`, `${player.name} is fouled in the area`, `The ref blows his whistle. Penalty.`],
-      injury: [`${player.name}'s is going off`,`${player.name} is injured`,`${player.name} can't continue`]
+      injury: [`${player.name}'s is going off`,`${player.name} is injured`,`${player.name} can't continue`],
+      chance: [`The ball is wasted`, `Possession is sloppily given away`, `That is wasted`, `The referee pulls back play`, `The ball goes out for a throw`, `Good interception!`, `He's robbed him of possesion`]
     };
     const randomeIndex = genRandomValue(commentary[scenario].length);
     const message = commentary[scenario][randomeIndex];
