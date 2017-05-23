@@ -6,7 +6,7 @@ $(() => {
   const $awayScore = $('.away-team .score');
   // const $homeTeam = $('.home-team');
   // const $awayTeam = $('.away-team');
-
+  let teamTactics = null;
 
   let matchTime = 0;
   let run = false;
@@ -17,7 +17,7 @@ $(() => {
 
   // MATCH LOGIC
   const timerID = setInterval(function() {
-    if (run) {
+    if (run ) {
 
       const eventValue = genRandomValue(100) + 1;
       console.log(`${matchTime}: ${eventValue}`);
@@ -75,15 +75,95 @@ $(() => {
     } else {
       configTeam(awayTeam, userTeam);
       console.log('awayTeam now selected!');
-      $('#match-setup, .info-message').hide();
-      $('#match-engine, .away-team, .home-team, .timer').show();
     }
   });
 
   // Starting Line Up
   $('#revealTeam').on('click', () => {
+    revealTeam(teamTactics);
+  });
+
+  // $('.player-selection-box button').on('click', () => {
+  //
+  //   $('.team-panel').html('');
+  //   const positions = ['goalkeeper', 'defender', 'midfielder', 'striker'];
+  //   homeTeam.players.sort(function(a,b){
+  //     return positions.indexOf(a.position) < positions.indexOf(b.position) ? -1 : 1;
+  //   });
+  //
+  //   for (let i = 0; i < homeTeam.players.length; i++) {
+  //     const player = homeTeam.players[i];
+  //     const startingEleven = player.playing ? '&#10004;' : '&#10007;';
+  //
+  //     $('.team-panel').append(
+  //       `<p class="player-line ${player.position}" id='${player.name}'>
+  //         <span class="starting" id="${i}">${startingEleven}</span>
+  //         <span class="player-position ">${player.position}</span>
+  //         <span class="player-name">${player.name}</span>
+  //         <span class="player-stat">${player.attack}</span>
+  //         <span class="player-stat">${player.defence}</span>
+  //         <span class="player-stat">${player.creativity}</span>
+  //         <span class="player-stat">${player.defence}</span>
+  //       </p>`
+  //     );
+  //   }
+  // });
+
+  // Toggle yes/no playing
+  $('.team-panel').on('click', (e) => {
+    const selectedPlayer = e.target.id;
+    choosePlayers(teamTactics, selectedPlayer);
+  });
+
+  $primaryButton.on('click', () => {
+    run = !run;
+    $('#match-setup, .info-message, .team-setup').hide();
+    $('#match-engine, .away-team, .home-team, .timer').show();
+    run ? $primaryButton.text('Pause') : $primaryButton.text('Play');
+  });
+  $('#homeTeam').on('click', () => {
+    $('.match-setup').hide();
+    $('.team-setup').show();
+    setupTactics(homeTeam);
+    teamTactics = homeTeam;
+
+  });
+
+  $('#awayTeam').on('click', () => {
+    $('.match-setup').hide();
+    $('.team-setup').show();
+    setupTactics(awayTeam);
+    teamTactics = awayTeam;
+  });
+
+  function setupTactics(teamObject) {
+    $('.team-panel').html('');
+    const positions = ['goalkeeper', 'defender', 'midfielder', 'striker'];
+    teamObject.players.sort(function(a,b){
+      return positions.indexOf(a.position) < positions.indexOf(b.position) ? -1 : 1;
+    });
+
+    for (let i = 0; i < teamObject.players.length; i++) {
+      const player = teamObject.players[i];
+      const startingEleven = player.playing ? '&#10004;' : '&#10007;';
+
+      $('.team-panel').append(
+        `<p class="player-line ${player.position}" id='${player.name}'>
+        <span class="starting" id="${i}">${startingEleven}</span>
+        <span class="player-position ">${player.position}</span>
+        <span class="player-name">${player.name}</span>
+        <span class="player-stat">${player.attack}</span>
+        <span class="player-stat">${player.defence}</span>
+        <span class="player-stat">${player.creativity}</span>
+        <span class="player-stat">${player.defence}</span>
+        </p>`
+      );
+    }
+  }
+
+  function revealTeam(teamObject) {
     $('.team-display').html('');
-    const formation = ['1'].concat(homeTeam.formation.split('-'));
+    const formation = ['1'].concat(teamObject.formation.split('-'));
     const positions = ['goalkeeper', 'defender', 'midfielder', 'striker'];
     let playerNumber = 0;
     let positionNumber = 0;
@@ -93,9 +173,9 @@ $(() => {
         const iterations = parseFloat(arrayItem);
         let i = 0;
         while (i < iterations) {
-          if (homeTeam.players[playerNumber].playing) {
-            $('.team-display').append(`<p>${positions[positionNumber]}: ${homeTeam.players[playerNumber].name}</p>`);
-            homeTeam.players[playerNumber].chosenPosition = positions[positionNumber];
+          if (teamObject.players[playerNumber].playing) {
+            $('.team-display').append(`<p>${positions[positionNumber]}: ${teamObject.players[playerNumber].name}</p>`);
+            teamObject.players[playerNumber].chosenPosition = positions[positionNumber];
             i++;
           }
           console.log(playerNumber);
@@ -107,54 +187,13 @@ $(() => {
     } catch(err) {
       alert('Select 11 players!');
     }
-  });
+  }
 
-  $('.player-selection-box button').on('click', () => {
-    $('.team-panel').html('');
-
-    const positions = ['goalkeeper', 'defender', 'midfielder', 'striker'];
-    homeTeam.players.sort(function(a,b){
-      return positions.indexOf(a.position) < positions.indexOf(b.position) ? -1 : 1;
-    });
-
-    for (let i = 0; i < homeTeam.players.length; i++) {
-      const player = homeTeam.players[i];
-      const startingEleven = player.playing ? '&#10004;' : '&#10007;';
-
-      $('.team-panel').append(
-        `<p class="player-line" id='${player.name}'>
-          <span class="starting" id="${i}">${startingEleven}</span>
-          <span class="player-name">${player.position} ${player.name}</span>
-          <span class="player-stat">${player.attack}</span>
-          <span class="player-stat">${player.defence}</span>
-        </p>`
-      );
-    }
-  });
-
-
-
-
-
-
-  // Toggle yes/no playing
-  $('.team-panel').on('click', (e) => {
-    const selectedPlayer = e.target.id;
-    homeTeam.players[selectedPlayer].playing = !homeTeam.players[selectedPlayer].playing;
-    console.log(homeTeam.players[selectedPlayer].playing);
-    homeTeam.players[selectedPlayer].playing ? $(`#${selectedPlayer}`).html('&#10004;') : $(`#${selectedPlayer}`).html('&#10007;');
-
-  });
-
-  $primaryButton.on('click', () => {
-    run = !run;
-    run ? $primaryButton.text('Pause') : $primaryButton.text('Play');
-  });
-
-  $('.select-btn').on('click', () => {
-    $('.match-setup').hide();
-    $('.team-setup').show();
-  });
+  function choosePlayers(teamObject, selectedPlayer) {
+    teamObject.players[selectedPlayer].playing = !teamObject.players[selectedPlayer].playing;
+    console.log(teamObject.players[selectedPlayer].playing);
+    teamObject.players[selectedPlayer].playing ? $(`#${selectedPlayer}`).html('&#10004;') : $(`#${selectedPlayer}`).html('&#10007;');
+  }
 
   // Functions -------------------------------------------------------------
 
@@ -182,11 +221,13 @@ $(() => {
   }
 
   function move() {
+
+    // Need to sort this
     const elem = document.getElementById('homeBar');
     width = ((homeTeam.averagePlayerValues('creativity')/awayTeam.averagePlayerValues('creativity')) * 100);
-    console.log(homeTeam.averagePlayerValues('creativity'))
-    console.log(awayTeam.averagePlayerValues('creativity'))
-    console.log(width)
+    console.log(homeTeam.averagePlayerValues('creativity'));
+    console.log(awayTeam.averagePlayerValues('creativity'));
+    console.log(width);
     elem.style.width = width + '%';
   }
 
@@ -197,12 +238,12 @@ $(() => {
     if (homeRandom >= awayRandom) {
       $commentaryBox.css('background-color', homeTeam.colors[0]);
       $commentaryBox.css('color', homeTeam.colors[1]);
-      if (genRandomValue(10) % 2 === 0) $commentaryBox.text(generateCommentary('chance',''));
+      if (genRandomValue(20) % 4 === 0) $commentaryBox.text(generateCommentary('chance',''));
       return [homeTeam, 'home', awayTeam];
     } else {
       $commentaryBox.css('background-color', awayTeam.colors[0]);
       $commentaryBox.css('color', awayTeam.colors[1]);
-      if (genRandomValue(10) % 2 === 0) $commentaryBox.text(generateCommentary('chance',''));
+      if (genRandomValue(20) % 4 === 0) $commentaryBox.text(generateCommentary('chance',''));
       return [awayTeam, 'away', homeTeam];
     }
   }
@@ -245,8 +286,7 @@ $(() => {
       if (defendingPlayer.status === 'Yellow') {
         $commentaryBox.css('background-color', '#FF0000');
         $commentaryBox.css('color', '#FFFFFF');
-        // Store mesages and details in an game Object
-        // $commentaryBox.text(`${defendingPlayer.name} gets a red!`);
+
         generateCommentary('secondYellow', defendingPlayer)
         $(`#${team}Events`).append(`<i class='fa fa-square event-item' style='font-size: 24px; color: red; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${defendingPlayer.name} sent off<br/>`);
 
@@ -340,7 +380,7 @@ $(() => {
       $(`#${teamString}Events`).append(`<i class='fa fa-futbol-o' style='font-size: 22px; color:white; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${attackingPlayer.name} scores penalty<br/>`);
 
     } else {
-      $commentaryBox.text(`He's missed it! The pressure has got to him`);
+      generateCommentary('missedPenalty', attackingPlayer);
       $(`#${teamString}Events`).append(`<i class='fa fa-futbol-o' style='font-size: 22px; color:red; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${attackingPlayer.name} missed penalty<br/>`);
 
     }
@@ -348,7 +388,7 @@ $(() => {
 
   function straightRed(defendingTeam, teamString) {
     const defendingPlayer = defendingTeam.randomPlayer();
-    if (genRandomValue(defendingPlayer.discipline) > 75) {
+    if (genRandomValue(defendingPlayer.discipline) < 25) {
       defendingPlayer.playing = false;
       const team = teamString === 'home' ? 'away' : 'home';
       // $commentaryBox.text('The referee gives him a straight red!');
@@ -465,6 +505,7 @@ $(() => {
       secondYellow: [`He's already been booked...`, `That's a second yellow`, `${player.name} is shown a red!`, `${player.name} is off`],
       straightRed: [`${player.name} is shown a straight red!`, `${player.name} is off`, `The ref has given him straight red!`],
       penalty: [`The referee points to the spot`, `That's a penalty`, `${player.name} is fouled in the area`, `The ref blows his whistle. Penalty.`],
+      missedPenalty: [`Saved!`, `It's over the bar`, `${player.name} has missed it!`, `Oh dear! ${player.name}'s put it wide'`],
       injury: [`${player.name}'s is going off`,`${player.name} is injured`,`${player.name} can't continue`],
       chance: [`The ball is wasted`, `Possession is sloppily given away`, `That is wasted`, `The referee pulls back play`, `The ball goes out for a throw`, `Good interception!`, `He's robbed him of possesion`]
     };

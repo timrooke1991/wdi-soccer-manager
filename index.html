@@ -51,22 +51,30 @@
 			<button class="team-input" data-value="Leicester" id="team-7">Leicester</button>
 			<button class="team-input" data-value="Arsenal" id="team-8">Arsenal</button>
 		</div>
-    <button class="select-btn">Team selection</button>
-    <button class="play-match">Team selection</button>
+    <button class="select-btn" id="homeTeam">Home Tactics</button>
+    <button class="select-btn" id="awayTeam">Away Tactics</button>
 	</div>
 
   <!-- PLAYER SELECTION SCREEN -->
   <div class="team-setup" id="team-setup">
     <div class="player-selection-box">
-      <button class="" data-value="Tottenham Hotspur" id="showTeam">Tottenham</button>
-      <p class="player-line"><span class="starting" id="">Starting</span><span class="player-name">Name</span><span class="player-stat">Attack</span><span class="player-stat">Defence</span></p>
+      <p class="player-line">
+        <span class="starting" id="">Starting</span>
+        <span class="player-position">Position</span>
+        <span class="player-name">Name</span>
+        <span class="player-stat-heading">Att</span>
+        <span class="player-stat-heading">Def</span>
+        <span class="player-stat-heading">Cre</span>
+        <span class="player-stat-heading">Dis</span>
+      </p>
       <div class="team-panel">
       </div>
 
     </div>
     <div class="team-sheet">
-      <button class="" data-value="Tottenham Hotspur" id="revealTeam">Save</button>
-      <div class="team-display"></div>
+      <button class="confirm-tactics" data-value="" id="revealTeam">Confirm Changes</button>
+      <div class="team-display">
+      </div>
     </div>
   </div>
 

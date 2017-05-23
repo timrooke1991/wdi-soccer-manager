@@ -21,7 +21,7 @@ const spurs = {
     chosenPosition: '',
     attack: 84,
     defence: 21,
-    discipline: 80,
+    discipline: 65,
     creativity: 63,
     status: '',
     playing: true
@@ -65,7 +65,7 @@ const spurs = {
     chosenPosition: '',
     attack: 10,
     defence: 84,
-    discipline: 80,
+    discipline: 50,
     creativity: 8,
     status: '',
     playing: true
@@ -74,10 +74,10 @@ const spurs = {
     age: 26,
     position: 'defender',
     chosenPosition: '',
-    attack: 32,
-    defence: 55,
-    discipline: 80,
-    creativity: 10,
+    attack: 22,
+    defence: 65,
+    discipline: 50,
+    creativity: 28,
     status: '',
     playing: true
   },{
@@ -109,7 +109,7 @@ const spurs = {
     chosenPosition: '',
     attack: 31,
     defence: 60,
-    discipline: 80,
+    discipline: 55,
     creativity: 34,
     status: '',
     playing: true
@@ -120,7 +120,7 @@ const spurs = {
     chosenPosition: '',
     attack: 24,
     defence: 66,
-    discipline: 80,
+    discipline: 50,
     creativity: 18,
     status: '',
     playing: true
@@ -140,10 +140,10 @@ const spurs = {
     age: 26,
     position: 'defender',
     chosenPosition: '',
-    attack: 50,
+    attack: 20,
     defence: 50,
-    discipline: 60,
-    creativity: 10,
+    discipline: 40,
+    creativity: 15,
     status: '',
     playing: false
   },{
@@ -154,7 +154,7 @@ const spurs = {
     attack: 50,
     defence: 50,
     discipline: 80,
-    creativity: 10,
+    creativity: 40,
     status: '',
     playing: false
   },{
@@ -162,10 +162,10 @@ const spurs = {
     age: 26,
     position: 'midfielder',
     chosenPosition: '',
-    attack: 50,
-    defence: 50,
-    discipline: 80,
-    creativity: 10,
+    attack: 62,
+    defence: 10,
+    discipline: 70,
+    creativity: 65,
     status: '',
     playing: false
   },{
@@ -173,9 +173,9 @@ const spurs = {
     age: 26,
     position: 'defender',
     chosenPosition: '',
-    attack: 50,
-    defence: 50,
-    discipline: 80,
+    attack: 10,
+    defence: 53,
+    discipline: 50,
     creativity: 10,
     status: '',
     playing: false
@@ -212,6 +212,16 @@ const arsenal = {
   colors: ['#D90104','#FFFFFF'],
   formation: '4-5-1',
   players: [{
+    name: 'Monreal',
+    age: 26,
+    position: 'defender',
+    attack: 14,
+    defence: 62,
+    discipline: 50,
+    creativity: 15,
+    status: '',
+    playing: true
+  },{
     name: 'Giroud',
     age: 26,
     position: 'striker',
@@ -224,7 +234,7 @@ const arsenal = {
   },{
     name: 'Ozil',
     age: 26,
-    position: 'defender',
+    position: 'midfielder',
     attack: 71,
     defence: 18,
     discipline: 80,
@@ -244,11 +254,11 @@ const arsenal = {
   },{
     name: 'Ramsey',
     age: 26,
-    position: 'striker',
+    position: 'midfielder',
     attack: 53,
     defence: 45,
     discipline: 60,
-    creativity: 67,
+    creativity: 57,
     status: '',
     playing: true
   },{
@@ -264,11 +274,11 @@ const arsenal = {
   },{
     name: 'Oxlade-Chamberlain',
     age: 26,
-    position: 'striker',
+    position: 'midfielder',
     attack: 61,
     defence: 38,
-    discipline: 80,
-    creativity: 52,
+    discipline: 70,
+    creativity: 32,
     status: '',
     playing: true
   },{
@@ -277,8 +287,8 @@ const arsenal = {
     position: 'midfielder',
     attack: 23,
     defence: 69,
-    discipline: 60,
-    creativity: 32,
+    discipline: 50,
+    creativity: 18,
     status: '',
     playing: true
   },{
@@ -287,8 +297,8 @@ const arsenal = {
     position: 'defender',
     attack: 18,
     defence: 72,
-    discipline: 80,
-    creativity: 10,
+    discipline: 50,
+    creativity: 5,
     status: '',
     playing: true
   },{
@@ -307,7 +317,7 @@ const arsenal = {
     position: 'defender',
     attack: 11,
     defence: 62,
-    discipline: 60,
+    discipline: 50,
     creativity: 27,
     status: '',
     playing: true
@@ -324,11 +334,11 @@ const arsenal = {
   },{
     name: 'Welbeck',
     age: 26,
-    position: 'defender',
+    position: 'striker',
     attack: 50,
     defence: 50,
     discipline: 80,
-    creativity: 10,
+    creativity: 40,
     status: '',
     playing: false
   }],
@@ -363,60 +373,158 @@ const manCity = {
   colors: ['#98C5E9', '#00285E'],
   formation: '4-5-1',
   players: [{
-    name: 'Sane',
+    name: 'Kompany',
     age: 26,
-    position: 'striker',
-    attack: 50,
-    defence: 50,
-    discipline: 80,
+    position: 'defender',
+    attack: 14,
+    defence: 72,
+    discipline: 50,
+    creativity: 15,
     status: '',
     playing: true
   },{
     name: 'Aguero',
     age: 26,
     position: 'striker',
-    attack: 100,
-    defence: 50,
+    attack: 83,
+    defence: 15,
     discipline: 80,
-    status: '',
-    playing: true
-  },{
-    name: 'Yaya Toure',
-    age: 26,
-    position: 'striker',
-    attack: 50,
-    defence: 0,
-    discipline: 80,
+    creativity: 55,
     status: '',
     playing: true
   },{
     name: 'Silva',
     age: 26,
-    position: 'striker',
-    attack: 50,
-    defence: 0,
-    discipline: 0,
+    position: 'midfielder',
+    attack: 71,
+    defence: 12,
+    discipline: 80,
+    creativity: 72,
     status: '',
     playing: true
   },{
     name: 'De Bruyne',
     age: 26,
+    position: 'midfielder',
+    attack: 80,
+    defence: 20,
+    discipline: 80,
+    creativity: 87,
+    status: '',
+    playing: true
+  },{
+    name: 'Yaya Toure',
+    age: 26,
+    position: 'midfielder',
+    attack: 59,
+    defence: 45,
+    discipline: 60,
+    creativity: 57,
+    status: '',
+    playing: true
+  },{
+    name: 'Sane',
+    age: 26,
+    position: 'striker',
+    attack: 68,
+    defence: 18,
+    discipline: 80,
+    creativity: 52,
+    status: '',
+    playing: true
+  },{
+    name: 'Navas',
+    age: 26,
+    position: 'midfielder',
+    attack: 61,
+    defence: 18,
+    discipline: 70,
+    creativity: 42,
+    status: '',
+    playing: true
+  },{
+    name: 'Fernandinho',
+    age: 26,
+    position: 'midfielder',
+    attack: 18,
+    defence: 69,
+    discipline: 40,
+    creativity: 18,
+    status: '',
+    playing: true
+  },{
+    name: 'Stones',
+    age: 26,
+    position: 'defender',
+    attack: 18,
+    defence: 72,
+    discipline: 50,
+    creativity: 15,
+    status: '',
+    playing: true
+  },{
+    name: 'Bravo',
+    age: 26,
+    position: 'goalkeeper',
+    attack: 0,
+    defence: 73,
+    discipline: 100,
+    creativity: 0,
+    status: '',
+    playing: true
+  },{
+    name: 'Clichy',
+    age: 26,
+    position: 'defender',
+    attack: 11,
+    defence: 60,
+    discipline: 50,
+    creativity: 27,
+    status: '',
+    playing: true
+  },{
+    name: 'Sterling',
+    age: 26,
+    position: 'midfielder',
+    attack: 70,
+    defence: 20,
+    discipline: 70,
+    creativity: 50,
+    status: '',
+    playing: false
+  },{
+    name: 'Jesus',
+    age: 26,
     position: 'striker',
     attack: 50,
     defence: 50,
     discipline: 80,
+    creativity: 40,
     status: '',
-    playing: true
+    playing: false
   }],
   averagePlayerValues(string) {
     const totalValues = this.players.reduce(function(total, value){
       var sum = total + value[string];
       return sum;
     }, 0);
-    // this[string] = totalValues / 5;
-    return (totalValues / 5);
+    return (totalValues / 11);
     // Update to eleven
     // Hard coded eleven so that when players are sent off team values suffer
+  },
+  randomPlayerByPosition(position) {
+    const arrayOfSuitablePlayers = this.players.filter((player) =>
+      player.position === position && player.playing
+    );
+    const randomIndex = (Math.floor(Math.random() * arrayOfSuitablePlayers.length));
+    return arrayOfSuitablePlayers[randomIndex];
+  },
+  randomPlayer() {
+    const arrayOfPlayersOnField = this.players.filter((player) =>
+      player.playing
+    );
+    const randomIndex = (Math.floor(Math.random() * arrayOfPlayersOnField.length));
+    return arrayOfPlayersOnField[randomIndex];
   }
 };
 
