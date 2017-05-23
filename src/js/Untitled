@@ -26,3 +26,10 @@ function filterItems(query) {
 // Update values with each event
 // finalise data
 // start on selection
+if (teamObject.players[selectedPlayer].playing) {
+  $(`#${selectedPlayer}`).html('&#10004;');
+  $(`#${selectedPlayer}`).parent().css('background','green');
+} else {
+  $(`#${selectedPlayer}`).html('&#10007;');
+  $(`#${selectedPlayer}`).parent().css('background','red');
+}

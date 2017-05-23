@@ -1,6 +1,8 @@
 const spurs = {
   id: 0,
   name: 'spurs',
+  place: null,
+  subs: 0,
   colors: ['#FFFFFF', '#122B57'],
   formation: '4-4-2',
   players: [{
@@ -189,6 +191,13 @@ const spurs = {
     // Update to eleven
     // Hard coded eleven so that when players are sent off team values suffer
   },
+  randomSubstitute(position) {
+    const arrayOfSuitablePlayers = this.players.filter((player) =>
+      player.position === position && player.playing === false && player.status !== 'ejected'
+    );
+    const randomIndex = (Math.floor(Math.random() * arrayOfSuitablePlayers.length));
+    return arrayOfSuitablePlayers[randomIndex];
+  },
   randomPlayerByPosition(position) {
     const arrayOfSuitablePlayers = this.players.filter((player) =>
       player.position === position && player.playing
@@ -209,6 +218,8 @@ const spurs = {
 const arsenal = {
   id: 1,
   name: 'arsenal',
+  place: null,
+  subs: 0,
   colors: ['#D90104','#FFFFFF'],
   formation: '4-5-1',
   players: [{
@@ -350,6 +361,12 @@ const arsenal = {
     return (totalValues / 11);
     // Update to eleven
     // Hard coded eleven so that when players are sent off team values suffer
+  },randomSubstitute(position) {
+    const arrayOfSuitablePlayers = this.players.filter((player) =>
+      player.position === position && player.playing === false && player.status !== 'ejected'
+    );
+    const randomIndex = (Math.floor(Math.random() * arrayOfSuitablePlayers.length));
+    return arrayOfSuitablePlayers[randomIndex];
   },
   randomPlayerByPosition(position) {
     const arrayOfSuitablePlayers = this.players.filter((player) =>
@@ -370,6 +387,8 @@ const arsenal = {
 const manCity = {
   id: 2,
   name: 'manchester-city',
+  place: null,
+  subs: 0,
   colors: ['#98C5E9', '#00285E'],
   formation: '4-5-1',
   players: [{
@@ -431,7 +450,7 @@ const manCity = {
     discipline: 80,
     creativity: 52,
     status: '',
-    playing: true
+    playing: false
   },{
     name: 'Navas',
     age: 26,
@@ -502,6 +521,46 @@ const manCity = {
     creativity: 40,
     status: '',
     playing: false
+  },{
+    name: 'Zabeleta',
+    age: 26,
+    position: 'defender',
+    attack: 11,
+    defence: 60,
+    discipline: 50,
+    creativity: 27,
+    status: '',
+    playing: false
+  },{
+    name: 'Otamendi',
+    age: 26,
+    position: 'defender',
+    attack: 11,
+    defence: 65,
+    discipline: 50,
+    creativity: 27,
+    status: '',
+    playing: false
+  },{
+    name: 'Fernando',
+    age: 26,
+    position: 'midfielder',
+    attack: 40,
+    defence: 50,
+    discipline: 70,
+    creativity: 50,
+    status: '',
+    playing: false
+  },{
+    name: 'Sagna',
+    age: 26,
+    position: 'defender',
+    attack: 25,
+    defence: 50,
+    discipline: 60,
+    creativity: 40,
+    status: '',
+    playing: false
   }],
   averagePlayerValues(string) {
     const totalValues = this.players.reduce(function(total, value){
@@ -511,6 +570,12 @@ const manCity = {
     return (totalValues / 11);
     // Update to eleven
     // Hard coded eleven so that when players are sent off team values suffer
+  },randomSubstitute(position) {
+    const arrayOfSuitablePlayers = this.players.filter((player) =>
+      player.position === position && player.playing === false && player.status !== 'ejected'
+    );
+    const randomIndex = (Math.floor(Math.random() * arrayOfSuitablePlayers.length));
+    return arrayOfSuitablePlayers[randomIndex];
   },
   randomPlayerByPosition(position) {
     const arrayOfSuitablePlayers = this.players.filter((player) =>

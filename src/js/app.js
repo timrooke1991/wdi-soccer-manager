@@ -13,7 +13,8 @@ $(() => {
   let width = 50;
   let homeTeam = null;
   let awayTeam = null;
-
+  let gameStarted = false;
+  const positions = ['goalkeeper', 'defender', 'midfielder', 'striker'];
 
   // MATCH LOGIC
   const timerID = setInterval(function() {
@@ -53,8 +54,23 @@ $(() => {
         handleDiscipline(attackingTeam, teamString, defendingTeam);
       }
 
-      if (eventValue % 60 === 0) {
+      if (eventValue % 10 === 0) {
         handleInjury(attackingTeam, teamString);
+      }
+
+      if(true) {
+        if (eventValue % 10 === 0 && awayTeam.subs < 6 && matchTime > 50) {
+          const randomIndex = genRandomValue(positions.length) + 1;
+          const randomPosition = positions[randomIndex];
+          console.log(randomIndex);
+          console.log(randomPosition);
+          if (positions[randomIndex]) {
+            const removePlayer = awayTeam.randomPlayerByPosition(randomPosition);
+            substitute(awayTeam, removePlayer);
+            const addPlayer = awayTeam.randomSubstitute(randomPosition);
+            substitute(awayTeam, addPlayer);
+          }
+        }
       }
 
       // Reduce Fitness
@@ -84,32 +100,6 @@ $(() => {
     revealTeam(teamTactics);
   });
 
-  // $('.player-selection-box button').on('click', () => {
-  //
-  //   $('.team-panel').html('');
-  //   const positions = ['goalkeeper', 'defender', 'midfielder', 'striker'];
-  //   homeTeam.players.sort(function(a,b){
-  //     return positions.indexOf(a.position) < positions.indexOf(b.position) ? -1 : 1;
-  //   });
-  //
-  //   for (let i = 0; i < homeTeam.players.length; i++) {
-  //     const player = homeTeam.players[i];
-  //     const startingEleven = player.playing ? '&#10004;' : '&#10007;';
-  //
-  //     $('.team-panel').append(
-  //       `<p class="player-line ${player.position}" id='${player.name}'>
-  //         <span class="starting" id="${i}">${startingEleven}</span>
-  //         <span class="player-position ">${player.position}</span>
-  //         <span class="player-name">${player.name}</span>
-  //         <span class="player-stat">${player.attack}</span>
-  //         <span class="player-stat">${player.defence}</span>
-  //         <span class="player-stat">${player.creativity}</span>
-  //         <span class="player-stat">${player.defence}</span>
-  //       </p>`
-  //     );
-  //   }
-  // });
-
   // Toggle yes/no playing
   $('.team-panel').on('click', (e) => {
     const selectedPlayer = e.target.id;
@@ -120,7 +110,13 @@ $(() => {
     run = !run;
     $('#match-setup, .info-message, .team-setup').hide();
     $('#match-engine, .away-team, .home-team, .timer').show();
-    run ? $primaryButton.text('Pause') : $primaryButton.text('Play');
+    if (run) {
+      $primaryButton.text('Pause');
+      gameStarted = true;
+    } else {
+      $primaryButton.text('Play');
+    }
+
   });
 
   $('#homeTeam').on('click', () => {
@@ -163,8 +159,6 @@ $(() => {
     $('.team-panel').html('');
     $('.formation').val(teamObject.formation);
 
-
-    const positions = ['goalkeeper', 'defender', 'midfielder', 'striker'];
     teamObject.players.sort(function(a,b){
       return positions.indexOf(a.position) < positions.indexOf(b.position) ? -1 : 1;
     });
@@ -186,11 +180,24 @@ $(() => {
       );
     }
   }
+  function pausePlay() {
+    if (run) {
+      run = !run;
+    }
+
+    $primaryButton.text('Play');
+    $('.match-setup, .match-engine').hide();
+    setupTactics(homeTeam);
+    teamTactics = homeTeam;
+    revealTeam(teamTactics);
+    $('.team-setup').show();
+
+  }
 
   function revealTeam(teamObject) {
     $('.team-display').html('');
     const formation = ['1'].concat(teamObject.formation.split('-'));
-    const positions = ['goalkeeper', 'defender', 'midfielder', 'striker'];
+
     let playerNumber = 0;
     let positionNumber = 0;
 
@@ -200,7 +207,7 @@ $(() => {
         let i = 0;
         while (i < iterations) {
           if (teamObject.players[playerNumber].playing) {
-            const warningMessage = positions[positionNumber] !== teamObject.players[playerNumber].position ? 'orange' : '';
+            const warningMessage = positions[positionNumber] !== teamObject.players[playerNumber].position ? 'warning' : '';
             $('.team-display').append(
               `<span class='player-block ${warningMessage} ${(teamObject.players[playerNumber].status)}'>${teamObject.players[playerNumber].name}</span>`
             );
@@ -220,12 +227,47 @@ $(() => {
 
   function choosePlayers(teamObject, selectedPlayer) {
     teamObject.players[selectedPlayer].playing = !teamObject.players[selectedPlayer].playing;
-    console.log(teamObject.players[selectedPlayer].playing);
-    teamObject.players[selectedPlayer].playing ? $(`#${selectedPlayer}`).html('&#10004;') : $(`#${selectedPlayer}`).html('&#10007;');
+    //console.log(teamObject.players[selectedPlayer].playing);
     revealTeam(teamTactics);
+    if (teamObject.players[selectedPlayer].playing) {
+      $(`#${selectedPlayer}`).html('&#10004;');
+      if (gameStarted) {
+        console.log('clicked');
+        $(`#${selectedPlayer}`).parent().css({'background': 'green'});
+        const playerOn = teamObject.players[selectedPlayer];
+        substitute(teamObject, playerOn);
+      }
+    } else {
+      $(`#${selectedPlayer}`).html('&#10007;');
+      if (gameStarted) {
+        $(`#${selectedPlayer}`).parent().css({'pointer-events': 'none', 'background': 'red'});
+        const playerOff = teamObject.players[selectedPlayer];
+        substitute(teamObject, playerOff);
+
+      }
+    }
+
   }
 
   // Functions -------------------------------------------------------------
+
+  function substitute(teamObject, player) {
+    if (teamObject.subs < 6) {
+      if (player.playing) {
+        $(`#${teamObject.place}Events`).append(`<i class='fa fa-arrow-right' style='font-size: 22px; color:red; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${player.name} substituted<br/>`);
+        teamObject.subs += 1;
+        player.playing = false;
+        player.status = 'ejected';
+      } else {
+        $(`#${teamObject.place}Events`).append(`<i class='fa fa-arrow-right' style='font-size: 22px; color:green; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${player.name} substituted<br/>`);
+        teamObject.subs += 1;
+
+        player.playing = true;
+      }
+    } else {
+      alert('You have had 3 subs!');
+    }
+  }
 
   function timeControl() {
 
@@ -254,10 +296,10 @@ $(() => {
 
     // Need to sort this
     const elem = document.getElementById('homeBar');
-    width = ((homeTeam.averagePlayerValues('creativity')/awayTeam.averagePlayerValues('creativity')) * 100);
+
+    width = (homeTeam.averagePlayerValues('creativity') / (homeTeam.averagePlayerValues('creativity') + awayTeam.averagePlayerValues('creativity')) * 100) + (Math.random() < 0.5 ? -genRandomValue(6) : genRandomValue(6));
     console.log(homeTeam.averagePlayerValues('creativity'));
     console.log(awayTeam.averagePlayerValues('creativity'));
-    console.log(width);
     elem.style.width = width + '%';
   }
 
@@ -313,26 +355,26 @@ $(() => {
     const team = teamString === 'home' ? 'away' : 'home';
     if ((genRandomValue(defendingPlayer.discipline) + (100-matchTime)) < 90) {
       // Already booked? Send him off!
-      if (defendingPlayer.status === 'Yellow') {
+      if (defendingPlayer.status === 'yellow') {
         $commentaryBox.css('background-color', '#FF0000');
         $commentaryBox.css('color', '#FFFFFF');
 
-        generateCommentary('secondYellow', defendingPlayer)
+        generateCommentary('secondYellow', defendingPlayer);
         $(`#${team}Events`).append(`<i class='fa fa-square event-item' style='font-size: 24px; color: red; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${defendingPlayer.name} sent off<br/>`);
-
-        defendingPlayer.status = 'ejected';
-        defendingPlayer.playing = false;
+        defendingPlayer.status = 'injured';
+        // defendingPlayer.status = 'ejected';
+        // defendingPlayer.playing = false;
+        if (defendingTeam.place === 'home') pausePlay();
 
       } else {
         $commentaryBox.css('background-color', 'yellow');
         $commentaryBox.css('color', '#000000');
         // $commentaryBox.text(`${defendingPlayer.name} gets a yellow!`);
-        generateCommentary('yellow', defendingPlayer)
+        generateCommentary('yellow', defendingPlayer);
 
         // Store mesages and details in an game Object
         $(`#${team}Events`).append(`
           <i class='fa fa-square event-item' style='font-size: 24px; color: yellow; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${defendingPlayer.name} booked<br/>`);
-
         defendingPlayer.status = 'yellow';
       }
     }
@@ -345,7 +387,17 @@ $(() => {
       // $commentaryBox.text(`${attackingPlayer.name} gets taken off on a stretcher!`);
       generateCommentary('injury', attackingPlayer);
       $(`#${teamString}Events`).append(`<i class='fa fa-plus' style='font-size: 26px; color: green; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${attackingPlayer.name} injured<br/>`);
-      attackingPlayer.playing = false;
+      if (attackingTeam.place === 'away') {
+        substitute(awayTeam, attackingPlayer);
+        const addPlayer = awayTeam.randomSubstitute(attackingPlayer.position);
+        substitute(awayTeam, addPlayer);
+      } else if (attackingTeam.place === 'home') {
+        attackingPlayer.status = 'ejected';
+        attackingPlayer.playing = false;
+        pausePlay();
+      }
+      // attackingPlayer.playing = false;
+
     } else {
       $commentaryBox.text(`${attackingPlayer.name}'s limping, but he'll be okay`);
     }
@@ -424,6 +476,7 @@ $(() => {
       // $commentaryBox.text('The referee gives him a straight red!');
       generateCommentary('straightRed', defendingPlayer);
       $(`#${team}Events`).append(`<i class='fa fa-square' style='font-size: 24px; color: red; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${defendingPlayer.name} sent off<br/>`);
+      if (defendingTeam.place === 'home') pausePlay();
     }
   }
 
@@ -472,6 +525,7 @@ $(() => {
           $('.home-team').css('color', homeTeam.colors[1]);
           break;
       }
+      homeTeam.place = 'home';
       console.log(homeTeam);
     } else {
 
@@ -519,6 +573,7 @@ $(() => {
           $('.away-team').css('color', awayTeam.colors[1]);
           break;
       }
+      awayTeam.place = 'away';
       console.log(awayTeam);
     }
 
@@ -531,7 +586,7 @@ $(() => {
       goal: ['Goal!', 'He\'s scored!', `That's a great finish!`, `What a goal by ${player.name}`, `${player.name} finishes off the move!`],
       freekick: [`It's a freekick`, `${player.name} to take the freekick`, `He lines up the freekick`, `This is a chance to get a cross in`],
       wastedFreekick: [`${player.name} loses possession`, `That's ended up in row Z`, `The attack amounts to nothing`, `${player.name} has wasted that opportunity`, `${player.name}'s effort goes over the bar`, `He hands back possession to the other team`],
-      yellow: [`He's going in the book`, `Ouch! ${player.name}'ll a yellow for that`, `That's a booking`, `It's a yellow!`, `The ref is taking his name`],
+      yellow: [`He's going in the book`, `Ouch! ${player.name} will get a yellow for that`, `That's a booking`, `It's a yellow!`, `The ref is taking his name`],
       secondYellow: [`He's already been booked...`, `That's a second yellow`, `${player.name} is shown a red!`, `${player.name} is off`],
       straightRed: [`${player.name} is shown a straight red!`, `${player.name} is off`, `The ref has given him straight red!`],
       penalty: [`The referee points to the spot`, `That's a penalty`, `${player.name} is fouled in the area`, `The ref blows his whistle. Penalty.`],
