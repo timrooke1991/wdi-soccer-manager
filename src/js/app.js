@@ -75,6 +75,7 @@ $(() => {
     } else {
       configTeam(awayTeam, userTeam);
       console.log('awayTeam now selected!');
+      $('.title-message').text('Opponent selected. Now chose your opponent.');
     }
   });
 
@@ -135,6 +136,12 @@ $(() => {
     setupTactics(awayTeam);
     teamTactics = awayTeam;
   });
+
+  $('.go-back').on('click', () => {
+    $('.team-setup').hide();
+    $('.match-setup').show();
+  });
+
 
   function setupTactics(teamObject) {
     $('.team-panel').html('');
