@@ -227,7 +227,7 @@ const arsenal = {
     position: 'striker',
     attack: 68,
     defence: 21,
-    discipline: 80,
+    discipline: 95,
     creativity: 45,
     status: '',
     playing: true
@@ -237,7 +237,7 @@ const arsenal = {
     position: 'midfielder',
     attack: 71,
     defence: 18,
-    discipline: 80,
+    discipline: 90,
     creativity: 72,
     status: '',
     playing: true
@@ -247,7 +247,7 @@ const arsenal = {
     position: 'striker',
     attack: 80,
     defence: 20,
-    discipline: 80,
+    discipline: 90,
     creativity: 87,
     status: '',
     playing: true

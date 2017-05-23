@@ -75,7 +75,7 @@ $(() => {
     } else {
       configTeam(awayTeam, userTeam);
       console.log('awayTeam now selected!');
-      $('.title-message').text('Opponent selected. Now chose your opponent.');
+      $('.title-message').text('Opponent selected. Now edit tactics or proceed to match.');
     }
   });
 
@@ -122,19 +122,30 @@ $(() => {
     $('#match-engine, .away-team, .home-team, .timer').show();
     run ? $primaryButton.text('Pause') : $primaryButton.text('Play');
   });
+
   $('#homeTeam').on('click', () => {
-    $('.match-setup').hide();
+    if (run) {
+      run = !run;
+    }
+    $primaryButton.text('Play');
+    $('.match-setup, .match-engine').hide();
     $('.team-setup').show();
     setupTactics(homeTeam);
     teamTactics = homeTeam;
+    revealTeam(teamTactics);
 
   });
 
   $('#awayTeam').on('click', () => {
-    $('.match-setup').hide();
+    if (run) {
+      run = !run;
+    }
+    $primaryButton.text('Play');
+    $('.match-setup, .match-engine').hide();
     $('.team-setup').show();
     setupTactics(awayTeam);
     teamTactics = awayTeam;
+    revealTeam(teamTactics);
   });
 
   $('.go-back').on('click', () => {
@@ -142,9 +153,17 @@ $(() => {
     $('.match-setup').show();
   });
 
+  $('.formation').on('change', (e) => {
+    const newFormation = e.target.value;
+    teamTactics.formation = newFormation;
+    revealTeam(teamTactics);
+  });
 
   function setupTactics(teamObject) {
     $('.team-panel').html('');
+    $('.formation').val(teamObject.formation);
+
+
     const positions = ['goalkeeper', 'defender', 'midfielder', 'striker'];
     teamObject.players.sort(function(a,b){
       return positions.indexOf(a.position) < positions.indexOf(b.position) ? -1 : 1;
@@ -181,18 +200,21 @@ $(() => {
         let i = 0;
         while (i < iterations) {
           if (teamObject.players[playerNumber].playing) {
-            $('.team-display').append(`<p>${positions[positionNumber]}: ${teamObject.players[playerNumber].name}</p>`);
+            const warningMessage = positions[positionNumber] !== teamObject.players[playerNumber].position ? 'orange' : '';
+            $('.team-display').append(
+              `<span class='player-block ${warningMessage} ${(teamObject.players[playerNumber].status)}'>${teamObject.players[playerNumber].name}</span>`
+            );
             teamObject.players[playerNumber].chosenPosition = positions[positionNumber];
             i++;
           }
           console.log(playerNumber);
           playerNumber++;
         }
-        $('.team-display').append('<hr>');
+        $('.team-display').append('<div class="seperate-players">');
         positionNumber++;
       });
     } catch(err) {
-      alert('Select 11 players!');
+      $('.team-display').append(`<p class='team-selection-warning seperate-players'>Less than 11 players selected!</p>`);
     }
   }
 
@@ -200,6 +222,7 @@ $(() => {
     teamObject.players[selectedPlayer].playing = !teamObject.players[selectedPlayer].playing;
     console.log(teamObject.players[selectedPlayer].playing);
     teamObject.players[selectedPlayer].playing ? $(`#${selectedPlayer}`).html('&#10004;') : $(`#${selectedPlayer}`).html('&#10007;');
+    revealTeam(teamTactics);
   }
 
   // Functions -------------------------------------------------------------
@@ -297,7 +320,7 @@ $(() => {
         generateCommentary('secondYellow', defendingPlayer)
         $(`#${team}Events`).append(`<i class='fa fa-square event-item' style='font-size: 24px; color: red; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${defendingPlayer.name} sent off<br/>`);
 
-        defendingPlayer.status = 'Ejected';
+        defendingPlayer.status = 'ejected';
         defendingPlayer.playing = false;
 
       } else {
@@ -310,7 +333,7 @@ $(() => {
         $(`#${team}Events`).append(`
           <i class='fa fa-square event-item' style='font-size: 24px; color: yellow; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${defendingPlayer.name} booked<br/>`);
 
-        defendingPlayer.status = 'Yellow';
+        defendingPlayer.status = 'yellow';
       }
     }
   }
@@ -364,7 +387,7 @@ $(() => {
     // Book the player?
     if (genRandomValue(100) > 25) {
       // console.log('here');
-      bookedPlayer.status = 'Yellow';
+      bookedPlayer.status = 'yellow';
       $(`#${team}Events`).append(`<i class='fa fa-square event-item' style='font-size: 24px; color: yellow; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${bookedPlayer.name} booked<br/>`);
     }
 
@@ -516,8 +539,8 @@ $(() => {
       injury: [`${player.name}'s is going off`,`${player.name} is injured`,`${player.name} can't continue`],
       chance: [`The ball is wasted`, `Possession is sloppily given away`, `That is wasted`, `The referee pulls back play`, `The ball goes out for a throw`, `Good interception!`, `He's robbed him of possesion`]
     };
-    const randomeIndex = genRandomValue(commentary[scenario].length);
-    const message = commentary[scenario][randomeIndex];
+    const randomIndex = genRandomValue(commentary[scenario].length);
+    const message = commentary[scenario][randomIndex];
     $commentaryBox.text(`${message}`);
 
   }

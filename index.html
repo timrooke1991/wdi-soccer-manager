@@ -39,6 +39,9 @@
 
 <body>
 
+  <button class="select-btn" id="homeTeam">Home Tactics</button>
+  <button class="select-btn" id="awayTeam">Away Tactics</button>
+
   <!-- TEAM SELECTION SCREEN -->
   <div class="match-setup" id="match-setup">
 		<div class="team-selection-box">
@@ -51,12 +54,17 @@
 			<button class="team-input" data-value="Leicester" id="team-7">Leicester</button>
 			<button class="team-input" data-value="Arsenal" id="team-8">Arsenal</button>
 		</div>
-    <button class="select-btn" id="homeTeam">Home Tactics</button>
-    <button class="select-btn" id="awayTeam">Away Tactics</button>
 	</div>
 
   <!-- PLAYER SELECTION SCREEN -->
   <div class="team-setup" id="team-setup">
+    <select class="formation">
+      <option value="4-4-2">4-4-2</option>
+      <option value="4-5-1">4-5-1</option>
+      <option value="5-4-1">5-4-1</option>
+      <option value="4-4-3">4-3-3</option>
+    </select>
+
     <div class="player-selection-box">
       <p class="player-line">
         <span class="starting" id="">Starting</span>
@@ -73,12 +81,12 @@
     </div>
     <div class="team-sheet">
       <button class="go-back" data-value="" id="">Go Back</button>
-      <button class="confirm-tactics" data-value="" id="revealTeam">Save Starting Lineup</button>
+      <button class="confirm-tactics" data-value="" id="revealTeam">Save</button>
       <div class="team-display">
       </div>
     </div>
   </div>
-
+  <!-- MATCH SCREEN -->
   <div class="match-engine" id="match-engine">
     <!-- POSSESSION BAR -->
     <div id="possessionBar" class="possession-bar">
