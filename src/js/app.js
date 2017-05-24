@@ -12,6 +12,7 @@ $(() => {
   let homeTeam = null;
   let awayTeam = null;
   let gameStarted = false;
+  let cpuMode = true;
   const positions = ['goalkeeper', 'defender', 'midfielder', 'striker'];
 
   // MATCH LOGIC
@@ -66,7 +67,7 @@ $(() => {
         defendingTeam.reduceValues(3,'creativity',['striker','midfielder', 'defender', 'goalkeeper']);
       }
 
-      if(true) {
+      if(cpuMode) {
         if (eventValue % 10 === 0 && awayTeam.subs < 6 && matchTime > 50) {
           const randomIndex = genRandomValue(positions.length) + 1;
           const randomPosition = positions[randomIndex];
@@ -94,7 +95,7 @@ $(() => {
       // Update the timer
       timeControl();
     }
-  },10);
+  },500);
 
   // Event Listeners -------------------------------------------------------------
 
@@ -105,10 +106,16 @@ $(() => {
     if (homeTeam === null) {
       configTeam(homeTeam, userTeam);
       $('.title-message').text('Home team chosen. Now chose your opponent.');
+      $(e.target).attr('disabled', true);
     } else {
       configTeam(awayTeam, userTeam);
       $('.title-message').text('Opponent selected. Now edit tactics or proceed to match.');
+      $(e.target).attr('disabled', true);
     }
+  });
+
+  $('#playerMode').on('click', () => {
+    cpuMode = !cpuMode;
   });
 
   // Starting Line Up
@@ -441,13 +448,13 @@ $(() => {
 
       generateCommentary('injury', attackingPlayer);
       $(`#${attackingTeam.place}Events`).append(`<i class='fa fa-plus' style='font-size: 26px; color: green; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${attackingPlayer.name} injured<br/>`);
-      if (attackingTeam.place === 'away') {
+      if (attackingTeam.place === 'away' && cpuMode) {
         attackingPlayer.playing = !attackingPlayer.playing;
         substitute(awayTeam, attackingPlayer);
         const addPlayer = awayTeam.randomSubstitute(attackingPlayer.position);
         addPlayer.playing = !addPlayer.playing;
         substitute(awayTeam, addPlayer);
-      } else if (attackingTeam.place === 'home') {
+      } else {
         attackingPlayer.fitness = 0 + genRandomValue(30);
         attackingPlayer.status = 'injured';
         attackingPlayer.playing = false;
