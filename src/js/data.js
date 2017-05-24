@@ -1318,7 +1318,6 @@ const leicester = {
   formation: '4-4-2',
   place: null,
   subs: 0,
-  formation: '4-4-2',
   players: [{
     name: 'Schmeichel',
     age: 26,
@@ -1326,7 +1325,7 @@ const leicester = {
     chosenPosition: '',
     attack: 0,
     defence: 74,
-    discipline: 100,
+    discipline: 150,
     creativity: 2,
     fitness: 98,
     status: '',
@@ -1573,55 +1572,515 @@ const leicester = {
   }
 };
 
+const liverpool = {
+  id: 6,
+  name: 'liverpool',
+  colors: ['#DD1E2A', '#FFFFFF'],
+  place: null,
+  subs: 0,
+  formation: '4-4-2',
+  players: [{
+    name: 'Mignolet',
+    age: 26,
+    position: 'goalkeeper',
+    chosenPosition: '',
+    attack: 0,
+    defence: 72,
+    discipline: 100,
+    creativity: 15,
+    fitness: 98,
+    status: '',
+    playing: true
+  },{
+    name: 'Lovren',
+    age: 26,
+    position: 'defender',
+    chosenPosition: '',
+    attack: 12,
+    defence: 58,
+    discipline: 70,
+    creativity: 5,
+    fitness: 98,
+    status: '',
+    playing: true
+  },{
+    name: 'Matip',
+    age: 26,
+    position: 'defender',
+    chosenPosition: '',
+    attack: 11,
+    defence: 42,
+    discipline: 70,
+    creativity: 12,
+    fitness: 98,
+    status: '',
+    playing: true
+  },{
+    name: 'Clyne',
+    age: 26,
+    position: 'defender',
+    chosenPosition: '',
+    attack: 5,
+    defence: 60,
+    discipline: 80,
+    creativity: 17,
+    fitness: 98,
+    status: '',
+    playing: true
+  },{
+    name: 'Moreno',
+    age: 26,
+    position: 'defender',
+    chosenPosition: '',
+    attack: 19,
+    defence: 45,
+    discipline: 70,
+    creativity: 12,
+    fitness: 98,
+    status: '',
+    playing: true
+  },{
+    name: 'Gomez',
+    age: 26,
+    position: 'defender',
+    chosenPosition: '',
+    attack: 6,
+    defence: 28,
+    discipline: 80,
+    creativity: 12,
+    fitness: 98,
+    status: '',
+    playing: false
+  },{
+    name: 'Klaven',
+    age: 26,
+    position: 'defender',
+    chosenPosition: '',
+    attack: 6,
+    defence: 28,
+    discipline: 80,
+    creativity: 12,
+    fitness: 98,
+    status: '',
+    playing: false
+  },{
+    name: 'Stewart',
+    age: 26,
+    position: 'defender',
+    chosenPosition: '',
+    attack: 10,
+    defence: 28,
+    discipline: 70,
+    creativity: 2,
+    fitness: 98,
+    status: '',
+    playing: false
+  },{
+    name: 'Henderson',
+    age: 26,
+    position: 'midfielder',
+    chosenPosition: '',
+    attack: 21,
+    defence: 63,
+    discipline: 50,
+    creativity: 22,
+    fitness: 98,
+    status: '',
+    playing: true
+  },{
+    name: 'Lallana',
+    age: 26,
+    position: 'midfielder',
+    chosenPosition: '',
+    attack: 40,
+    defence: 22,
+    discipline: 70,
+    creativity: 35,
+    fitness: 98,
+    status: '',
+    playing: true
+  },{
+    name: 'Coutinho',
+    age: 26,
+    position: 'midfielder',
+    chosenPosition: '',
+    attack: 70,
+    defence: 13,
+    discipline: 90,
+    creativity: 70,
+    fitness: 98,
+    status: '',
+    playing: true
+  },{
+    name: 'Wijnaldum',
+    age: 26,
+    position: 'midfielder',
+    chosenPosition: '',
+    attack: 55,
+    defence: 10,
+    discipline: 80,
+    creativity: 47,
+    fitness: 98,
+    status: '',
+    playing: true
+  },{
+    name: 'Emre Can',
+    age: 26,
+    position: 'midfielder',
+    chosenPosition: '',
+    attack: 50,
+    defence: 40,
+    discipline: 70,
+    creativity: 30,
+    fitness: 98,
+    status: '',
+    playing: false
+  },{
+    name: 'Sturridge',
+    age: 26,
+    position: 'striker',
+    chosenPosition: '',
+    attack: 62,
+    defence: 8,
+    discipline: 80,
+    creativity: 40,
+    fitness: 98,
+    status: '',
+    playing: false
+  },{
+    name: 'Origi',
+    age: 26,
+    position: 'striker',
+    chosenPosition: '',
+    attack: 41,
+    defence: 6,
+    discipline: 90,
+    creativity: 17,
+    fitness: 98,
+    status: '',
+    playing: false
+  },{
+    name: 'Firmino',
+    age: 26,
+    position: 'striker',
+    chosenPosition: '',
+    attack: 61,
+    defence: 5,
+    discipline: 90,
+    creativity: 47,
+    fitness: 98,
+    status: '',
+    playing: true
+  },{
+    name: 'Mané',
+    age: 26,
+    position: 'striker',
+    chosenPosition: '',
+    attack: 57,
+    defence: 5,
+    discipline: 80,
+    creativity: 50,
+    fitness: 98,
+    status: '',
+    playing: true
+  },{
+    name: 'Milner',
+    age: 26,
+    position: 'midfielder',
+    chosenPosition: '',
+    attack: 32,
+    defence: 41,
+    discipline: 70,
+    creativity: 22,
+    fitness: 98,
+    status: '',
+    playing: false
+  },{
+    name: 'Lucas',
+    age: 26,
+    position: 'midfielder',
+    chosenPosition: '',
+    attack: 5,
+    defence: 38,
+    discipline: 60,
+    creativity: 12,
+    fitness: 98,
+    status: '',
+    playing: false
+  }],
+  averagePlayerValues(string) {
+    const totalValues = this.players.reduce(function(total, value){
+      var sum = total + value[string];
+      return sum;
+    }, 0);
+    return (totalValues / 11);
+    // Update to eleven
+    // Hard coded eleven so that when players are sent off team values suffer
+  },randomSubstitute(position) {
+    const arrayOfSuitablePlayers = this.players.filter((player) =>
+      player.position === position && player.playing === false && player.status !== 'ejected' && player.status !== 'subbed-off' && player.status !== 'subbed-on'
+    );
+    const randomIndex = (Math.floor(Math.random() * arrayOfSuitablePlayers.length));
+    return arrayOfSuitablePlayers[randomIndex];
+  },
+  randomPlayerByPosition(position, sub) {
+    sub = sub || false;
+    const arrayOfSuitablePlayers = this.players.filter((player) =>
+      player.position === position && player.playing && player.status !== sub
+    );
+    const randomIndex = (Math.floor(Math.random() * arrayOfSuitablePlayers.length));
+    return arrayOfSuitablePlayers[randomIndex];
+  },
+  randomPlayer() {
+    const arrayOfPlayersOnField = this.players.filter((player) =>
+      player.playing
+    );
+    const randomIndex = (Math.floor(Math.random() * arrayOfPlayersOnField.length));
+    return arrayOfPlayersOnField[randomIndex];
+  },
+  increaseValues(value, attribute, arrayOfPositions) {
+    const arrayOfPlayersOnField = this.players.filter((player) =>
+      player.playing && arrayOfPositions.includes(player.position)
+    );
+    console.log(arrayOfPlayersOnField);
+    for (var i = 0; i < arrayOfPlayersOnField.length; i++) {
+      arrayOfPlayersOnField[i][attribute] += value;
+      console.log(arrayOfPlayersOnField[i][attribute]);
+    }
+  },
+  reduceValues(value, attribute, arrayOfPositions) {
+    const arrayOfPlayersOnField = this.players.filter((player) =>
+      player.playing && arrayOfPositions.includes(player.position)
+    );
+    console.log(arrayOfPlayersOnField);
+    for (var i = 0; i < arrayOfPlayersOnField.length; i++) {
+      arrayOfPlayersOnField[i][attribute] -= value;
+      console.log(arrayOfPlayersOnField[i][attribute]);
+    }
+  }
+};
 
 const chelsea = {
   id: 7,
   name: 'chelsea',
   colors: ['#304189', '#FFFFFF'],
+  place: null,
+  subs: 0,
   formation: '4-5-1',
   players: [{
+    name: 'David Luiz',
+    age: 26,
+    position: 'defender',
+    chosenPosition: '',
+    attack: 24,
+    defence: 72,
+    discipline: 50,
+    creativity: 25,
+    fitness: 98,
+    status: '',
+    playing: true
+  },{
     name: 'Costa',
     age: 26,
     position: 'striker',
-    attack: 50,
-    defence: 50,
+    chosenPosition: '',
+    attack: 76,
+    defence: 15,
     discipline: 80,
-    status: '',
-    playing: true
-  },{
-    name: 'Willian',
-    age: 26,
-    position: 'striker',
-    attack: 100,
-    defence: 50,
-    discipline: 80,
-    status: '',
-    playing: true
-  },{
-    name: 'Matic',
-    age: 26,
-    position: 'striker',
-    attack: 50,
-    defence: 0,
-    discipline: 80,
+    creativity: 45,
+    fitness: 98,
     status: '',
     playing: true
   },{
     name: 'Hazard',
     age: 26,
-    position: 'striker',
-    attack: 50,
-    defence: 0,
-    discipline: 0,
+    position: 'midfielder',
+    chosenPosition: '',
+    attack: 73,
+    defence: 10,
+    discipline: 80,
+    creativity: 73,
+    fitness: 98,
     status: '',
     playing: true
   },{
-    name: 'Moses',
+    name: 'Fabregas',
+    age: 26,
+    position: 'midfielder',
+    chosenPosition: '',
+    attack: 70,
+    defence: 20,
+    discipline: 80,
+    creativity: 67,
+    fitness: 98,
+    status: '',
+    playing: true
+  },{
+    name: 'Matic',
+    age: 26,
+    position: 'midfielder',
+    chosenPosition: '',
+    attack: 9,
+    defence: 55,
+    discipline: 60,
+    creativity: 27,
+    fitness: 98,
+    status: '',
+    playing: true
+  },{
+    name: 'Batshuayi',
     age: 26,
     position: 'striker',
-    attack: 50,
-    defence: 50,
+    chosenPosition: '',
+    attack: 48,
+    defence: 8,
     discipline: 80,
+    creativity: 32,
+    fitness: 98,
+    status: '',
+    playing: false
+  },{
+    name: 'Pedro',
+    age: 26,
+    position: 'striker',
+    chosenPosition: '',
+    attack: 61,
+    defence: 18,
+    discipline: 70,
+    creativity: 42,
+    fitness: 98,
+    status: '',
+    playing: true
+  },{
+    name: 'Kante',
+    age: 26,
+    position: 'midfielder',
+    chosenPosition: '',
+    attack: 8,
+    defence: 69,
+    discipline: 40,
+    creativity: 18,
+    fitness: 98,
+    status: '',
+    playing: true
+  },{
+    name: 'Cahill',
+    age: 26,
+    position: 'defender',
+    chosenPosition: '',
+    attack: 18,
+    defence: 62,
+    discipline: 50,
+    creativity: 15,
+    fitness: 98,
+    status: '',
+    playing: true
+  },{
+    name: 'Courtois',
+    age: 26,
+    position: 'goalkeeper',
+    chosenPosition: '',
+    attack: 0,
+    defence: 83,
+    discipline: 100,
+    creativity: 0,
+    fitness: 98,
+    status: '',
+    playing: true
+  },{
+    name: 'Alonso',
+    age: 26,
+    position: 'defender',
+    chosenPosition: '',
+    attack: 11,
+    defence: 50,
+    discipline: 50,
+    creativity: 27,
+    fitness: 98,
+    status: '',
+    playing: true
+  },{
+    name: 'Willian',
+    age: 26,
+    position: 'midfielder',
+    chosenPosition: '',
+    attack: 60,
+    defence: 21,
+    discipline: 70,
+    creativity: 50,
+    fitness: 98,
+    status: '',
+    playing: false
+  },{
+    name: 'Moses',
+    age: 26,
+    position: 'midfielder',
+    chosenPosition: '',
+    attack: 50,
+    defence: 20,
+    discipline: 80,
+    creativity: 30,
+    fitness: 98,
+    status: '',
+    playing: false
+  },{
+    name: 'Zouma',
+    age: 26,
+    position: 'defender',
+    chosenPosition: '',
+    attack: 11,
+    defence: 39,
+    discipline: 60,
+    creativity: 2,
+    fitness: 98,
+    status: '',
+    playing: false
+  },{
+    name: 'Aké',
+    age: 26,
+    position: 'defender',
+    chosenPosition: '',
+    attack: 11,
+    defence: 45,
+    discipline: 50,
+    creativity: 7,
+    fitness: 98,
+    status: '',
+    playing: false
+  },{
+    name: 'Loftus-Cheek',
+    age: 26,
+    position: 'midfielder',
+    chosenPosition: '',
+    attack: 25,
+    defence: 15,
+    discipline: 70,
+    creativity: 20,
+    fitness: 98,
+    status: '',
+    playing: false
+  },{
+    name: 'Kenedy',
+    age: 26,
+    position: 'midfielder',
+    chosenPosition: '',
+    attack: 30,
+    defence: 10,
+    discipline: 70,
+    creativity: 15,
+    fitness: 98,
+    status: '',
+    playing: false
+  },{
+    name: 'Azpilicueta',
+    age: 26,
+    position: 'defender',
+    chosenPosition: '',
+    attack: 25,
+    defence: 55,
+    discipline: 60,
+    creativity: 30,
+    fitness: 98,
     status: '',
     playing: true
   }],
@@ -1630,9 +2089,49 @@ const chelsea = {
       var sum = total + value[string];
       return sum;
     }, 0);
-    // this[string] = totalValues / 5;
-    return (totalValues / 5);
+    return (totalValues / 11);
     // Update to eleven
     // Hard coded eleven so that when players are sent off team values suffer
+  },randomSubstitute(position) {
+    const arrayOfSuitablePlayers = this.players.filter((player) =>
+      player.position === position && player.playing === false && player.status !== 'ejected' && player.status !== 'subbed-off' && player.status !== 'subbed-on'
+    );
+    const randomIndex = (Math.floor(Math.random() * arrayOfSuitablePlayers.length));
+    return arrayOfSuitablePlayers[randomIndex];
+  },
+  randomPlayerByPosition(position, sub) {
+    sub = sub || false;
+    const arrayOfSuitablePlayers = this.players.filter((player) =>
+      player.position === position && player.playing && player.status !== sub
+    );
+    const randomIndex = (Math.floor(Math.random() * arrayOfSuitablePlayers.length));
+    return arrayOfSuitablePlayers[randomIndex];
+  },
+  randomPlayer() {
+    const arrayOfPlayersOnField = this.players.filter((player) =>
+      player.playing
+    );
+    const randomIndex = (Math.floor(Math.random() * arrayOfPlayersOnField.length));
+    return arrayOfPlayersOnField[randomIndex];
+  },
+  increaseValues(value, attribute, arrayOfPositions) {
+    const arrayOfPlayersOnField = this.players.filter((player) =>
+      player.playing && arrayOfPositions.includes(player.position)
+    );
+    console.log(arrayOfPlayersOnField);
+    for (var i = 0; i < arrayOfPlayersOnField.length; i++) {
+      arrayOfPlayersOnField[i][attribute] += value;
+      console.log(arrayOfPlayersOnField[i][attribute]);
+    }
+  },
+  reduceValues(value, attribute, arrayOfPositions) {
+    const arrayOfPlayersOnField = this.players.filter((player) =>
+      player.playing && arrayOfPositions.includes(player.position)
+    );
+    console.log(arrayOfPlayersOnField);
+    for (var i = 0; i < arrayOfPlayersOnField.length; i++) {
+      arrayOfPlayersOnField[i][attribute] -= value;
+      console.log(arrayOfPlayersOnField[i][attribute]);
+    }
   }
 };

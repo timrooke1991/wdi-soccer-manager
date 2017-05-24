@@ -391,11 +391,12 @@ $(() => {
         $commentaryBox.css('background-color', '#FF0000');
         $commentaryBox.css('color', '#FFFFFF');
 
+
         generateCommentary('secondYellow', defendingPlayer);
         $(`#${team}Events`).append(`<i class='fa fa-square event-item' style='font-size: 24px; color: red; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${defendingPlayer.name} sent off<br/>`);
         defendingPlayer.status = 'ejected';
         // defendingPlayer.status = 'ejected';
-        // defendingPlayer.playing = false;
+        defendingPlayer.playing = false;
         // if (defendingTeam.place === 'home') pausePlay();
 
       } else {
