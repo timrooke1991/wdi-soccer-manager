@@ -14,6 +14,7 @@ const spurs = {
     defence: 21,
     discipline: 80,
     creativity: 42,
+    fitness: 98,
     status: '',
     playing: true
   },{
@@ -25,6 +26,7 @@ const spurs = {
     defence: 21,
     discipline: 65,
     creativity: 63,
+    fitness: 98,
     status: '',
     playing: true
   },{
@@ -36,6 +38,7 @@ const spurs = {
     defence: 20,
     discipline: 80,
     creativity: 73,
+    fitness: 98,
     status: '',
     playing: true
   },{
@@ -47,6 +50,7 @@ const spurs = {
     defence: 50,
     discipline: 60,
     creativity: 45,
+    fitness: 98,
     status: '',
     playing: true
   },{
@@ -58,6 +62,7 @@ const spurs = {
     defence: 25,
     discipline: 80,
     creativity: 60,
+    fitness: 98,
     status: '',
     playing: true
   }, {
@@ -69,6 +74,7 @@ const spurs = {
     defence: 84,
     discipline: 50,
     creativity: 8,
+    fitness: 98,
     status: '',
     playing: true
   },{
@@ -80,6 +86,7 @@ const spurs = {
     defence: 65,
     discipline: 50,
     creativity: 28,
+    fitness: 98,
     status: '',
     playing: true
   },{
@@ -91,6 +98,7 @@ const spurs = {
     defence: 87,
     discipline: 100,
     creativity: 6,
+    fitness: 98,
     status: '',
     playing: true
   },{
@@ -98,10 +106,11 @@ const spurs = {
     age: 26,
     position: 'defender',
     chosenPosition: '',
-    attack: 51,
+    attack: 21,
     defence: 68,
     discipline: 60,
     creativity: 10,
+    fitness: 98,
     status: '',
     playing: true
   },{
@@ -113,6 +122,7 @@ const spurs = {
     defence: 60,
     discipline: 55,
     creativity: 34,
+    fitness: 98,
     status: '',
     playing: true
   },{
@@ -124,6 +134,7 @@ const spurs = {
     defence: 66,
     discipline: 50,
     creativity: 18,
+    fitness: 98,
     status: '',
     playing: true
   },{
@@ -135,6 +146,7 @@ const spurs = {
     defence: 13,
     discipline: 80,
     creativity: 20,
+    fitness: 98,
     status: '',
     playing: false
   },{
@@ -146,6 +158,7 @@ const spurs = {
     defence: 50,
     discipline: 40,
     creativity: 15,
+    fitness: 98,
     status: '',
     playing: false
   },{
@@ -157,6 +170,7 @@ const spurs = {
     defence: 50,
     discipline: 80,
     creativity: 40,
+    fitness: 98,
     status: '',
     playing: false
   },{
@@ -168,6 +182,7 @@ const spurs = {
     defence: 10,
     discipline: 70,
     creativity: 65,
+    fitness: 98,
     status: '',
     playing: false
   },{
@@ -179,6 +194,7 @@ const spurs = {
     defence: 53,
     discipline: 50,
     creativity: 10,
+    fitness: 98,
     status: '',
     playing: false
   }],
@@ -193,7 +209,7 @@ const spurs = {
   },
   randomSubstitute(position) {
     const arrayOfSuitablePlayers = this.players.filter((player) =>
-      player.position === position && player.playing === false && player.status !== 'ejected'
+      player.position === position && player.playing === false && player.status !== 'ejected' && player.status !== 'subbed-off'
     );
     const randomIndex = (Math.floor(Math.random() * arrayOfSuitablePlayers.length));
     return arrayOfSuitablePlayers[randomIndex];
@@ -249,6 +265,7 @@ const arsenal = {
     defence: 62,
     discipline: 50,
     creativity: 15,
+    fitness: 97,
     status: '',
     playing: true
   },{
@@ -259,6 +276,7 @@ const arsenal = {
     defence: 21,
     discipline: 95,
     creativity: 45,
+    fitness: 98,
     status: '',
     playing: true
   },{
@@ -269,6 +287,7 @@ const arsenal = {
     defence: 18,
     discipline: 90,
     creativity: 72,
+    fitness: 98,
     status: '',
     playing: true
   },{
@@ -279,6 +298,7 @@ const arsenal = {
     defence: 20,
     discipline: 90,
     creativity: 87,
+    fitness: 98,
     status: '',
     playing: true
   },{
@@ -289,6 +309,7 @@ const arsenal = {
     defence: 45,
     discipline: 60,
     creativity: 57,
+    fitness: 98,
     status: '',
     playing: true
   },{
@@ -299,6 +320,7 @@ const arsenal = {
     defence: 38,
     discipline: 80,
     creativity: 52,
+    fitness: 98,
     status: '',
     playing: true
   },{
@@ -309,6 +331,7 @@ const arsenal = {
     defence: 38,
     discipline: 70,
     creativity: 32,
+    fitness: 98,
     status: '',
     playing: true
   },{
@@ -319,6 +342,7 @@ const arsenal = {
     defence: 69,
     discipline: 50,
     creativity: 18,
+    fitness: 98,
     status: '',
     playing: true
   },{
@@ -329,6 +353,7 @@ const arsenal = {
     defence: 72,
     discipline: 50,
     creativity: 5,
+    fitness: 98,
     status: '',
     playing: true
   },{
@@ -339,6 +364,7 @@ const arsenal = {
     defence: 81,
     discipline: 100,
     creativity: 0,
+    fitness: 98,
     status: '',
     playing: true
   },{
@@ -349,6 +375,7 @@ const arsenal = {
     defence: 62,
     discipline: 50,
     creativity: 27,
+    fitness: 98,
     status: '',
     playing: true
   },{
@@ -359,6 +386,7 @@ const arsenal = {
     defence: 50,
     discipline: 70,
     creativity: 10,
+    fitness: 98,
     status: '',
     playing: false
   },{
@@ -369,6 +397,51 @@ const arsenal = {
     defence: 50,
     discipline: 80,
     creativity: 40,
+    fitness: 98,
+    status: '',
+    playing: false
+  }, {
+    name: 'Xhaka',
+    age: 26,
+    position: 'midfielder',
+    attack: 50,
+    defence: 50,
+    discipline: 80,
+    creativity: 40,
+    fitness: 98,
+    status: '',
+    playing: false
+  }, {
+    name: 'Mertesacker',
+    age: 26,
+    position: 'defender',
+    attack: 50,
+    defence: 50,
+    discipline: 80,
+    creativity: 40,
+    fitness: 98,
+    status: '',
+    playing: false
+  }, {
+    name: 'Gibbs',
+    age: 26,
+    position: 'defender',
+    attack: 50,
+    defence: 50,
+    discipline: 80,
+    creativity: 40,
+    fitness: 98,
+    status: '',
+    playing: false
+  }, {
+    name: 'Coquelin',
+    age: 26,
+    position: 'midfielder',
+    attack: 50,
+    defence: 50,
+    discipline: 80,
+    creativity: 40,
+    fitness: 98,
     status: '',
     playing: false
   }],
@@ -382,7 +455,7 @@ const arsenal = {
     // Hard coded eleven so that when players are sent off team values suffer
   },randomSubstitute(position) {
     const arrayOfSuitablePlayers = this.players.filter((player) =>
-      player.position === position && player.playing === false && player.status !== 'ejected'
+      player.position === position && player.playing === false && player.status !== 'ejected' && player.status !== 'subbed-off'
     );
     const randomIndex = (Math.floor(Math.random() * arrayOfSuitablePlayers.length));
     return arrayOfSuitablePlayers[randomIndex];
@@ -438,6 +511,7 @@ const manCity = {
     defence: 72,
     discipline: 50,
     creativity: 15,
+    fitness: 98,
     status: '',
     playing: true
   },{
@@ -448,6 +522,7 @@ const manCity = {
     defence: 15,
     discipline: 80,
     creativity: 55,
+    fitness: 98,
     status: '',
     playing: true
   },{
@@ -458,6 +533,7 @@ const manCity = {
     defence: 12,
     discipline: 80,
     creativity: 72,
+    fitness: 98,
     status: '',
     playing: true
   },{
@@ -468,6 +544,7 @@ const manCity = {
     defence: 20,
     discipline: 80,
     creativity: 87,
+    fitness: 98,
     status: '',
     playing: true
   },{
@@ -478,6 +555,7 @@ const manCity = {
     defence: 45,
     discipline: 60,
     creativity: 57,
+    fitness: 98,
     status: '',
     playing: true
   },{
@@ -488,6 +566,7 @@ const manCity = {
     defence: 18,
     discipline: 80,
     creativity: 52,
+    fitness: 98,
     status: '',
     playing: false
   },{
@@ -498,6 +577,7 @@ const manCity = {
     defence: 18,
     discipline: 70,
     creativity: 42,
+    fitness: 98,
     status: '',
     playing: true
   },{
@@ -508,6 +588,7 @@ const manCity = {
     defence: 69,
     discipline: 40,
     creativity: 18,
+    fitness: 98,
     status: '',
     playing: true
   },{
@@ -518,6 +599,7 @@ const manCity = {
     defence: 72,
     discipline: 50,
     creativity: 15,
+    fitness: 98,
     status: '',
     playing: true
   },{
@@ -528,6 +610,7 @@ const manCity = {
     defence: 73,
     discipline: 100,
     creativity: 0,
+    fitness: 98,
     status: '',
     playing: true
   },{
@@ -538,6 +621,7 @@ const manCity = {
     defence: 60,
     discipline: 50,
     creativity: 27,
+    fitness: 98,
     status: '',
     playing: true
   },{
@@ -548,8 +632,9 @@ const manCity = {
     defence: 20,
     discipline: 70,
     creativity: 50,
+    fitness: 98,
     status: '',
-    playing: false
+    playing: true
   },{
     name: 'Jesus',
     age: 26,
@@ -558,6 +643,7 @@ const manCity = {
     defence: 50,
     discipline: 80,
     creativity: 40,
+    fitness: 98,
     status: '',
     playing: false
   },{
@@ -568,6 +654,7 @@ const manCity = {
     defence: 60,
     discipline: 50,
     creativity: 27,
+    fitness: 98,
     status: '',
     playing: false
   },{
@@ -578,6 +665,7 @@ const manCity = {
     defence: 65,
     discipline: 50,
     creativity: 27,
+    fitness: 98,
     status: '',
     playing: false
   },{
@@ -588,6 +676,7 @@ const manCity = {
     defence: 50,
     discipline: 70,
     creativity: 50,
+    fitness: 98,
     status: '',
     playing: false
   },{
@@ -598,6 +687,7 @@ const manCity = {
     defence: 50,
     discipline: 60,
     creativity: 40,
+    fitness: 98,
     status: '',
     playing: false
   }],
@@ -611,7 +701,7 @@ const manCity = {
     // Hard coded eleven so that when players are sent off team values suffer
   },randomSubstitute(position) {
     const arrayOfSuitablePlayers = this.players.filter((player) =>
-      player.position === position && player.playing === false && player.status !== 'ejected'
+      player.position === position && player.playing === false && player.status !== 'ejected' && player.status !== 'subbed-off'
     );
     const randomIndex = (Math.floor(Math.random() * arrayOfSuitablePlayers.length));
     return arrayOfSuitablePlayers[randomIndex];
