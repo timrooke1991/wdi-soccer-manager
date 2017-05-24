@@ -211,8 +211,27 @@ const spurs = {
     );
     const randomIndex = (Math.floor(Math.random() * arrayOfPlayersOnField.length));
     return arrayOfPlayersOnField[randomIndex];
+  },
+  increaseValues(value, attribute, arrayOfPositions) {
+    const arrayOfPlayersOnField = this.players.filter((player) =>
+      player.playing && arrayOfPositions.includes(player.position)
+    );
+    console.log(arrayOfPlayersOnField);
+    for (var i = 0; i < arrayOfPlayersOnField.length; i++) {
+      arrayOfPlayersOnField[i][attribute] += value;
+      console.log(arrayOfPlayersOnField[i][attribute]);
+    }
+  },
+  reduceValues(value, attribute, arrayOfPositions) {
+    const arrayOfPlayersOnField = this.players.filter((player) =>
+      player.playing && arrayOfPositions.includes(player.position)
+    );
+    console.log(arrayOfPlayersOnField);
+    for (var i = 0; i < arrayOfPlayersOnField.length; i++) {
+      arrayOfPlayersOnField[i][attribute] -= value;
+      console.log(arrayOfPlayersOnField[i][attribute]);
+    }
   }
-
 };
 
 const arsenal = {
@@ -381,6 +400,26 @@ const arsenal = {
     );
     const randomIndex = (Math.floor(Math.random() * arrayOfPlayersOnField.length));
     return arrayOfPlayersOnField[randomIndex];
+  },
+  increaseValues(value, attribute, arrayOfPositions) {
+    const arrayOfPlayersOnField = this.players.filter((player) =>
+      player.playing && arrayOfPositions.includes(player.position)
+    );
+    console.log(arrayOfPlayersOnField);
+    for (var i = 0; i < arrayOfPlayersOnField.length; i++) {
+      arrayOfPlayersOnField[i][attribute] += value;
+      console.log(arrayOfPlayersOnField[i][attribute]);
+    }
+  },
+  reduceValues(value, attribute, arrayOfPositions) {
+    const arrayOfPlayersOnField = this.players.filter((player) =>
+      player.playing && arrayOfPositions.includes(player.position)
+    );
+    console.log(arrayOfPlayersOnField);
+    for (var i = 0; i < arrayOfPlayersOnField.length; i++) {
+      arrayOfPlayersOnField[i][attribute] -= value;
+      console.log(arrayOfPlayersOnField[i][attribute]);
+    }
   }
 };
 
@@ -590,6 +629,26 @@ const manCity = {
     );
     const randomIndex = (Math.floor(Math.random() * arrayOfPlayersOnField.length));
     return arrayOfPlayersOnField[randomIndex];
+  },
+  increaseValues(value, attribute, arrayOfPositions) {
+    const arrayOfPlayersOnField = this.players.filter((player) =>
+      player.playing && arrayOfPositions.includes(player.position)
+    );
+    console.log(arrayOfPlayersOnField);
+    for (var i = 0; i < arrayOfPlayersOnField.length; i++) {
+      arrayOfPlayersOnField[i][attribute] += value;
+      console.log(arrayOfPlayersOnField[i][attribute]);
+    }
+  },
+  reduceValues(value, attribute, arrayOfPositions) {
+    const arrayOfPlayersOnField = this.players.filter((player) =>
+      player.playing && arrayOfPositions.includes(player.position)
+    );
+    console.log(arrayOfPlayersOnField);
+    for (var i = 0; i < arrayOfPlayersOnField.length; i++) {
+      arrayOfPlayersOnField[i][attribute] -= value;
+      console.log(arrayOfPlayersOnField[i][attribute]);
+    }
   }
 };
 

@@ -49,12 +49,12 @@ $(() => {
         handleFreekick(attackingTeam, teamString, defendingTeam);
       }
 
-      if (eventValue % 14 === 0) {
+      if (eventValue % 18 === 0) {
         // RandomPlayer => discipline + matchtime rand vs. random
         handleDiscipline(attackingTeam, teamString, defendingTeam);
       }
 
-      if (eventValue % 10 === 0) {
+      if (eventValue % 75 === 0) {
         handleInjury(attackingTeam, teamString);
       }
 
@@ -254,7 +254,7 @@ $(() => {
   }
 
   function substitute(teamObject, player) {
-    if (teamObject.subs < 6) {
+    if (teamObject.subs < 7) {
       if (!player.playing) {
         $(`#${teamObject.place}Events`).append(`<i class='fa fa-arrow-right' style='font-size: 22px; color:red; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${player.name} substituted<br/>`);
         teamObject.subs += 1;
@@ -266,7 +266,7 @@ $(() => {
         player.playing = true;
       }
     } else {
-      alert('You have had 3 subs!');
+      console.log('You have had 3 subs!');
     }
   }
 
