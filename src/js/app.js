@@ -37,7 +37,7 @@ $(() => {
         defendingTeam.reduceValues(5,'defence',['midfielder', 'defender', 'goalkeeper']);
       }
 
-      if (eventValue % 80 === 0) {
+      if (eventValue % (genRandomValue(30) + 90) === 0) {
         // Striker vs. Goalkeeper > RandTheirAttack vs. RandGoalkeeperPenalty
         handlePenalty(attackingTeam, teamString, defendingTeam);
         defendingTeam.reduceValues(3,'defence',['midfielder', 'defender', 'goalkeeper']);
@@ -64,7 +64,7 @@ $(() => {
 
       }
 
-      if (eventValue % 75 === 0) {
+      if (eventValue % 25 === 0) {
         handleInjury(attackingTeam, teamString);
         defendingTeam.reduceValues(3,'creativity',['striker','midfielder', 'defender', 'goalkeeper']);
       }
@@ -76,7 +76,7 @@ $(() => {
           // console.log(randomIndex);
           // console.log(randomPosition);
           if (positions[randomIndex]) {
-            const removePlayer = awayTeam.randomPlayerByPosition(randomPosition);
+            const removePlayer = awayTeam.randomPlayerByPosition(randomPosition, 'subbed-on');
             removePlayer.playing = !removePlayer.playing;
             substitute(awayTeam, removePlayer);
             const addPlayer = awayTeam.randomSubstitute(randomPosition);
@@ -88,12 +88,14 @@ $(() => {
 
       // Reduce Fitness
       if (true) {
-        defendingTeam.reduceValues(1,'fitness',['striker','midfielder', 'defender', 'goalkeeper']);
+        const randomIndex = genRandomValue(positions.length) + 1;
+        const randomPosition = positions[randomIndex];
+        defendingTeam.reduceValues(genRandomValue(10),'fitness',[randomPosition]);
       }
       move();
       timeControl();
     }
-  },200);
+  },10);
 
   // Event Listeners -------------------------------------------------------------
   // Team selection
@@ -280,6 +282,7 @@ $(() => {
         $(`#${teamObject.place}Events`).append(`<i class='fa fa-arrow-right' style='font-size: 22px; color:green; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${player.name} substituted<br/>`);
         teamObject.subs += 1;
         player.playing = true;
+        player.status = 'subbed-on';
       }
     } else {
       console.log('You have had 3 subs!');
@@ -405,6 +408,7 @@ $(() => {
         $(`#${team}Events`).append(`
           <i class='fa fa-square event-item' style='font-size: 24px; color: yellow; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${defendingPlayer.name} booked<br/>`);
         defendingPlayer.status = 'yellow';
+        defendingPlayer.fitness -= genRandomValue(5);
       }
     }
   }
@@ -412,7 +416,7 @@ $(() => {
   function handleInjury(attackingTeam, teamString) {
     const attackingPlayer = attackingTeam.randomPlayer();
     // THERE COULD BE AN INJURY
-    if (genRandomValue(101) % 8 === 0) {
+    if (genRandomValue(101) % 40 === 0) {
       // $commentaryBox.text(`${attackingPlayer.name} gets taken off on a stretcher!`);
       generateCommentary('injury', attackingPlayer);
       $(`#${teamString}Events`).append(`<i class='fa fa-plus' style='font-size: 26px; color: green; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${attackingPlayer.name} injured<br/>`);
@@ -431,9 +435,9 @@ $(() => {
       // attackingPlayer.playing = false;
 
     } else {
-      attackingPlayer.fitness -= 6;
-      attackingPlayer.defence -= 6;
-      attackingPlayer.attack -= 6;
+      attackingPlayer.fitness -= genRandomValue(15);
+      attackingPlayer.defence -= genRandomValue(10);;
+      attackingPlayer.attack -= genRandomValue(150);;
       $commentaryBox.text(`${attackingPlayer.name}'s limping, but he'll be okay`);
     }
 
@@ -508,7 +512,7 @@ $(() => {
 
   function straightRed(defendingTeam, teamString) {
     const defendingPlayer = defendingTeam.randomPlayer();
-    if (genRandomValue(defendingPlayer.discipline) < 25) {
+    if (genRandomValue(defendingPlayer.discipline) + (100-matchTime) < 25) {
       defendingPlayer.playing = false;
       defendingPlayer.status = 'ejected';
       const team = teamString === 'home' ? 'away' : 'home';
