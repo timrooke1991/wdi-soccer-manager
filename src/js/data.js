@@ -1,3 +1,4 @@
+
 const spurs = {
   id: 0,
   name: 'spurs',
@@ -1950,7 +1951,7 @@ const chelsea = {
     creativity: 42,
     fitness: 98,
     status: '',
-    playing: true
+    playing: false
   },{
     name: 'Kante',
     age: 26,
@@ -2010,7 +2011,7 @@ const chelsea = {
     creativity: 50,
     fitness: 98,
     status: '',
-    playing: false
+    playing: true
   },{
     name: 'Moses',
     age: 26,
