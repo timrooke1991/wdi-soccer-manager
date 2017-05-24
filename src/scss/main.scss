@@ -88,9 +88,19 @@
 
 }
 
-.ejected, .injured {
+.ejected, .injured, .subbed-off {
   color: white;
-  background: red;
+  background: lighten(#A91101, 10%) !important;
+  pointer-events: none;
+}
+
+// .on-field {
+//   background: lighten(#006400, 10%) !important;
+// }
+.subbed-on {
+  color: white;
+  background: lighten(#006400, 10%) !important;
+  pointer-events: none;
 }
 
 .warning {
@@ -153,7 +163,7 @@
 .starting {
   display: inline-block;
   width: 8%;
-  padding: 10px;
+  padding: 15px 5px;
   text-align: center;
 }
 

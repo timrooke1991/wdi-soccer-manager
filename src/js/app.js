@@ -66,8 +66,10 @@ $(() => {
           console.log(randomPosition);
           if (positions[randomIndex]) {
             const removePlayer = awayTeam.randomPlayerByPosition(randomPosition);
+            removePlayer.playing = !removePlayer.playing;
             substitute(awayTeam, removePlayer);
             const addPlayer = awayTeam.randomSubstitute(randomPosition);
+            addPlayer.playing = !addPlayer.playing;
             substitute(awayTeam, addPlayer);
           }
         }
@@ -166,20 +168,22 @@ $(() => {
     for (let i = 0; i < teamObject.players.length; i++) {
       const player = teamObject.players[i];
       const startingEleven = player.playing ? '&#10004;' : '&#10007;';
+      // const playingStatus = player.playing ? 'on-field' : 'on-bench';
 
       $('.team-panel').append(
-        `<p class="player-line ${player.position}" id='${player.name}'>
-        <span class="starting" id="${i}">${startingEleven}</span>
-        <span class="player-position ">${player.position}</span>
-        <span class="player-name">${player.name}</span>
-        <span class="player-stat">${player.attack}</span>
-        <span class="player-stat">${player.defence}</span>
-        <span class="player-stat">${player.creativity}</span>
-        <span class="player-stat">${player.defence}</span>
+        `<p class="player-line ${player.position} ${player.status}" id='${player.name}'>
+          <span class="starting ${player.status}" id="${i}">${startingEleven}</span>
+          <span class="player-position ">${player.position}</span>
+          <span class="player-name">${player.name}</span>
+          <span class="player-stat">${player.attack}</span>
+          <span class="player-stat">${player.defence}</span>
+          <span class="player-stat">${player.creativity}</span>
+          <span class="player-stat">${player.defence}</span>
         </p>`
       );
     }
   }
+
   function pausePlay() {
     if (run) {
       run = !run;
@@ -249,11 +253,9 @@ $(() => {
 
   }
 
-  // Functions -------------------------------------------------------------
-
   function substitute(teamObject, player) {
     if (teamObject.subs < 6) {
-      if (player.playing) {
+      if (!player.playing) {
         $(`#${teamObject.place}Events`).append(`<i class='fa fa-arrow-right' style='font-size: 22px; color:red; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${player.name} substituted<br/>`);
         teamObject.subs += 1;
         player.playing = false;
@@ -261,13 +263,16 @@ $(() => {
       } else {
         $(`#${teamObject.place}Events`).append(`<i class='fa fa-arrow-right' style='font-size: 22px; color:green; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${player.name} substituted<br/>`);
         teamObject.subs += 1;
-
         player.playing = true;
       }
     } else {
       alert('You have had 3 subs!');
     }
   }
+
+  // Functions -------------------------------------------------------------
+
+
 
   function timeControl() {
 
@@ -353,7 +358,7 @@ $(() => {
     console.log('YELLOW');
     const defendingPlayer = defendingTeam.randomPlayer();
     const team = teamString === 'home' ? 'away' : 'home';
-    if ((genRandomValue(defendingPlayer.discipline) + (100-matchTime)) < 90) {
+    if ((genRandomValue(defendingPlayer.discipline) + (100-matchTime)) < 90 && defendingPlayer.status !== 'ejected') {
       // Already booked? Send him off!
       if (defendingPlayer.status === 'yellow') {
         $commentaryBox.css('background-color', '#FF0000');
@@ -364,7 +369,7 @@ $(() => {
         defendingPlayer.status = 'injured';
         // defendingPlayer.status = 'ejected';
         // defendingPlayer.playing = false;
-        if (defendingTeam.place === 'home') pausePlay();
+        // if (defendingTeam.place === 'home') pausePlay();
 
       } else {
         $commentaryBox.css('background-color', 'yellow');
@@ -388,13 +393,15 @@ $(() => {
       generateCommentary('injury', attackingPlayer);
       $(`#${teamString}Events`).append(`<i class='fa fa-plus' style='font-size: 26px; color: green; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${attackingPlayer.name} injured<br/>`);
       if (attackingTeam.place === 'away') {
+        attackingPlayer.playing = !attackingPlayer.playing;
         substitute(awayTeam, attackingPlayer);
         const addPlayer = awayTeam.randomSubstitute(attackingPlayer.position);
+        addPlayer.playing = !addPlayer.playing;
         substitute(awayTeam, addPlayer);
       } else if (attackingTeam.place === 'home') {
         attackingPlayer.status = 'ejected';
         attackingPlayer.playing = false;
-        pausePlay();
+        // pausePlay();
       }
       // attackingPlayer.playing = false;
 
@@ -476,7 +483,7 @@ $(() => {
       // $commentaryBox.text('The referee gives him a straight red!');
       generateCommentary('straightRed', defendingPlayer);
       $(`#${team}Events`).append(`<i class='fa fa-square' style='font-size: 24px; color: red; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${defendingPlayer.name} sent off<br/>`);
-      if (defendingTeam.place === 'home') pausePlay();
+      // if (defendingTeam.place === 'home') pausePlay();
     }
   }
 
