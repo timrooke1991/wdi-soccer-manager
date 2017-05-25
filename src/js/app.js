@@ -85,8 +85,8 @@ $(() => {
       }
 
       // Reduce fitness of players in a random position
-      randomPosition();
-      defendingTeam.reduceValues(genRandomValue(10),'fitness',[randomPosition]);
+      const positionForFitnessReduction = randomPosition();
+      defendingTeam.reduceValues(genRandomValue(5),'fitness',positionForFitnessReduction);
 
       // Move the possession bar
       move();
@@ -127,6 +127,10 @@ $(() => {
   });
 
   $primaryButton.on('click', () => {
+
+    if ($primaryButton.text() === 'Finish') {
+      window.location.reload();
+    }
     run = !run;
     $('#match-setup, .info-message, .team-setup, .game-logo').hide();
     $('#match-engine, .away-team, .home-team, .timer, .button-bar').show();
@@ -328,8 +332,8 @@ $(() => {
     // Generate a random values from home and away team using their average creativity scores from players on the pitch
     // The higher a teams creativity score, the more chances they will create
     // 24.05.2017 - added a Fitness value for every player, which decreases through the game. This is now added to the random creativity score to determine, which team home/away gets the chance.
-    const homeRandom =  genRandomValue(homeTeam.averagePlayerValues('creativity') + homeTeam.averagePlayerValues('fitness'));
-    const awayRandom =  genRandomValue(awayTeam.averagePlayerValues('creativity') + awayTeam.averagePlayerValues('fitness'));
+    const homeRandom =  genRandomValue(homeTeam.averagePlayerValues('creativity')) + homeTeam.averagePlayerValues('fitness');
+    const awayRandom =  genRandomValue(awayTeam.averagePlayerValues('creativity')) + awayTeam.averagePlayerValues('fitness');
 
     if (homeRandom >= awayRandom) {
       return [homeTeam, awayTeam];
@@ -456,8 +460,8 @@ $(() => {
     } else {
       generateCommentary('wastedFreekick', attackingPlayer);
       attackingPlayer.creativity -= 5;
-      attackingTeam.reduceValues(genRandomValue(10), 'attack', ['striker', 'midfielder']);
-      attackingTeam.reduceValues(genRandomValue(10), 'creativity', ['striker', 'midfielder']);
+      attackingTeam.reduceValues(genRandomValue(5), 'attack', ['striker', 'midfielder']);
+      attackingTeam.reduceValues(genRandomValue(5), 'creativity', ['striker', 'midfielder']);
 
     }
   }

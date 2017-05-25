@@ -40,92 +40,97 @@
   </div>
   <button type="button" name="button" class="primary-button" disabled>Play</button>
 </header>
-
-
-
 <body>
-  <div class="button-bar">
-    <button class="select-btn" id="homeTeam" disabled>Home Tactics</button>
-    <button class="select-btn" id="awayTeam" disabled>Away Tactics</button>
-  </div>
-  <!-- TEAM SELECTION SCREEN -->
-  <div class="match-setup" id="match-setup">
-		<div class="team-selection-box">
-			<button class="team-input" data-value="Tottenham Hotspur" id="team-1">Tottenham</button>
-			<button class="team-input" data-value="Manchester United" id="team-2">Man United</button>
-			<button class="team-input" data-value="Liverpool" id="team-3">Liverpool</button>
-			<button class="team-input" data-value="Manchester City" id="team-4">Man City</button>
-			<button class="team-input" data-value="Everton" id="team-5">Everton</button>
-			<button class="team-input" data-value="Chelsea" id="team-6">Chelsea</button>
-			<button class="team-input" data-value="Leicester" id="team-7">Leicester</button>
-			<button class="team-input" data-value="Arsenal" id="team-8">Arsenal</button>
-		</div>
-    <div class="logo-display">
-      <span>VS</span>
-      <img class="home-team-logo" src="#" alt="Team logo">
-      <img class="away-team-logo" src="#" alt="Team logo">
+  <main>
+    <div class="button-bar">
+      <button class="select-btn" id="homeTeam" disabled>Home Tactics</button>
+      <button class="select-btn" id="awayTeam" disabled>Away Tactics</button>
     </div>
-    <div class="wrapper">
-      <span>CPU Mode</span>
-      <input type="checkbox" id="checkbox-gray" class="slider-toggle" checked />
-      <label class="slider-viewport light" for="checkbox-gray">
-        <div class="slider" id="playerMode">
-          <div class="slider-button">&nbsp;</div>
-          <div class="slider-content left"><span>On</span></div>
-          <div class="slider-content right"><span>Off</span></div>
+    <!-- TEAM SELECTION SCREEN -->
+    <div class="match-setup" id="match-setup">
+      <div class="team-selection-box">
+        <button class="team-input" data-value="Tottenham Hotspur" id="team-1">Tottenham</button>
+        <button class="team-input" data-value="Manchester United" id="team-2">Man United</button>
+        <button class="team-input" data-value="Liverpool" id="team-3">Liverpool</button>
+        <button class="team-input" data-value="Manchester City" id="team-4">Man City</button>
+        <button class="team-input" data-value="Everton" id="team-5">Everton</button>
+        <button class="team-input" data-value="Chelsea" id="team-6">Chelsea</button>
+        <button class="team-input" data-value="Leicester" id="team-7">Leicester</button>
+        <button class="team-input" data-value="Arsenal" id="team-8">Arsenal</button>
+      </div>
+      <div class="logo-display">
+        <span>VS</span>
+        <img class="home-team-logo" src="#" alt="Team logo">
+        <img class="away-team-logo" src="#" alt="Team logo">
+      </div>
+      <div class="wrapper">
+        <span>CPU Mode</span>
+        <input type="checkbox" id="checkbox-gray" class="slider-toggle" checked />
+        <label class="slider-viewport light" for="checkbox-gray">
+          <div class="slider" id="playerMode">
+            <div class="slider-button">&nbsp;</div>
+            <div class="slider-content left"><span>On</span></div>
+            <div class="slider-content right"><span>Off</span></div>
+          </div>
+        </label>
+      </div>
+      <div class="footnote">
+        <p>Created by</p>
+        <p>Tim Rooke</p>
+        <p><a href="https://github.com/timrooke1991/project-0" alt="Github Logo"><i class="fa fa-github" aria-hidden="true"></i></a></p>
+      </div>
+    </div>
+
+    <!-- PLAYER SELECTION SCREEN -->
+    <div class="team-setup" id="team-setup">
+      <div class="dropdown-formation">
+        <select class="formation select-btn">
+          <option value="4-4-2">4-4-2</option>
+          <option value="4-5-1">4-5-1</option>
+          <option value="5-4-1">5-4-1</option>
+          <option value="4-3-3">4-3-3</option>
+        </select>
+      </div>
+
+      <div class="player-selection-box">
+        <p class="player-line">
+          <span class="starting" id="">Starting</span>
+          <span class="player-position">Position</span>
+          <span class="player-name">Name</span>
+          <span class="player-stat-heading">Att</span>
+          <span class="player-stat-heading">Def</span>
+          <span class="player-stat-heading">Cre</span>
+          <span class="player-stat-heading">Dis</span>
+          <span class="player-stat-heading">Fit</span>
+        </p>
+        <div class="team-panel">
         </div>
-      </label>
-    </div>
-	</div>
 
-  <!-- PLAYER SELECTION SCREEN -->
-  <div class="team-setup" id="team-setup">
-    <select class="formation select-btn">
-      <option value="4-4-2">4-4-2</option>
-      <option value="4-5-1">4-5-1</option>
-      <option value="5-4-1">5-4-1</option>
-      <option value="4-3-3">4-3-3</option>
-    </select>
-
-    <div class="player-selection-box">
-      <p class="player-line">
-        <span class="starting" id="">Starting</span>
-        <span class="player-position">Position</span>
-        <span class="player-name">Name</span>
-        <span class="player-stat-heading">Att</span>
-        <span class="player-stat-heading">Def</span>
-        <span class="player-stat-heading">Cre</span>
-        <span class="player-stat-heading">Dis</span>
-        <span class="player-stat-heading">Fit</span>
-      </p>
-      <div class="team-panel">
+      </div>
+      <div class="team-sheet">
+        <button class="go-back" data-value="" id="">Go Back</button>
+        <!-- <button class="confirm-tactics" data-value="" id="revealTeam">Save</button> -->
+        <div class="team-display">
+        </div>
       </div>
 
     </div>
-    <div class="team-sheet">
-      <button class="go-back" data-value="" id="">Go Back</button>
-      <!-- <button class="confirm-tactics" data-value="" id="revealTeam">Save</button> -->
-      <div class="team-display">
+    <!-- MATCH SCREEN -->
+    <div class="match-engine" id="match-engine">
+      <!-- POSSESSION BAR -->
+      <div id="possessionBar" class="possession-bar">
+        <div id="homeBar" class="home-bar"></div>
+      </div>
+
+      <!-- COMMENTARY BOX -->
+      <div id="commentaryBox" class="commentary-box"></div>
+
+      <!-- REPORTED EVENTS -->
+      <div class="reported-content">
+        <div id="homeEvents" class="home-events"></div>
+        <div id="awayEvents" class="away-events"></div>
       </div>
     </div>
-
-  </div>
-  <!-- MATCH SCREEN -->
-  <div class="match-engine" id="match-engine">
-    <!-- POSSESSION BAR -->
-    <div id="possessionBar" class="possession-bar">
-      <div id="homeBar" class="home-bar"></div>
-    </div>
-
-    <!-- COMMENTARY BOX -->
-    <div id="commentaryBox" class="commentary-box"></div>
-
-    <!-- REPORTED EVENTS -->
-    <div class="reported-content">
-      <div id="homeEvents" class="home-events"></div>
-      <div id="awayEvents" class="away-events"></div>
-    </div>
-  </div>
-
+  </main>
 </body>
 </html>
