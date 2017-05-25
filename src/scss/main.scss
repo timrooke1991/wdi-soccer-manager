@@ -1,13 +1,111 @@
+@import 'mixins';
 
+// Inital Display values of main divs
 
-// .match-setup {
-//   display: none;
-// }
+.match-engine, .away-team, .home-team, .timer {
+  display: none;
+}
+
+// Extended stylings
+
+.header-block {
+  float: left;
+  background-image:linear-gradient(45deg,rgba(255,255,255,0),rgba(255,255,255,.1));
+  background-color: #081A40;
+  height: inherit;
+  box-sizing: border-box;
+  color: white;
+  font-size: 32px;
+  letter-spacing: 2px;
+}
+
+.button-styling {
+  font-size: 16px;
+  padding: 10px;
+  display: inline;
+  outline: 0;
+  cursor: pointer;
+  &:hover {
+    background-color: lighten(#081A40, 20%);
+    color: white;
+    @include box-shadow(2px, 2px, 2px, #888888);
+  }
+}
+
+// Global Styling
 
 html, body {
   height: 100%;
+}
 
+body {
+  background-image: url('../../images/new-background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-family: 'Ubuntu', sans-serif;
+}
 
+header {
+  height: 90px;
+  background-color: #081A40;
+  @include box-shadow(4px, 0px, 4px, #F5F5F5);
+  width: 100%;
+  header:after {
+  	content: '';
+  	clear: both;
+  	display: block;
+	}
+}
+
+.primary-button {
+  @extend .primary-button;
+  @extend .header-block;
+  border: none;
+  outline: 0;
+  background-color: #659A41;
+  width: 15%;
+  &:hover {
+    background-color: lighten(#659A41, 20%);
+    color: #081A40;
+  }
+}
+
+// Team Selection Page (Initial Page)
+
+.game-logo {
+  @extend .header-block;
+  width: 15%;
+  text-align: center;
+  font-weight: 400;
+  background-image: url('../../images/trophy.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 45%;
+  background-color: #484848;
+}
+
+.logo-name div {
+  font-size: 22px;
+  line-height: 20px;
+}
+
+.title-message {
+    height: 50px;
+    line-height: 36px;
+    font-size: 22px;
+    padding-left: 2px;
+}
+
+.choose-title, .title-message {
+	color: white;
+	text-align: left;
+}
+
+.info-message {
+  @extend .header-block;
+  padding: 15px 10px 5px 25px;
+  width: 70%;
+  box-sizing: border-box;
 }
 
 button:disabled {
@@ -23,26 +121,346 @@ button:disabled {
   text-align: center;
   max-width: 900px;
   margin: 0 auto;
+  span {
+    display: none;
+    color: #dddddd;
+    font-size: 346px;
+    position: absolute;
+    font-weight: 600;
+    transform: translate(40%,0%);
+    opacity: 0.2;
+    z-index: -1;
+
+  }
+  img {
+    display: none;
+    margin: 20px 60px;
+    height: 300px;
+
+  }
 }
 
-.logo-display span {
-  display: none;
-  color: #dddddd;
-  font-size: 346px;
-  position: absolute;
+.team-selection-box {
+  text-align: center;
+  margin: 20px;
+}
+
+.footnote {
+  text-align: center;
+  color: white;
   font-weight: 600;
-  transform: translate(40%,0%);
-  opacity: 0.2;
-  z-index: -1;
-
+  float: left;
+  position: absolute;
+  bottom: 10px;
+  left: 30px;
+  p {
+    padding: 5px;
+  }
+  i {
+    color: white;
+  }
 }
 
-.logo-display img {
+.button-bar {
+  margin-top: 10px;
+  text-align: center;
+  width: 100%;
+  bottom: 10px;
+}
+
+.team-input {
+  @extend .button-styling;
+  background-color: #fff;
+  border: 1.5px solid #081A40;
+}
+
+.select-btn {
+  @extend .button-styling;
+  width: 150px;
+  border: 1.5px solid #081A40;
+  background-color: #fff;
+}
+
+.go-back {
+  @extend .button-styling;
+  position: fixed;
+  bottom: 10px;
+  right: 20px;
+  padding: 5px;
+  color: white;
+  background-color: #081A40;
+  width: 120px;
+  border: none
+}
+
+// Setup Tactics Page
+
+// Setup Tactics Page -> Player Table
+
+.team-sheet {
+  float:left;
+  margin-left: 10px;
+}
+
+.player-selection-box {
+  width: 65%;
+  float: left;
+  margin: 20px 20px 5px 5px;
+}
+
+.player-line:nth-of-type(even) {
+    background: lighten(#3A3A3A,10%);
+    color: #F5F5F5;
+    opacity: 1;
+    border-bottom: 0.1px solid lighten(#F5F5F5, 60%);
+    padding-right: 5px;
+    &:hover {
+      background: #3A3A3A;
+    }
+}
+
+.player-line:nth-of-type(odd) {
+    background: #3A3A3A;
+    color: #F5F5F5;
+    opacity: 1;
+    border-bottom: 0.1px solid lighten(#F5F5F5, 60%);
+    padding-right: 5px;
+    &:hover {
+      background: lighten(#3A3A3A,10%);
+    }
+}
+
+.starting {
+  display: inline-block;
+  width: 8%;
+  padding: 15px 5px;
+  text-align: center;
+}
+
+.player-name {
+  width: 20%;
+  display: inline-block;
+  padding: 10px;
+}
+
+.player-position {
+  width: 20%;
+  display: inline-block;
+  padding: 10px;
+}
+
+.player-stat-heading {
+    width: 3%;
+    display: inline-block;
+    text-align: center;
+    padding: 9px;
+    margin: 5px;
+}
+.player-stat {
+    width: 3%;
+    display: inline-block;
+    text-align: center;
+    padding: 9px;
+    background: #9b9b9b;
+    @include border-radius(24px);
+    margin: 5px;
+}
+
+// Setup Tactics Page -> Pitch Map
+
+.formation {
+  margin-left: 8px;
+}
+
+.dropdown-formation {
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.team-display {
+  width: 340px;
+  height: 440px;
+  margin-top: 20px;
+  padding-top: 30px;
+  @include border-radius(4px);
+  text-align: center;
+  background-image: url('../../images/pitch.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.player-block {
+  padding: 4px;
+  text-align: center;
+  word-wrap: break-word;
+  color: black;
+  display: inline-block;
+  background: rgba(230,230,230,0.75);
+  margin: 5px;
+  @include border-radius(2px);
+}
+
+.team-selection-warning {
+  border: 3px solid red;
+  background: lighten(red,30%);
+  width: 80%;
+  margin: 0 auto;
+  @include border-radius(5px);
+  line-height: 55px;
+  font-size: 24px;
+}
+
+.team-setup {
   display: none;
-  margin: 20px 60px;
-  height: 300px;
-
+  width: 100%;
+  font-family: 'Ubuntu Condensed', sans-serif;
 }
+
+.seperate-players {
+  height: 60px
+}
+
+// In-Play Player stylings
+
+.ejected, .injured, .subbed-off {
+  color: white;
+  background: lighten(#A91101, 20%) !important;
+  pointer-events: none;
+}
+
+.subbed-on {
+  color: white;
+  background: lighten(#006400, 10%) !important;
+  pointer-events: none;
+}
+
+.warning {
+  color: white;
+  background: orange;
+}
+
+.yellow {
+  color: black;
+  background: yellow;
+}
+
+// Match Page -> Header bar (timer, score, play/pause button)
+
+.timer {
+  @extend .header-block;
+  width: 15%;
+  text-align: center;
+  font-weight: 400;
+  background-image: url('../../images/clock-icon.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 40%;
+  background-color: #484848;
+}
+
+.changing-minutes {
+  margin-top: 10px;
+  height: 36px;
+}
+
+.mins {
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+.away-team, .home-team {
+  @extend .header-block;
+  width: 35%;
+}
+
+.home-team .team-name, .home-team .score {
+  float: right;
+}
+
+.away-team .team-name, .away-team .score {
+  float: left;
+}
+
+.team-name {
+  margin: 10px;
+  font-size: 38px;
+  font-weight: 400;
+  letter-spacing: 4px;
+  line-height: 56px;
+  padding: 2px;
+}
+
+.score {
+  background-color: white;
+  color: black;
+  font-size: 38px;
+  margin: 10px;
+  padding: 2px 20px;
+  font-weight: 400;
+  line-height: 56px;
+  width: 38px;
+  text-align: center;
+  border: 2px solid black;
+}
+
+// Match Page -> Header bar (possession-bar, commentary text, events)
+
+.possession-bar {
+	background: white;
+	width: 100%;
+	height: 20px;
+	margin: 20px auto;
+}
+
+.home-bar {
+    width: 50%;
+    height: 20px;
+    background: #081A40;
+    height: 100%;
+}
+
+.commentary-box {
+	background: #081A40;
+	padding: 25px;
+	color: #E5E5E5;
+	font-size: 36px;
+	text-align: center;
+	letter-spacing: 3px;
+	margin: 5px auto;
+}
+
+.reported-content {
+  display: flex;
+  background: rgba(35,35,35,0.9);
+  width: 100%;
+  margin-top: 30px;
+}
+
+
+.home-events, .away-events {
+  width: 40%;
+	min-height: 250px;
+	padding: 25px;
+	color: white;
+	margin: 3%;
+	font-size: 16px;
+	letter-spacing: 1.75px;
+  i {
+   font-size: 22px;
+   padding-top: 5px;
+  }
+}
+
+.event {
+  font-size: 24px;
+  padding-top: 5px
+}
+
+
+// Styling taken from Codepen
+// https://codepen.io/ajimix/pen/svKaL
 
 .wrapper {
   background: #fff;
@@ -219,469 +637,7 @@ button:disabled {
   margin-left: 0;
 }
 
-.player-block {
-  padding: 4px;
-  text-align: center;
-  word-wrap: break-word;
-  color: black;
-  display: inline-block;
-  background: rgba(230,230,230,0.75);
-  margin: 5px;
-  border-radius: 2px;
-}
-
-.team-setup {
-  display: none;
-}
-
-.event {
-  font-size: 24px;
-  padding-top: 5px
-}
-
-
-.match-engine, .away-team, .home-team, .timer {
-  display: none;
-}
-
-.confirm-tactics {
-  position: fixed;
-  bottom: 20px;
-  right: 160px;
-  font-size: 18px;
-  padding: 5px;
-  outline: 0;
-  color: white;
-  background-color: #659A41;
-  width: 10%;
-  cursor: pointer;
-  font-weight: 300;
-  cursor: pointer;
-  border: none;
-  &:hover {
-    background-color: lighten(#659A41, 20%);
-    color: #081A40;
-    box-shadow: 2px 2px 2px #888888;
-  }
-}
-
-.go-back {
-  position: fixed;
-  bottom: 10px;
-  right: 20px;
-  font-size: 18px;
-  padding: 5px;
-  outline: 0;
-  color: white;
-  background-color: lighten(#081A40,20%);
-  width: 120px;
-  cursor: pointer;
-  font-weight: 300;
-  cursor: pointer;
-  border: none;
-  &:hover {
-    background-color: lighten(#081A40, 40%);
-    color: white;
-    box-shadow: 2px 2px 2px #888888;
-  }
-}
-
-.team-setup {
-  width: 100%;
-  font-family: 'Ubuntu Condensed', sans-serif;
-}
-
-.formation {
-  margin-left: 8px;
-}
-
-.team-display {
-  margin-top: 20px;
-  padding-top: 30px;
-  // box-shadow: 2px 2px 2px #888888;
-  text-align: center;
-  background-image: url('../../images/pitch.jpg');
-  background-size: cover;
-  background-position: center;
-  width: 340px;
-  height: 440px;
-  background-repeat: no-repeat;
-  border-radius: 4px;
-
-}
-
-.ejected, .injured, .subbed-off {
-  color: white;
-  background: lighten(#A91101, 20%) !important;
-  pointer-events: none;
-}
-
-// .on-field {
-//   background: lighten(#006400, 10%) !important;
-// }
-.subbed-on {
-  color: white;
-  background: lighten(#006400, 10%) !important;
-  pointer-events: none;
-}
-
-.warning {
-  color: white;
-  background: orange;
-}
-
-.yellow {
-  color: black;
-  background: yellow;
-}
-
-
-.seperate-players {
-  height: 60px
-}
-
-.team-sheet {
-  float:left;
-  margin-left: 10px;
-}
-
-.player-selection-box {
-  width: 65%;
-  float: left;
-  margin: 20px 20px 5px 5px;
-}
-
-.player-cell {
-  display: inline-block;
-  padding: 5px 10px;
-
-}
-
-.player-line:nth-of-type(even) {
-
-    background: lighten(#3A3A3A,10%);
-    color: #F5F5F5;
-    opacity: 1;
-    border-bottom: 0.1px solid lighten(#F5F5F5, 60%);
-    padding-right: 5px;
-    &:hover {
-      background: #3A3A3A;
-    }
-}
-
-.player-line:nth-of-type(odd) {
-
-    background: #3A3A3A;
-    color: #F5F5F5;
-    opacity: 1;
-    border-bottom: 0.1px solid lighten(#F5F5F5, 60%);
-    padding-right: 5px;
-    &:hover {
-      background: lighten(#3A3A3A,10%);
-    }
-}
-
-.player-line-selected {
-    background: lighten(#3A3A3A, 50%);
-}
-
-.starting {
-  display: inline-block;
-  width: 8%;
-  padding: 15px 5px;
-  text-align: center;
-}
-
-.player-name {
-  width: 20%;
-  display: inline-block;
-  padding: 10px;
-}
-
-.player-position {
-  width: 20%;
-  display: inline-block;
-  padding: 10px;
-}
-
-.player-stat-heading {
-    width: 3%;
-    display: inline-block;
-    text-align: center;
-    padding: 9px;
-    margin: 5px;
-}
-.player-stat {
-    width: 3%;
-    display: inline-block;
-    text-align: center;
-    padding: 9px;
-    background: #9b9b9b;
-    border-radius: 24px;
-    margin: 5px;
-}
-
-body {
-  background-image: url('../../images/new-background.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-
-  font-family: 'Ubuntu', sans-serif;
-}
-
-header {
-  height: 90px;
-  background-color: #081A40;
-  box-shadow: 4px 0px 4px #F5F5F5;
-  width: 100%;
-
-}
-
-.footnote {
-  text-align: center;
-  color: white;
-  font-weight: 600;
-  float: left;
-  position: absolute;
-  bottom: 10px;
-  left: 30px;
-  p {
-    padding: 5px;
-  }
-  i {
-    color: white;
-  }
-}
-
-.choose-title, .title-message {
-	color: white;
-	text-align: left;
-}
-
-.dropdown-formation {
-  width: 100%;
-  text-align: center;
-  margin-top: 10px;
-}
-
-.team-selection-box {
-  text-align: center;
-  margin: 20px;
-}
-
-.team-selection-warning {
-  border: 3px solid red;
-  background: lighten(red,30%);
-  width: 80%;
-  margin: 0 auto;
-  border-radius: 5px;
-  line-height: 55px;
-  font-size: 24px;
-}
-
-.title-message {
-    height: 50px;
-    line-height: 36px;
-    font-size: 22px;
-    padding-left: 2px;
-}
-
-.team-input {
-  font-size: 16px;
-  padding: 10px;
-  display: inline;
-  background-color: #fff;
-  //border: none;
-  border: 1.5px solid #081A40;
-  outline: 0;
-  cursor: pointer;
-  &:hover {
-    background-color: lighten(#081A40, 20%);
-    color: white;
-    box-shadow: 2px 2px 2px #888888;
-  }
-}
-
-.select-btn {
-  font-size: 16px;
-  width: 150px;
-  padding: 10px;
-  display: inline;
-  border: 1.5px solid #081A40;
-  background-color: #fff;
-  outline: 0;
-  cursor: pointer;
-  &:hover {
-    background-color: lighten(#081A40, 20%);
-    color: white;
-    box-shadow: 2px 2px 2px #888888;
-  }
-}
-
-.button-bar {
-  //position: absolute;
-  margin-top: 10px;
-  text-align: center;
-  width: 100%;
-  bottom: 10px;
-}
-
-
-.header-block {
-  float: left;
-  background-image:linear-gradient(45deg,rgba(255,255,255,0),rgba(255,255,255,.1));
-  background-color: #081A40;
-  height: inherit;
-  box-sizing: border-box;
-  color: white;
-  font-size: 32px;
-  letter-spacing: 2px;
-}
-
-.info-message {
-  @extend .header-block;
-  padding: 15px 10px 5px 25px;
-  width: 70%;
-  box-sizing: border-box;
-}
-
-.timer {
-  @extend .header-block;
-  width: 15%;
-  text-align: center;
-  font-weight: 400;
-  background-image: url('../../images/clock-icon.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 40%;
-  background-color: #484848;
-}
-
-.game-logo {
-  @extend .header-block;
-  width: 15%;
-  text-align: center;
-  font-weight: 400;
-  background-image: url('../../images/trophy.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 45%;
-  background-color: #484848;
-}
-
-.logo-name div {
-  font-size: 22px;
-  line-height: 20px;
-}
-
-.changing-minutes {
-  margin-top: 10px;
-  height: 36px;
-
-}
-
-.mins {
-  font-size: 20px;
-  margin-top: 10px;
-}
-
-.away-team, .home-team {
-  @extend .header-block;
-  width: 35%;
-
-}
-
-.home-team .team-name, .home-team .score {
-  float: right;
-}
-
-.away-team .team-name, .away-team .score {
-  float: left;
-}
-
-.team-name {
-  margin: 10px;
-  font-size: 38px;
-  font-weight: 400;
-  letter-spacing: 4px;
-  line-height: 56px;
-  padding: 2px;
-}
-
-.score {
-  background-color: white;
-  color: black;
-  font-size: 38px;
-  margin: 10px;
-  padding: 2px 20px;
-  font-weight: 400;
-  line-height: 56px;
-  width: 38px;
-  text-align: center;
-  border: 2px solid black;
-}
-
-.primary-button {
-  @extend .header-block;
-  outline: 0;
-  background-color: #659A41;
-  width: 15%;
-  cursor: pointer;
-  font-weight: 300;
-  cursor: pointer;
-  border: none;
-  &:hover {
-    background-color: lighten(#659A41, 20%);
-    color: #081A40;
-  }
-}
-
-.commentary-box {
-	background: #081A40;
-	padding: 25px;
-	color: #E5E5E5;
-	font-size: 36px;
-	text-align: center;
-	letter-spacing: 3px;
-	margin: 5px auto;
-}
-
-.home-events, .away-events {
-  width: 40%;
-	min-height: 200px;
-	padding: 25px;
-	color: #E5E5E5;
-	margin: 3%;
-	font-size: 16px;
-	letter-spacing: 1.75px;
-}
-
-.home-events i , .away-events i {
-  font-size: 22px;
-  padding-top: 5px;
-}
-
-.reported-content {
-  display: flex;
-  background: rgba(35,35,35,0.9);
-  width: 100%;
-  margin-top: 30px;
-
-}
-
-.possession-bar {
-	background: white;
-	width: 100%;
-	height: 20px;
-	margin: 20px auto;
-}
-
-.home-bar {
-    width: 50%;
-    height: 20px;
-    background: #081A40;
-    height: 100%;
-}
+// Responsive styling for smaller screens
 
 @media screen and (max-width: 1050px) {
 
@@ -790,7 +746,6 @@ header {
 
   .home-events, .away-events {
     width: 45%;
-  	min-height: 200px;
   	margin: 1%;
   	font-size: 16px;
   	letter-spacing: 1px;
@@ -804,6 +759,7 @@ header {
   .select-btn {
     margin-top: 10px;
   }
+
   .player-selection-box {
     float: none;
     width: 95%;
@@ -863,9 +819,6 @@ header {
     margin: 11px 4px;
   }
 
-  .player-line:last-child {
-    margin-right: 5px;
-  }
 }
 
 @media screen and (max-width: 420px) {
