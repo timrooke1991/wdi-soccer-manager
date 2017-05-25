@@ -531,6 +531,8 @@ $(() => {
           break;
       }
       homeTeam.place = 'home';
+      $('.home-team-logo').attr('src', `images/${homeTeam.name}.png`);
+      $('.home-team-logo').show();
       $('.home-team, #homeBar').css('background-color', homeTeam.colors[0]);
       $('.home-team').css('color', homeTeam.colors[1]);
     } else {
@@ -562,6 +564,9 @@ $(() => {
           break;
       }
       awayTeam.place = 'away';
+      $('.away-team-logo').attr('src', `images/${awayTeam.name}.png`);
+      $('.away-team-logo').show();
+      $('.logo-display span').show();
       $('.away-team, .possession-bar').css('background-color', awayTeam.colors[0]);
       $('.away-team').css('color', awayTeam.colors[1]);
     }

@@ -13,6 +13,32 @@ button:disabled {
     }
 }
 
+.logo-display {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.logo-display span {
+  display: none;
+
+  color: #dddddd;
+  font-size: 346px;
+  position: absolute;
+  font-weight: 600;
+  transform: translate(50%,0%);
+  opacity: 0.2;
+  z-index: -1;
+  
+}
+
+.logo-display img {
+  display: none;
+  margin: 20px 60px;
+  height: 300px;
+
+}
+
 .wrapper {
   background: #fff;
   width: 180px;
