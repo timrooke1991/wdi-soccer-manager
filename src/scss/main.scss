@@ -246,6 +246,7 @@
 
 .team-setup {
   width: 100%;
+  font-family: 'Ubuntu Condensed', sans-serif;
 }
 
 .team-display {
@@ -310,6 +311,7 @@
 }
 
 .player-line:nth-of-type(even) {
+
     background: lighten(#3A3A3A,10%);
     color: #F5F5F5;
     opacity: 1;
@@ -320,6 +322,7 @@
 }
 
 .player-line:nth-of-type(odd) {
+
     background: #3A3A3A;
     color: #F5F5F5;
     opacity: 1;
@@ -372,15 +375,15 @@
 body {
   background-image: url('../../images/background.jpg');
   background-size: cover;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 header {
   height: 90px;
   background-color: #081A40;
-  opacity: 0.8;
   box-shadow: 4px 0px 4px #F5F5F5;
   width: 100%;
+
 }
 
 
@@ -442,7 +445,7 @@ header {
   height: inherit;
   box-sizing: border-box;
   //border: 0.5px solid white;
-  font-family: 'Raleway', sans-serif;
+
   color: white;
   font-size: 32px;
   letter-spacing: 2px;
@@ -531,7 +534,6 @@ header {
 
 .commentary-box {
 	background: #081A40;
-	opacity: 0.9;
 	padding: 25px;
 	color: #E5E5E5;
 	font-size: 36px;
@@ -544,7 +546,6 @@ header {
 .home-events, .away-events {
   width: 40%;
 	min-height: 200px;
-	opacity: 0.75;
 	padding: 25px;
 	color: #E5E5E5;
 	margin: 3%;
@@ -552,11 +553,15 @@ header {
 	letter-spacing: 1.75px;
 }
 
+.home-events i , .away-events i {
+  font-size: 22px;
+  padding-top: 5px;
+}
+
 .reported-content {
   display: flex;
-  background: #232323;
+  background: rgba(35,35,35,0.9);
   width: 100%;
-  opacity: 0.9;
   margin-top: 30px;
 
 }

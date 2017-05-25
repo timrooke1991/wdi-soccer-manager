@@ -1,4 +1,3 @@
-
 const spurs = {
   id: 0,
   name: 'spurs',
@@ -11,10 +10,10 @@ const spurs = {
     age: 26,
     position: 'striker',
     chosenPosition: '',
-    attack: 91,
+    attack: 75,
     defence: 21,
     discipline: 80,
-    creativity: 42,
+    creativity: 52,
     fitness: 98,
     status: '',
     playing: true
@@ -72,10 +71,22 @@ const spurs = {
     position: 'defender',
     chosenPosition: '',
     attack: 10,
-    defence: 84,
+    defence: 74,
     discipline: 50,
     creativity: 8,
     fitness: 98,
+    status: '',
+    playing: true
+  }, {
+    name: 'Vertonghen',
+    age: 26,
+    position: 'defender',
+    chosenPosition: '',
+    attack: 16,
+    defence: 70,
+    discipline: 60,
+    creativity: 8,
+    fitness: 94,
     status: '',
     playing: true
   },{
@@ -125,7 +136,7 @@ const spurs = {
     creativity: 34,
     fitness: 98,
     status: '',
-    playing: true
+    playing: false
   },{
     name: 'Wanyama',
     age: 26,

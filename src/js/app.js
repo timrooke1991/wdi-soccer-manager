@@ -18,29 +18,30 @@ $(() => {
   // MATCH LOGIC
 
   const timerID = setInterval(function() {
-
     if (run) {
-
       const eventValue = genRandomValue(100) + 1;
       console.log(`${matchTime}: ${eventValue}`);
 
       // Random(Average Team Creativity) + Fitness => Higher score determines the attacking team
       const [attackingTeam, defendingTeam] = selectTeam();
 
+      // Style commentaryBox in attacking team colors, increase players attacking and creativity values
+      setupEvent(attackingTeam);
+
       if (eventValue % 17 === 0) {
         // Random (Striker, Midfielder) vs. Goalkeeper > RandTheirAttack vs. RandGoalkeeper
         goalChance(attackingTeam, defendingTeam);
-        attackingTeam.increaseValues(5,'attack',['midfielder', 'striker']);
-        attackingTeam.increaseValues(5,'creativity',['midfielder', 'striker']);
-        defendingTeam.reduceValues(5,'defence',['midfielder', 'defender', 'goalkeeper']);
+        attackingTeam.increaseValues(genRandomValue(5),'attack',['midfielder', 'striker']);
+        attackingTeam.increaseValues(genRandomValue(5),'creativity',['midfielder', 'striker']);
+        defendingTeam.reduceValues(genRandomValue(5),'defence',['midfielder', 'defender', 'goalkeeper']);
       }
 
       if (eventValue % (genRandomValue(30) + 90) === 0) {
         // Striker vs. Goalkeeper > RandTheirAttack vs. RandGoalkeeperPenalty
         handlePenalty(attackingTeam, defendingTeam);
-        defendingTeam.reduceValues(3,'defence',['midfielder', 'defender', 'goalkeeper']);
+        defendingTeam.reduceValues(genRandomValue(10),'defence',['midfielder', 'defender', 'goalkeeper']);
       }
-      //
+
       if (eventValue % 90 === 0) {
         // Random Player => Discipline > random
         straightRed(defendingTeam);
@@ -59,7 +60,6 @@ $(() => {
       if (eventValue % 18 === 0) {
         // RandomPlayer => discipline + matchtime rand vs. random
         handleDiscipline(attackingTeam, defendingTeam);
-
       }
 
       if (eventValue % 25 === 0) {
@@ -67,16 +67,17 @@ $(() => {
         defendingTeam.reduceValues(3,'creativity',['striker','midfielder', 'defender', 'goalkeeper']);
       }
 
+      // If playing CPU mode, auto generate substituitons
       if(cpuMode) {
         if (eventValue % 10 === 0 && awayTeam.subs < 6 && matchTime > 50) {
-          const randomIndex = genRandomValue(positions.length) + 1;
-          const randomPosition = positions[randomIndex];
+          const [chosenPosition] = randomPosition();
+          const removePlayer = awayTeam.randomPlayerByPosition(chosenPosition, 'subbed-on');
+          const addPlayer = awayTeam.randomSubstitute(chosenPosition);
 
-          if (positions[randomIndex]) {
-            const removePlayer = awayTeam.randomPlayerByPosition(randomPosition, 'subbed-on');
+          // Checked that there is a player in that position available to come on. If not, don't run the substitution
+          if (removePlayer && addPlayer) {
             removePlayer.playing = !removePlayer.playing;
             substitute(awayTeam, removePlayer);
-            const addPlayer = awayTeam.randomSubstitute(randomPosition);
             addPlayer.playing = !addPlayer.playing;
             substitute(awayTeam, addPlayer);
           }
@@ -84,18 +85,16 @@ $(() => {
       }
 
       // Reduce fitness of players in a random position
-      if (true) {
-        const randomIndex = genRandomValue(positions.length) + 1;
-        const randomPosition = positions[randomIndex];
-        defendingTeam.reduceValues(genRandomValue(10),'fitness',[randomPosition]);
-      }
+      randomPosition();
+      defendingTeam.reduceValues(genRandomValue(10),'fitness',[randomPosition]);
+
       // Move the possession bar
       move();
 
       // Update the timer
       timeControl();
     }
-  },500);
+  },50);
 
   // Event Listeners -------------------------------------------------------------
 
@@ -141,30 +140,11 @@ $(() => {
   });
 
   $('#homeTeam').on('click', () => {
-    if (run) {
-      run = !run;
-    }
-
-    // Functions
-    $primaryButton.text('Play');
-    $('.match-setup, .match-engine').hide();
-    $('.team-setup').show();
-    setupTactics(homeTeam);
-    teamTactics = homeTeam;
-    revealTeam(teamTactics);
-
+    showTacticsPage(homeTeam);
   });
 
   $('#awayTeam').on('click', () => {
-    if (run) {
-      run = !run;
-    }
-    $primaryButton.text('Play');
-    $('.match-setup, .match-engine').hide();
-    $('.team-setup').show();
-    setupTactics(awayTeam);
-    teamTactics = awayTeam;
-    revealTeam(teamTactics);
+    showTacticsPage(awayTeam);
   });
 
   $('.go-back').on('click', () => {
@@ -177,6 +157,19 @@ $(() => {
     teamTactics.formation = newFormation;
     revealTeam(teamTactics);
   });
+
+  function showTacticsPage(teamObject) {
+    if (run) {
+      run = !run;
+    }
+
+    $primaryButton.text('Play');
+    $('.match-setup, .match-engine').hide();
+    $('.team-setup').show();
+    setupTactics(teamObject);
+    teamTactics = teamObject;
+    revealTeam(teamTactics);
+  }
 
   function setupTactics(teamObject) {
     $('.team-panel').html('');
@@ -199,29 +192,14 @@ $(() => {
           <span class="starting ${player.status}" id="${i}">${startingEleven}</span>
           <span class="player-position ">${player.position}</span>
           <span class="player-name">${player.name}</span>
-          <span class="player-stat">${player.attack}</span>
-          <span class="player-stat">${player.defence}</span>
-          <span class="player-stat">${player.creativity}</span>
-          <span class="player-stat">${player.defence}</span>
-          <span class="player-stat">${player.fitness}</span>
+          <span class="player-stat" data-sort="${player.attack}" style="background-color: rgba(0,128,0,${player.attack/100})">${player.attack}</span>
+          <span class="player-stat" style="background-color: rgba(0,128,0,${player.defence/100})">${player.defence}</span>
+          <span class="player-stat" style="background-color: rgba(0,128,0,${player.creativity/100}")>${player.creativity}</span>
+          <span class="player-stat" style="background-color: rgba(0,128,0,${player.defence/100})">${player.defence}</span>
+          <span class="player-stat" style="background-color: rgba(0,128,0,${player.fitness/100})">${player.fitness}</span>
         </p>`
       );
     }
-  }
-
-
-  function pausePlay() {
-    if (run) {
-      run = !run;
-    }
-
-    $primaryButton.text('Play');
-    $('.match-setup, .match-engine').hide();
-    setupTactics(homeTeam);
-    teamTactics = homeTeam;
-    revealTeam(teamTactics);
-    $('.team-setup').show();
-
   }
 
   function revealTeam(teamObject) {
@@ -232,7 +210,6 @@ $(() => {
 
     let playerNumber = 0;
     let positionNumber = 0;
-
 
     try {
       // Try to map through the formation array, e.g. [1,4,2,2] (inclusive of goalkeeper)
@@ -266,23 +243,24 @@ $(() => {
   }
 
   function choosePlayers(teamObject, selectedPlayer) {
+    const $selectedPlayer = $(`#${selectedPlayer}`);
 
+    // Toggle selected players playing status (true/false)
     teamObject.players[selectedPlayer].playing = !teamObject.players[selectedPlayer].playing;
 
     revealTeam(teamTactics);
 
     if (teamObject.players[selectedPlayer].playing) {
-      $(`#${selectedPlayer}`).html('&#10004;');
+      $selectedPlayer.html('&#10004;');
       if (gameStarted) {
-        console.log('clicked');
-        $(`#${selectedPlayer}`).parent().css({'background': 'green'});
+        $selectedPlayer.parent().css({'background': 'green'});
         const playerOn = teamObject.players[selectedPlayer];
         substitute(teamObject, playerOn);
       }
     } else {
-      $(`#${selectedPlayer}`).html('&#10007;');
+      $selectedPlayer.html('&#10007;');
       if (gameStarted) {
-        $(`#${selectedPlayer}`).parent().css({'pointer-events': 'none', 'background': 'red'});
+        $selectedPlayer.parent().css({'pointer-events': 'none', 'background': 'red'});
         const playerOff = teamObject.players[selectedPlayer];
         substitute(teamObject, playerOff);
 
@@ -294,12 +272,12 @@ $(() => {
   function substitute(teamObject, player) {
     if (teamObject.subs < 7) {
       if (!player.playing) {
-        $(`#${teamObject.place}Events`).append(`<i class='fa fa-arrow-right' style='font-size: 22px; color:red; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${player.name} substituted<br/>`);
+        $(`#${teamObject.place}Events`).append(`<i class='fa fa-arrow-right' style='color:red;' aria-hidden='true'></i> ${matchTime} mins: ${player.name} substituted<br/>`);
         teamObject.subs += 1;
         player.playing = false;
         player.status = 'subbed-off';
       } else {
-        $(`#${teamObject.place}Events`).append(`<i class='fa fa-arrow-right' style='font-size: 22px; color:green; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${player.name} substituted<br/>`);
+        $(`#${teamObject.place}Events`).append(`<i class='fa fa-arrow-right' style='color:green;' aria-hidden='true'></i> ${matchTime} mins: ${player.name} substituted<br/>`);
         teamObject.subs += 1;
         player.playing = true;
         player.status = 'subbed-on';
@@ -314,7 +292,6 @@ $(() => {
 
 
   function timeControl() {
-
     if(matchTime === 44) {
       $commentaryBox.text(`That's half-time!`);
       run = !run;
@@ -338,13 +315,13 @@ $(() => {
 
   function move() {
 
-    const elem = document.getElementById('homeBar');
+    const homeBar = document.getElementById('homeBar');
 
     // Calculate the two teams creativity scores and covert them into a percentage out of 100 - this is for the possession bar.
     // It +/- a small low level integer to keep it moving continously
     width = (homeTeam.averagePlayerValues('creativity') / (homeTeam.averagePlayerValues('creativity') + awayTeam.averagePlayerValues('creativity')) * 100) + (Math.random() < 0.5 ? -genRandomValue(6) : genRandomValue(6));
 
-    elem.style.width = width + '%';
+    homeBar.style.width = width + '%';
   }
 
   function selectTeam() {
@@ -355,25 +332,20 @@ $(() => {
     const awayRandom =  genRandomValue(awayTeam.averagePlayerValues('creativity') + awayTeam.averagePlayerValues('fitness'));
 
     if (homeRandom >= awayRandom) {
-      // Change commentary text box to colors of attacking team
-      // Medium - Look at refactoring this - some duplication
-      $commentaryBox.css('background-color', homeTeam.colors[0]);
-      $commentaryBox.css('color', homeTeam.colors[1]);
-      if (genRandomValue(20) % 4 === 0) {
-        $commentaryBox.text(generateCommentary('chance',''));
-        homeTeam.increaseValues(3,'attack',['midfielder', 'striker']);
-        homeTeam.increaseValues(3,'creativity',['midfielder', 'striker']);
-      }
       return [homeTeam, awayTeam];
     } else {
-      $commentaryBox.css('background-color', awayTeam.colors[0]);
-      $commentaryBox.css('color', awayTeam.colors[1]);
-      if (genRandomValue(20) % 4 === 0){
-        awayTeam.increaseValues(3,'attack',['midfielder', 'striker']);
-        awayTeam.increaseValues(3,'creativity',['midfielder', 'striker']);
-        $commentaryBox.text(generateCommentary('chance',''));
-      }
       return [awayTeam, homeTeam];
+    }
+  }
+
+  function setupEvent(attackingTeam) {
+    $commentaryBox.css('background-color', attackingTeam.colors[0]);
+    $commentaryBox.css('color', attackingTeam.colors[1]);
+    if (genRandomValue(20) % 4 === 0){
+      attackingTeam.increaseValues(3,'attack',['midfielder', 'striker']);
+      attackingTeam.increaseValues(3,'creativity',['midfielder', 'striker']);
+      // '' === No player passed in
+      $commentaryBox.text(generateCommentary('chance',''));
     }
   }
 
@@ -395,7 +367,7 @@ $(() => {
       updateScore(attackingTeam);
 
       // Refactor these messages - use a function which passes in player, teamObject, color and icon name
-      $(`#${attackingTeam.place}Events`).append(`<i class='fa fa-futbol-o' style='font-size: 22px; color:white; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${attackingPlayer.name} scored<br/>`);
+      $(`#${attackingTeam.place}Events`).append(`<i class='fa fa-futbol-o' style='color:white;' aria-hidden='true'></i> ${matchTime} mins: ${attackingPlayer.name} scored<br/>`);
     }
   }
 
@@ -415,14 +387,15 @@ $(() => {
         // Refactor create a class or pass in as an object - one line
         $commentaryBox.css('background-color', '#FF0000');
         $commentaryBox.css('color', '#FFFFFF');
-        defendingTeam.reduceValues(10,'defence',['striker','midfielder', 'defender', 'goalkeeper']);
-        defendingTeam.reduceValues(25,'attack',['striker','midfielder', 'defender', 'goalkeeper']);
-        defendingTeam.reduceValues(25,'creativity',['striker','midfielder', 'defender', 'goalkeeper']);
+        defendingTeam.reduceValues(20,'defence',['striker','midfielder', 'defender', 'goalkeeper']);
+        defendingTeam.reduceValues(20,'attack',['striker','midfielder', 'defender', 'goalkeeper']);
+        defendingTeam.reduceValues(20
+          ,'creativity',['striker','midfielder', 'defender', 'goalkeeper']);
 
         generateCommentary('secondYellow', defendingPlayer);
 
         // Refactor these messages - use a function which passes in player, teamObject, color and icon name
-        $(`#${defendingTeam.place}Events`).append(`<i class='fa fa-square event-item' style='font-size: 24px; color: red; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${defendingPlayer.name} sent off<br/>`);
+        $(`#${defendingTeam.place}Events`).append(`<i class='fa fa-square event-item' style='color: red;' aria-hidden='true'></i> ${matchTime} mins: ${defendingPlayer.name} sent off<br/>`);
         defendingPlayer.status = 'ejected';
         defendingPlayer.playing = false;
 
@@ -434,9 +407,9 @@ $(() => {
         defendingPlayer.defence -= 8;
 
         $(`#${defendingTeam.place}Events`).append(`
-          <i class='fa fa-square event-item' style='font-size: 24px; color: yellow; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${defendingPlayer.name} booked<br/>`);
+          <i class='fa fa-square event-item' style='color: yellow;' aria-hidden='true'></i> ${matchTime} mins: ${defendingPlayer.name} booked<br/>`);
         defendingPlayer.status = 'yellow';
-        defendingPlayer.fitness -= genRandomValue(5);
+        defendingPlayer.fitness -= genRandomValue(10);
       }
     }
   }
@@ -447,7 +420,7 @@ $(() => {
     if (genRandomValue(101) % 40 === 0) {
 
       generateCommentary('injury', attackingPlayer);
-      $(`#${attackingTeam.place}Events`).append(`<i class='fa fa-plus' style='font-size: 26px; color: green; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${attackingPlayer.name} injured<br/>`);
+      $(`#${attackingTeam.place}Events`).append(`<i class='fa fa-plus' style='color: green;' aria-hidden='true'></i> ${matchTime} mins: ${attackingPlayer.name} injured<br/>`);
       if (attackingTeam.place === 'away' && cpuMode) {
         attackingPlayer.playing = !attackingPlayer.playing;
         substitute(awayTeam, attackingPlayer);
@@ -478,7 +451,7 @@ $(() => {
       updateScore(attackingTeam);
 
       generateCommentary('freekick', attackingPlayer);
-      $(`#${attackingTeam.place}Events`).append(`<i class='fa fa-futbol-o' style='font-size: 22px; color:white; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${attackingPlayer.name} scored<br/>`);
+      $(`#${attackingTeam.place}Events`).append(`<i class='fa fa-futbol-o' style='color:white;' aria-hidden='true'></i> ${matchTime} mins: ${attackingPlayer.name} scored<br/>`);
       attackingPlayer.attack += 5;
     } else {
       generateCommentary('wastedFreekick', attackingPlayer);
@@ -496,7 +469,7 @@ $(() => {
     // Book the player?
     if (genRandomValue(100) > 25) {
       bookedPlayer.status = 'yellow';
-      $(`#${defendingTeam.place}Events`).append(`<i class='fa fa-square event-item' style='font-size: 24px; color: yellow; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${bookedPlayer.name} booked<br/>`);
+      $(`#${defendingTeam.place}Events`).append(`<i class='fa fa-square event-item' style='color: yellow;' aria-hidden='true'></i> ${matchTime} mins: ${bookedPlayer.name} booked<br/>`);
     }
 
     if ((genRandomValue(attackingPlayer.attack)*2) > genRandomValue(defendingPlayer.defence)) {
@@ -505,11 +478,11 @@ $(() => {
 
       // $commentaryBox.text(`${attackingPlayer.name}'s clinical from the spot! Goal!`);
       generateCommentary('penalty', attackingPlayer);
-      $(`#${attackingTeam.place}Events`).append(`<i class='fa fa-futbol-o' style='font-size: 22px; color:white; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${attackingPlayer.name} scores penalty<br/>`);
+      $(`#${attackingTeam.place}Events`).append(`<i class='fa fa-futbol-o' style='color:white' aria-hidden='true'></i> ${matchTime} mins: ${attackingPlayer.name} scores penalty<br/>`);
       attackingPlayer.attack += 5;
     } else {
       generateCommentary('missedPenalty', attackingPlayer);
-      $(`#${attackingTeam.place}Events`).append(`<i class='fa fa-futbol-o' style='font-size: 22px; color:red; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${attackingPlayer.name} missed penalty<br/>`);
+      $(`#${attackingTeam.place}Events`).append(`<i class='fa fa-futbol-o' style='color:red' aria-hidden='true'></i> ${matchTime} mins: ${attackingPlayer.name} missed penalty<br/>`);
       defendingPlayer.defence += 10;
       attackingPlayer.attack -= 10;
     }
@@ -523,7 +496,7 @@ $(() => {
 
       // $commentaryBox.text('The referee gives him a straight red!');
       generateCommentary('straightRed', defendingPlayer);
-      $(`#${defendingTeam.place}Events`).append(`<i class='fa fa-square' style='font-size: 24px; color: red; padding-top:5px' aria-hidden='true'></i> ${matchTime} mins: ${defendingPlayer.name} sent off<br/>`);
+      $(`#${defendingTeam.place}Events`).append(`<i class='fa fa-square' style=' color: red;' aria-hidden='true'></i> ${matchTime} mins: ${defendingPlayer.name} sent off<br/>`);
       // if (defendingTeam.place === 'home') pausePlay();
     }
   }
@@ -627,5 +600,11 @@ $(() => {
       score = parseFloat(getScore) + 1;
       $awayScore.text(score);
     }
+  }
+
+  function randomPosition() {
+    const randomIndex = genRandomValue(positions.length) + 1;
+    const chosenPosition = positions[randomIndex];
+    return [chosenPosition];
   }
 });
