@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Championship Manager</title>
+  <title>Soccer Manager</title>
   <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -17,6 +17,10 @@
 </head>
 
 <header>
+  <div class="game-logo">
+    <div class="logo-name">Soccer</div>
+    <div class="logo-name">Manager</div>
+  </div>
   <div class="info-message">
     <h1 class="choose-title">Team Selection</h1>
     <h4 class="title-message"></h4>
@@ -39,10 +43,10 @@
 
 
 <body>
-
-  <button class="select-btn" id="homeTeam">Home Tactics</button>
-  <button class="select-btn" id="awayTeam">Away Tactics</button>
-
+  <div class="button-bar">
+    <button class="select-btn" id="homeTeam" disabled>Home Tactics</button>
+    <button class="select-btn" id="awayTeam" disabled>Away Tactics</button>
+  </div>
   <!-- TEAM SELECTION SCREEN -->
   <div class="match-setup" id="match-setup">
 		<div class="team-selection-box">
@@ -75,7 +79,7 @@
 
   <!-- PLAYER SELECTION SCREEN -->
   <div class="team-setup" id="team-setup">
-    <select class="formation">
+    <select class="formation select-btn">
       <option value="4-4-2">4-4-2</option>
       <option value="4-5-1">4-5-1</option>
       <option value="5-4-1">5-4-1</option>
@@ -103,6 +107,7 @@
       <div class="team-display">
       </div>
     </div>
+
   </div>
   <!-- MATCH SCREEN -->
   <div class="match-engine" id="match-engine">

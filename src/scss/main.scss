@@ -4,6 +4,10 @@
 //   display: none;
 // }
 
+html, body {
+  height: 100%;
+}
+
 button:disabled {
     background: #dddddd;
     cursor: not-allowed;
@@ -26,10 +30,10 @@ button:disabled {
   font-size: 346px;
   position: absolute;
   font-weight: 600;
-  transform: translate(50%,0%);
+  transform: translate(40%,0%);
   opacity: 0.2;
   z-index: -1;
-  
+
 }
 
 .logo-display img {
@@ -41,11 +45,13 @@ button:disabled {
 
 .wrapper {
   background: #fff;
+  color: #081A40;
   width: 180px;
   padding: 10px;
   position: absolute;
-  bottom: 30px;
+  bottom: 10px;
   right: 30px;
+  border: 1.5px solid #081A40;
 }
   .wrapper:after {
   	content: '';
@@ -260,7 +266,7 @@ button:disabled {
 
 .go-back {
   position: fixed;
-  bottom: 20px;
+  bottom: 10px;
   right: 20px;
   font-size: 18px;
   padding: 5px;
@@ -292,7 +298,9 @@ button:disabled {
   background-image: url('../../images/pitch.jpg');
   background-size: cover;
   background-position: center;
+  width: 340px;
   height: 440px;
+  background-repeat: no-repeat;
   border-radius: 4px;
 
 }
@@ -329,7 +337,6 @@ button:disabled {
 
 .team-sheet {
   float:left;
-  width: 30%;
   margin-left: 10px;
 }
 
@@ -351,6 +358,7 @@ button:disabled {
     color: #F5F5F5;
     opacity: 1;
     border-bottom: 0.1px solid lighten(#F5F5F5, 60%);
+    padding-right: 5px;
     &:hover {
       background: #3A3A3A;
     }
@@ -362,6 +370,7 @@ button:disabled {
     color: #F5F5F5;
     opacity: 1;
     border-bottom: 0.1px solid lighten(#F5F5F5, 60%);
+    padding-right: 5px;
     &:hover {
       background: lighten(#3A3A3A,10%);
     }
@@ -410,6 +419,8 @@ button:disabled {
 body {
   background-image: url('../../images/background.jpg');
   background-size: cover;
+  background-repeat: no-repeat;
+
   font-family: 'Ubuntu', sans-serif;
 }
 
@@ -432,6 +443,16 @@ header {
   margin: 20px;
 }
 
+.team-selection-warning {
+  border: 3px solid red;
+  background: lighten(red,30%);
+  width: 80%;
+  margin: 0 auto;
+  border-radius: 5px;
+  line-height: 55px;
+  font-size: 24px;
+}
+
 .title-message {
     height: 50px;
     line-height: 36px;
@@ -441,34 +462,42 @@ header {
 
 .team-input {
   font-size: 16px;
-  width: 10%;
   padding: 10px;
   display: inline;
   background-color: #fff;
-  border: none;
+  //border: none;
+  border: 1.5px solid #081A40;
   outline: 0;
   cursor: pointer;
   &:hover {
-    background-color: lighten(#659A41, 20%);
-    color: #081A40;
+    background-color: lighten(#081A40, 20%);
+    color: white;
     box-shadow: 2px 2px 2px #888888;
   }
 }
 
 .select-btn {
   font-size: 16px;
-  width: 10%;
+  width: 150px;
   padding: 10px;
   display: inline;
+  border: 1.5px solid #081A40;
   background-color: #fff;
-  border: none;
   outline: 0;
   cursor: pointer;
   &:hover {
-    background-color: lighten(#659A41, 20%);
-    color: #081A40;
+    background-color: lighten(#081A40, 20%);
+    color: white;
     box-shadow: 2px 2px 2px #888888;
   }
+}
+
+.button-bar {
+  //position: absolute;
+  margin-top: 10px;
+  text-align: center;
+  width: 100%;
+  bottom: 10px;
 }
 
 
@@ -476,11 +505,8 @@ header {
   float: left;
   background-image:linear-gradient(45deg,rgba(255,255,255,0),rgba(255,255,255,.1));
   background-color: #081A40;
-  // background: linear-gradient(45deg, #081A40 , lighten(#081A40, 10%));
   height: inherit;
   box-sizing: border-box;
-  //border: 0.5px solid white;
-
   color: white;
   font-size: 32px;
   letter-spacing: 2px;
@@ -488,8 +514,8 @@ header {
 
 .info-message {
   @extend .header-block;
-  padding: 15px 10px 5px 15%;
-  width: 85%;
+  padding: 15px 10px 5px 25px;
+  width: 70%;
   box-sizing: border-box;
 }
 
@@ -501,8 +527,25 @@ header {
   background-image: url('../../images/clock-icon.png');
   background-repeat: no-repeat;
   background-position: center;
+  background-size: 40%;
+  background-color: #484848;
+}
+
+.game-logo {
+  @extend .header-block;
+  width: 15%;
+  text-align: center;
+  font-weight: 400;
+  background-image: url('../../images/trophy.png');
+  background-repeat: no-repeat;
+  background-position: center;
   background-size: 45%;
   background-color: #484848;
+}
+
+.logo-name div {
+  font-size: 22px;
+  line-height: 20px;
 }
 
 .changing-minutes {
@@ -573,7 +616,6 @@ header {
 	color: #E5E5E5;
 	font-size: 36px;
 	text-align: center;
-	height: 38px;
 	letter-spacing: 3px;
 	margin: 5px auto;
 }
@@ -613,4 +655,195 @@ header {
     height: 20px;
     background: #081A40;
     height: 100%;
+}
+
+@media screen and (max-width: 1050px) {
+
+  .choose-title {
+    font-size: 26px;
+  }
+
+  .title-message {
+    font-size: 16px;
+  }
+
+  .team-name {
+    font-size: 28px;
+    letter-spacing: 2px;
+  }
+
+  .score {
+    font-size: 28px;
+    padding: 2px 10px;
+    width: 28px;
+  }
+
+  .logo-name {
+    font-size: 18px;
+    line-height: 30px;
+  }
+
+  .player-selection-box {
+    float: none;
+    width: 65%;
+    margin: 10px auto;
+  }
+
+  .team-display {
+    display: none;
+  }
+
+  .player-selection-box {
+    width: 75%;
+    margin: 10px auto;
+  }
+
+}
+
+@media screen and (max-width: 800px) {
+  .header-block {
+    width: 100%;
+    font-size: 16px;
+    letter-spacing: 1px;
+  }
+
+  .logo-display {
+    display: none;
+  }
+
+  .team-selection-box {
+    clear: both;
+  }
+
+  .team-input {
+    width: 50%;
+    margin-bottom: 10px;
+  }
+
+  .timer {
+    background-image: none;
+  }
+
+  .primary-button, .timer {
+    clear: both;
+    height: 35px
+  }
+
+  .away-team, .home-team {
+    width: 50%;
+    height: 50px;
+  }
+
+  .team-name {
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 4px;
+    line-height: 26px;
+    padding: 2px;
+  }
+
+  .score {
+    color: black;
+    font-size: 20px;
+    padding: 2px 10px;
+    line-height: 26px;
+    width: 18px;
+    border: 1px solid black;
+  }
+
+  .game-logo {
+    display: none;
+  }
+
+  .commentary-box {
+    font-size: 22px;
+    padding: 10px;
+
+  }
+
+  .home-events, .away-events {
+    width: 45%;
+  	min-height: 200px;
+  	margin: 1%;
+  	font-size: 16px;
+  	letter-spacing: 1px;
+    line-height: 24px;
+  }
+
+  .home-events i, .away-events i {
+    font-size: 16px;
+  }
+
+  .select-btn {
+    margin-top: 10px;
+  }
+  .player-selection-box {
+    float: none;
+    width: 95%;
+    margin: 10px auto;
+  }
+
+  .go-back {
+    position: fixed;
+    bottom: 5px;
+    width: 88%;
+    text-align: center;
+  }
+
+}
+
+@media screen and (max-width: 640px) {
+  .choose-title {
+    font-size: 24px;
+  }
+
+  .title-message {
+    font-size: 12px;
+  }
+
+  .team-name {
+    font-size: 18px;
+    letter-spacing: 1px;
+    padding: 2px;
+  }
+
+  .home-events, .away-events {
+    width: 50%;
+  	padding: 5px 5px 5px 10px;
+  	font-size: 12px;
+  }
+
+  .home-events i, .away-events i {
+    font-size: 12px;
+  }
+
+  .commentary-box {
+    font-size: 16px;
+    padding: 15px 1px;
+  }
+
+  .player-name, .player-position {
+    width: 12%;
+  }
+
+  .player-stat-heading, .player-stat {
+    float: right;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .player-stat-heading, .player-stat {
+    padding: 4px;
+    margin: 11px 4px;
+  }
+
+  .player-line:last-child {
+    margin-right: 5px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .player-selection-box {
+    font-size: 13px;
+  }
 }

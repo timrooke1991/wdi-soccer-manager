@@ -104,12 +104,13 @@ $(() => {
     const userTeam = e.target.innerHTML;
     if (homeTeam === null) {
       configTeam(homeTeam, userTeam);
-      $('.title-message').text('Home team chosen. Now chose your opponent.');
+      $('.title-message').text('Home team selected. Chose your opponent.');
       $(e.target).attr('disabled', true);
+      $('#homeTeam').attr('disabled', false);
     } else {
       configTeam(awayTeam, userTeam);
-      $('.title-message').text('Opponent selected. Now edit tactics or proceed to match.');
-      $('.primary-button').attr('disabled', false);
+      $('.title-message').text('Opponent selected. Edit tactics or proceed.');
+      $('.primary-button, #awayTeam').attr('disabled', false);
     }
   });
 
@@ -127,8 +128,8 @@ $(() => {
 
   $primaryButton.on('click', () => {
     run = !run;
-    $('#match-setup, .info-message, .team-setup').hide();
-    $('#match-engine, .away-team, .home-team, .timer').show();
+    $('#match-setup, .info-message, .team-setup, .game-logo').hide();
+    $('#match-engine, .away-team, .home-team, .timer, .button-bar').show();
     if (run) {
       $primaryButton.text('Pause');
       gameStarted = true;
