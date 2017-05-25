@@ -109,16 +109,15 @@ $(() => {
     } else {
       configTeam(awayTeam, userTeam);
       $('.title-message').text('Opponent selected. Now edit tactics or proceed to match.');
-      $(e.target).attr('disabled', true);
+      $('.primary-button').attr('disabled', false);
     }
   });
 
+  // Toggle computer mode (playing against the computer)
   $('#playerMode').on('click', () => {
     cpuMode = !cpuMode;
   });
 
-  // Starting Line Up
-  // $('#revealTeam').on('click', revealTeam);
 
   // Toggle yes/no playing
   $('.team-panel').on('click', (e) => {

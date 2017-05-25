@@ -4,6 +4,15 @@
 //   display: none;
 // }
 
+button:disabled {
+    background: #dddddd;
+    cursor: not-allowed;
+    &:hover {
+      background: #dddddd;
+      color: white;
+    }
+}
+
 .wrapper {
   background: #fff;
   width: 180px;
