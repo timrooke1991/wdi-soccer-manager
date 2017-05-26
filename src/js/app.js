@@ -31,9 +31,9 @@ $(() => {
       if (eventValue % 17 === 0) {
         // Random (Striker, Midfielder) vs. Goalkeeper > RandTheirAttack vs. RandGoalkeeper
         goalChance(attackingTeam, defendingTeam);
-        attackingTeam.increaseValues(genRandomValue(5),'attack',['midfielder', 'striker']);
-        attackingTeam.increaseValues(genRandomValue(5),'creativity',['midfielder', 'striker']);
-        defendingTeam.reduceValues(genRandomValue(5),'defence',['midfielder', 'defender', 'goalkeeper']);
+        attackingTeam.increaseValues(genRandomValue(3),'attack',['midfielder', 'striker']);
+        attackingTeam.increaseValues(genRandomValue(3),'creativity',['midfielder', 'striker']);
+        defendingTeam.reduceValues(genRandomValue(3),'defence',['midfielder', 'defender', 'goalkeeper']);
       }
 
       if (eventValue % (genRandomValue(30) + 90) === 0) {
@@ -45,9 +45,9 @@ $(() => {
       if (eventValue % 90 === 0) {
         // Random Player => Discipline > random
         straightRed(defendingTeam);
-        defendingTeam.reduceValues(25,'defence',['striker','midfielder', 'defender', 'goalkeeper']);
-        defendingTeam.reduceValues(25,'attack',['striker','midfielder', 'defender', 'goalkeeper']);
-        defendingTeam.reduceValues(25,'creativity',['striker','midfielder', 'defender', 'goalkeeper']);
+        defendingTeam.reduceValues(20,'defence',['striker','midfielder', 'defender', 'goalkeeper']);
+        defendingTeam.reduceValues(20,'attack',['striker','midfielder', 'defender', 'goalkeeper']);
+        defendingTeam.reduceValues(20,'creativity',['striker','midfielder', 'defender', 'goalkeeper']);
       }
       //
       if (eventValue % 22 === 0) {
@@ -323,7 +323,7 @@ $(() => {
 
     // Calculate the two teams creativity scores and covert them into a percentage out of 100 - this is for the possession bar.
     // It +/- a small low level integer to keep it moving continously
-    width = (homeTeam.averagePlayerValues('creativity') / (homeTeam.averagePlayerValues('creativity') + awayTeam.averagePlayerValues('creativity')) * 100) + (Math.random() < 0.5 ? -genRandomValue(6) : genRandomValue(6));
+    width = (homeTeam.averagePlayerValues('creativity') / (homeTeam.averagePlayerValues('creativity') + awayTeam.averagePlayerValues('creativity')) * 100) + (Math.random() < 0.5 ? -genRandomValue(3) : genRandomValue(3));
 
     homeBar.style.width = width + '%';
   }
@@ -454,8 +454,8 @@ $(() => {
     } else {
       generateCommentary('wastedFreekick', attackingPlayer);
       attackingPlayer.creativity -= 5;
-      attackingTeam.reduceValues(genRandomValue(5), 'attack', ['striker', 'midfielder']);
-      attackingTeam.reduceValues(genRandomValue(5), 'creativity', ['striker', 'midfielder']);
+      attackingTeam.reduceValues(genRandomValue(3), 'attack', ['striker', 'midfielder']);
+      attackingTeam.reduceValues(genRandomValue(3), 'creativity', ['striker', 'midfielder']);
 
     }
   }
