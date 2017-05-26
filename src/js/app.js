@@ -94,7 +94,7 @@ $(() => {
       // Update the timer
       timeControl();
     }
-  },50);
+  },500);
 
   // Event Listeners -------------------------------------------------------------
 
@@ -353,12 +353,6 @@ $(() => {
     }
   }
 
-
-  // REMOVE
-  // function selectPlayer(team) {
-  //   const genRandomIndex = Math.floor(Math.random() * team.players.length);
-  //   return team.players[genRandomIndex];
-  // }
 
   function goalChance(attackingTeam, defendingTeam) {
     // Refactor this
