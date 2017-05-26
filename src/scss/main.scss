@@ -424,11 +424,13 @@ button:disabled {
 .commentary-box {
 	background: #081A40;
 	padding: 25px;
+  height: 45px;
 	color: #E5E5E5;
 	font-size: 36px;
 	text-align: center;
 	letter-spacing: 3px;
 	margin: 5px auto;
+  line-height: 42px;
 }
 
 .reported-content {
@@ -741,7 +743,8 @@ button:disabled {
   .commentary-box {
     font-size: 22px;
     padding: 10px;
-
+    height: 30px;
+    line-height: 28px;
   }
 
   .home-events, .away-events {
