@@ -16,7 +16,6 @@ $(() => {
   const positions = ['goalkeeper', 'defender', 'midfielder', 'striker'];
 
   // MATCH LOGIC
-
   const timerID = setInterval(function() {
     if (run) {
       const eventValue = genRandomValue(100) + 1;
@@ -30,16 +29,17 @@ $(() => {
 
       if (eventValue % 17 === 0) {
         // Random (Striker, Midfielder) vs. Goalkeeper > RandTheirAttack vs. RandGoalkeeper
-        goalChance(attackingTeam, defendingTeam);
         attackingTeam.increaseValues(genRandomValue(3),'attack',['midfielder', 'striker']);
         attackingTeam.increaseValues(genRandomValue(3),'creativity',['midfielder', 'striker']);
         defendingTeam.reduceValues(genRandomValue(3),'defence',['midfielder', 'defender', 'goalkeeper']);
+        goalChance(attackingTeam, defendingTeam);
+
       }
 
       if (eventValue % (genRandomValue(30) + 90) === 0) {
         // Striker vs. Goalkeeper > RandTheirAttack vs. RandGoalkeeperPenalty
-        handlePenalty(attackingTeam, defendingTeam);
         defendingTeam.reduceValues(genRandomValue(10),'defence',['midfielder', 'defender', 'goalkeeper']);
+        handlePenalty(attackingTeam, defendingTeam);
       }
 
       if (eventValue % 90 === 0) {
@@ -52,9 +52,10 @@ $(() => {
       //
       if (eventValue % 22 === 0) {
         // Striker vs. Goalkeeper > RandTheirFreekick vs. RandGoalkeeperPenalty
-        handleFreekick(attackingTeam, defendingTeam);
         attackingTeam.increaseValues(5,'attack',['midfielder', 'striker']);
         attackingTeam.increaseValues(5,'creativity',['midfielder', 'striker']);
+        handleFreekick(attackingTeam, defendingTeam);
+
       }
 
       if (eventValue % 18 === 0) {
@@ -89,11 +90,13 @@ $(() => {
       defendingTeam.reduceValues(genRandomValue(5),'fitness',positionForFitnessReduction);
 
       // Move the possession bar
+      console.log(`Home team: ${homeTeam.averagePlayerValues('creativity')}`);
+      console.log(`Away team: ${awayTeam.averagePlayerValues('creativity')}`);
       move();
-
       // Update the timer
       timeControl();
     }
+
   },500);
 
   // Event Listeners -------------------------------------------------------------

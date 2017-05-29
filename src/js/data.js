@@ -211,8 +211,11 @@ const spurs = {
     playing: false
   }],
   averagePlayerValues(string) {
-    const totalValues = this.players.reduce(function(total, value){
-      var sum = total + value[string];
+    const arrayOfPlayersOnField = this.players.filter((player) =>
+      player.playing
+    );
+    const totalValues = arrayOfPlayersOnField.reduce(function(total, value){
+      const sum = total + value[string];
       return sum;
     }, 0);
     return (totalValues / 11);
@@ -244,20 +247,16 @@ const spurs = {
     const arrayOfPlayersOnField = this.players.filter((player) =>
       player.playing && arrayOfPositions.includes(player.position)
     );
-    console.log(arrayOfPlayersOnField);
     for (var i = 0; i < arrayOfPlayersOnField.length; i++) {
       arrayOfPlayersOnField[i][attribute] += value;
-      console.log(arrayOfPlayersOnField[i][attribute]);
     }
   },
   reduceValues(value, attribute, arrayOfPositions) {
     const arrayOfPlayersOnField = this.players.filter((player) =>
       player.playing && arrayOfPositions.includes(player.position)
     );
-    console.log(arrayOfPlayersOnField);
     for (var i = 0; i < arrayOfPlayersOnField.length; i++) {
       arrayOfPlayersOnField[i][attribute] -= value;
-      console.log(arrayOfPlayersOnField[i][attribute]);
     }
   }
 };
@@ -475,8 +474,11 @@ const arsenal = {
     playing: false
   }],
   averagePlayerValues(string) {
-    const totalValues = this.players.reduce(function(total, value){
-      var sum = total + value[string];
+    const arrayOfPlayersOnField = this.players.filter((player) =>
+      player.playing
+    );
+    const totalValues = arrayOfPlayersOnField.reduce(function(total, value){
+      const sum = total + value[string];
       return sum;
     }, 0);
     return (totalValues / 11);
@@ -507,20 +509,16 @@ const arsenal = {
     const arrayOfPlayersOnField = this.players.filter((player) =>
       player.playing && arrayOfPositions.includes(player.position)
     );
-    console.log(arrayOfPlayersOnField);
     for (var i = 0; i < arrayOfPlayersOnField.length; i++) {
       arrayOfPlayersOnField[i][attribute] += value;
-      console.log(arrayOfPlayersOnField[i][attribute]);
     }
   },
   reduceValues(value, attribute, arrayOfPositions) {
     const arrayOfPlayersOnField = this.players.filter((player) =>
       player.playing && arrayOfPositions.includes(player.position)
     );
-    console.log(arrayOfPlayersOnField);
     for (var i = 0; i < arrayOfPlayersOnField.length; i++) {
       arrayOfPlayersOnField[i][attribute] -= value;
-      console.log(arrayOfPlayersOnField[i][attribute]);
     }
   }
 };
@@ -564,7 +562,7 @@ const manCity = {
     attack: 51,
     defence: 12,
     discipline: 80,
-    creativity: 72,
+    creativity: 65,
     fitness: 98,
     status: '',
     playing: true
@@ -576,7 +574,7 @@ const manCity = {
     attack: 70,
     defence: 20,
     discipline: 80,
-    creativity: 77,
+    creativity: 67,
     fitness: 98,
     status: '',
     playing: true
@@ -588,7 +586,7 @@ const manCity = {
     attack: 59,
     defence: 45,
     discipline: 60,
-    creativity: 57,
+    creativity: 37,
     fitness: 98,
     status: '',
     playing: true
@@ -600,7 +598,7 @@ const manCity = {
     attack: 68,
     defence: 18,
     discipline: 80,
-    creativity: 52,
+    creativity: 32,
     fitness: 98,
     status: '',
     playing: false
@@ -636,7 +634,7 @@ const manCity = {
     attack: 18,
     defence: 72,
     discipline: 50,
-    creativity: 15,
+    creativity: 5,
     fitness: 98,
     status: '',
     playing: true
@@ -660,7 +658,7 @@ const manCity = {
     attack: 11,
     defence: 60,
     discipline: 50,
-    creativity: 27,
+    creativity: 17,
     fitness: 98,
     status: '',
     playing: true
@@ -669,7 +667,7 @@ const manCity = {
     age: 26,
     position: 'midfielder',
     chosenPosition: '',
-    attack: 70,
+    attack: 60,
     defence: 20,
     discipline: 70,
     creativity: 50,
@@ -732,7 +730,7 @@ const manCity = {
     attack: 50,
     defence: 50,
     discipline: 70,
-    creativity: 50,
+    creativity: 40,
     fitness: 98,
     status: '',
     playing: false
@@ -750,8 +748,11 @@ const manCity = {
     playing: false
   }],
   averagePlayerValues(string) {
-    const totalValues = this.players.reduce(function(total, value){
-      var sum = total + value[string];
+    const arrayOfPlayersOnField = this.players.filter((player) =>
+      player.playing
+    );
+    const totalValues = arrayOfPlayersOnField.reduce(function(total, value){
+      const sum = total + value[string];
       return sum;
     }, 0);
     return (totalValues / 11);
@@ -783,20 +784,16 @@ const manCity = {
     const arrayOfPlayersOnField = this.players.filter((player) =>
       player.playing && arrayOfPositions.includes(player.position)
     );
-    console.log(arrayOfPlayersOnField);
     for (var i = 0; i < arrayOfPlayersOnField.length; i++) {
       arrayOfPlayersOnField[i][attribute] += value;
-      console.log(arrayOfPlayersOnField[i][attribute]);
     }
   },
   reduceValues(value, attribute, arrayOfPositions) {
     const arrayOfPlayersOnField = this.players.filter((player) =>
       player.playing && arrayOfPositions.includes(player.position)
     );
-    console.log(arrayOfPlayersOnField);
     for (var i = 0; i < arrayOfPlayersOnField.length; i++) {
       arrayOfPlayersOnField[i][attribute] -= value;
-      console.log(arrayOfPlayersOnField[i][attribute]);
     }
   }
 };
@@ -1011,8 +1008,11 @@ const manUnited = {
     playing: true
   }],
   averagePlayerValues(string) {
-    const totalValues = this.players.reduce(function(total, value){
-      var sum = total + value[string];
+    const arrayOfPlayersOnField = this.players.filter((player) =>
+      player.playing
+    );
+    const totalValues = arrayOfPlayersOnField.reduce(function(total, value){
+      const sum = total + value[string];
       return sum;
     }, 0);
     return (totalValues / 11);
@@ -1044,20 +1044,16 @@ const manUnited = {
     const arrayOfPlayersOnField = this.players.filter((player) =>
       player.playing && arrayOfPositions.includes(player.position)
     );
-    console.log(arrayOfPlayersOnField);
     for (var i = 0; i < arrayOfPlayersOnField.length; i++) {
       arrayOfPlayersOnField[i][attribute] += value;
-      console.log(arrayOfPlayersOnField[i][attribute]);
     }
   },
   reduceValues(value, attribute, arrayOfPositions) {
     const arrayOfPlayersOnField = this.players.filter((player) =>
       player.playing && arrayOfPositions.includes(player.position)
     );
-    console.log(arrayOfPlayersOnField);
     for (var i = 0; i < arrayOfPlayersOnField.length; i++) {
       arrayOfPlayersOnField[i][attribute] -= value;
-      console.log(arrayOfPlayersOnField[i][attribute]);
     }
   }
 };
@@ -1272,8 +1268,11 @@ const everton = {
     playing: true
   }],
   averagePlayerValues(string) {
-    const totalValues = this.players.reduce(function(total, value){
-      var sum = total + value[string];
+    const arrayOfPlayersOnField = this.players.filter((player) =>
+      player.playing
+    );
+    const totalValues = arrayOfPlayersOnField.reduce(function(total, value){
+      const sum = total + value[string];
       return sum;
     }, 0);
     return (totalValues / 11);
@@ -1305,20 +1304,16 @@ const everton = {
     const arrayOfPlayersOnField = this.players.filter((player) =>
       player.playing && arrayOfPositions.includes(player.position)
     );
-    console.log(arrayOfPlayersOnField);
     for (var i = 0; i < arrayOfPlayersOnField.length; i++) {
       arrayOfPlayersOnField[i][attribute] += value;
-      console.log(arrayOfPlayersOnField[i][attribute]);
     }
   },
   reduceValues(value, attribute, arrayOfPositions) {
     const arrayOfPlayersOnField = this.players.filter((player) =>
       player.playing && arrayOfPositions.includes(player.position)
     );
-    console.log(arrayOfPlayersOnField);
     for (var i = 0; i < arrayOfPlayersOnField.length; i++) {
       arrayOfPlayersOnField[i][attribute] -= value;
-      console.log(arrayOfPlayersOnField[i][attribute]);
     }
   }
 };
@@ -1533,8 +1528,11 @@ const leicester = {
     playing: true
   }],
   averagePlayerValues(string) {
-    const totalValues = this.players.reduce(function(total, value){
-      var sum = total + value[string];
+    const arrayOfPlayersOnField = this.players.filter((player) =>
+      player.playing
+    );
+    const totalValues = arrayOfPlayersOnField.reduce(function(total, value){
+      const sum = total + value[string];
       return sum;
     }, 0);
     return (totalValues / 11);
@@ -1566,20 +1564,16 @@ const leicester = {
     const arrayOfPlayersOnField = this.players.filter((player) =>
       player.playing && arrayOfPositions.includes(player.position)
     );
-    console.log(arrayOfPlayersOnField);
     for (var i = 0; i < arrayOfPlayersOnField.length; i++) {
       arrayOfPlayersOnField[i][attribute] += value;
-      console.log(arrayOfPlayersOnField[i][attribute]);
     }
   },
   reduceValues(value, attribute, arrayOfPositions) {
     const arrayOfPlayersOnField = this.players.filter((player) =>
       player.playing && arrayOfPositions.includes(player.position)
     );
-    console.log(arrayOfPlayersOnField);
     for (var i = 0; i < arrayOfPlayersOnField.length; i++) {
       arrayOfPlayersOnField[i][attribute] -= value;
-      console.log(arrayOfPlayersOnField[i][attribute]);
     }
   }
 };
@@ -1821,8 +1815,11 @@ const liverpool = {
     playing: false
   }],
   averagePlayerValues(string) {
-    const totalValues = this.players.reduce(function(total, value){
-      var sum = total + value[string];
+    const arrayOfPlayersOnField = this.players.filter((player) =>
+      player.playing
+    );
+    const totalValues = arrayOfPlayersOnField.reduce(function(total, value){
+      const sum = total + value[string];
       return sum;
     }, 0);
     return (totalValues / 11);
@@ -1854,20 +1851,16 @@ const liverpool = {
     const arrayOfPlayersOnField = this.players.filter((player) =>
       player.playing && arrayOfPositions.includes(player.position)
     );
-    console.log(arrayOfPlayersOnField);
     for (var i = 0; i < arrayOfPlayersOnField.length; i++) {
       arrayOfPlayersOnField[i][attribute] += value;
-      console.log(arrayOfPlayersOnField[i][attribute]);
     }
   },
   reduceValues(value, attribute, arrayOfPositions) {
     const arrayOfPlayersOnField = this.players.filter((player) =>
       player.playing && arrayOfPositions.includes(player.position)
     );
-    console.log(arrayOfPlayersOnField);
     for (var i = 0; i < arrayOfPlayersOnField.length; i++) {
       arrayOfPlayersOnField[i][attribute] -= value;
-      console.log(arrayOfPlayersOnField[i][attribute]);
     }
   }
 };
@@ -2097,8 +2090,11 @@ const chelsea = {
     playing: true
   }],
   averagePlayerValues(string) {
-    const totalValues = this.players.reduce(function(total, value){
-      var sum = total + value[string];
+    const arrayOfPlayersOnField = this.players.filter((player) =>
+      player.playing
+    );
+    const totalValues = arrayOfPlayersOnField.reduce(function(total, value){
+      const sum = total + value[string];
       return sum;
     }, 0);
     return (totalValues / 11);
@@ -2130,20 +2126,16 @@ const chelsea = {
     const arrayOfPlayersOnField = this.players.filter((player) =>
       player.playing && arrayOfPositions.includes(player.position)
     );
-    console.log(arrayOfPlayersOnField);
     for (var i = 0; i < arrayOfPlayersOnField.length; i++) {
       arrayOfPlayersOnField[i][attribute] += value;
-      console.log(arrayOfPlayersOnField[i][attribute]);
     }
   },
   reduceValues(value, attribute, arrayOfPositions) {
     const arrayOfPlayersOnField = this.players.filter((player) =>
       player.playing && arrayOfPositions.includes(player.position)
     );
-    console.log(arrayOfPlayersOnField);
     for (var i = 0; i < arrayOfPlayersOnField.length; i++) {
       arrayOfPlayersOnField[i][attribute] -= value;
-      console.log(arrayOfPlayersOnField[i][attribute]);
     }
   }
 };
