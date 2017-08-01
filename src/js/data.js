@@ -382,10 +382,10 @@ const arsenal = {
     position: 'goalkeeper',
     chosenPosition: '',
     attack: 0,
-    defence: 81,
+    defence: 79,
     discipline: 100,
     creativity: 0,
-    fitness: 98,
+    fitness: 96,
     status: '',
     playing: true
   },{
@@ -683,7 +683,7 @@ const manCity = {
     defence: 50,
     discipline: 80,
     creativity: 40,
-    fitness: 98,
+    fitness: 97,
     status: '',
     playing: false
   },{
