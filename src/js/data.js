@@ -23,9 +23,9 @@ const spurs = {
     position: 'midfielder',
     chosenPosition: '',
     attack: 77,
-    defence: 21,
+    defence: 22,
     discipline: 65,
-    creativity: 63,
+    creativity: 67,
     fitness: 98,
     status: '',
     playing: true
